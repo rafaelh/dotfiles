@@ -25,7 +25,7 @@ vim () {
         echo -n "File is readonly. Edit as root? (Y/n): "
         read -n 1 yn; echo;
     if [ "$yn" = 'n' ] || [ "$yn" = 'N' ]; then /usr/bin/vim $*;
-    else sudo /usr/bin/vim $*;
+        else sudo /usr/bin/vim $*;
     fi
     fi
 }
@@ -47,7 +47,7 @@ fi
 
 PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] [\[\e[1;34m\]\w\[\e[1;32m\]]\$\[\e[0m\] '
 
-if [ "$EUID" -ne 0 ]
+if [ "$EUID" -ne 0 ]; then
     PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] [\[\e[1;34m\]\w\[\e[1;31m\]]\$\[\e[0m\] '
 fi
 
