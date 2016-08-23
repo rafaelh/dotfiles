@@ -80,10 +80,6 @@ export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/home/$USER/.bin
 shopt -s histappend
 shopt -s checkwinsize
 
-# This colourizes man pages, but requires that 'most' is installed.
-export PAGER="most"
-export BROWSER="most" 
-
 # don't put duplicate lines in the history & ignore same successive entries
 HISTCONTROL=ignoredups:ignoreboth
 HISTSIZE=1000
@@ -113,7 +109,7 @@ fi
 
 PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] [\[\e[1;34m\]\w\[\e[1;32m\]]\$\[\e[0m\] '
 
-if [ "$EUID" -ne 0 ]; then
+if [ "$EUID" -eq 0 ]; then
     PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] [\[\e[1;34m\]\w\[\e[1;31m\]]\$\[\e[0m\] '
 fi
 
