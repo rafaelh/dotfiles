@@ -114,6 +114,8 @@ if [ "$EUID" -eq 0 ]; then
 fi
 
 # Aliases
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
 alias fdisk='sudo fdisk'
 alias rm='rm -i'
 alias cp='cp -rfv'
@@ -128,3 +130,16 @@ alias wget='wget -c'
 
 # Ubuntu/Debian 
 alias update='sudo apt-get update && sudo apt-get upgrade'
+
+# Tweak Directory Colours
+eval "`dircolors -b ${HOME}/dot_lin/dir_colors`"
+
+# Less Colors for Man Pages
+export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+export LESS_TERMCAP_me=$'\E[0m'           # end mode
+export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+
