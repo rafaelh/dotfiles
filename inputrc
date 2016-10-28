@@ -1,0 +1,25 @@
+# Set Smooth Arrow movement
+"\e[1~": beginning-of-line
+"\e[4~": end-of-line
+"\e[5~": beginning-of-history
+"\e[6~": end-of-history
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+# Filename completion/expansion
+set completion-ignore-case on
+set show-all-if-ambiguous on
+set match-hidden-files on
+
+# Other Settings
+set bell-style none
+set expand-tilde on
+set meta-flag on
+set convert-meta off
+set input-meta on
+set output-meta on
+set visible-stats on
