@@ -85,18 +85,20 @@ HISTCONTROL=ignoredups:ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-vim () { 
-    if [[ `"$@"` > 1 ]]; then /usr/bin/vim $@;
-    elif [ $1 = '' ]; then /usr/bin/vim;
-    elif [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
-    else
-        echo -n "File is readonly. Edit as root? (Y/n): "
-        read -n 1 yn; echo;
-    if [ "$yn" = 'n' ] || [ "$yn" = 'N' ]; then /usr/bin/vim $*;
+if [ "$EUID" -ne 0 ]; then
+    vim () { 
+        if [[ `"$@"` > 1 ]]; then /usr/bin/vim $@;
+        elif [ $1 = '' ]; then /usr/bin/vim;
+        elif [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
+        else
+            echo -n "File is readonly. Edit as root? (Y/n): "
+            read -n 1 yn; echo;
+        if [ "$yn" = 'n' ] || [ "$yn" = 'N' ]; then /usr/bin/vim $*;
         else sudo /usr/bin/vim $*;
-    fi
-    fi
+        fi
+        fi
 }
+fi
 
 # Makes [tab] show all possibilities immediately, rather than when pressed twice 
 set show-all-if-ambiguous on
@@ -129,10 +131,10 @@ alias openports='netstat -tulanp'
 alias wget='wget -c'
 
 # Ubuntu/Debian 
-alias update='sudo apt-get update && sudo apt-get upgrade'
+alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
 
 # Tweak Directory Colours
-eval "`dircolors -b ${HOME}/dot_lin/dir_colors`"
+#eval "`dircolors -b ${HOME}/dot_lin/dir_colors`"
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
