@@ -20,3 +20,7 @@ for file in $(ls); do
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
+
+# Grant access to internal storage
+termux-setup-storage
+
