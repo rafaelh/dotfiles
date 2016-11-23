@@ -1,59 +1,97 @@
-set nocompatible " Must be the first line
+set nocompatible        " Must be the first line - no compatability with legacy vi
 
 " === Global Settings ===
-set background=dark
+colorscheme peachpuff
 set modeline
-set encoding=utf-8
-set ignorecase
-set smartcase
-set foldenable
-set foldmethod=syntax 
-set t_Co=256
-set backspace=indent,eol,start 
-set incsearch
-set lazyredraw
-set showmatch
+set encoding=utf-8             " Character Encoding
+set ignorecase                 " Searches are case insensitive
+set smartcase                  " Unless they contain at least 1 capital letter
+set incsearch                  " Incremental searching
+set hlsearch                   " Highlight matches
+set showcmd                    " Show command in bottom bar
+set autoindent                 " Automatically indent lines
+set foldenable                 " Enable folding
+set foldmethod=indent          " Fold based on indent level
+set backspace=indent,eol,start " Backspace through everything
+set lazyredraw                 " Redraw only when we need to
+set showmatch                  " Highlight matching [{()}]
+set clipboard=unnamed          " Don't use a vim-specific clipboard
+set autoread                   " Set to autoread if file is updated externally
+syntax enable                  " Enable syntax processing
+filetype plugin indent on      " load file type plugins + indentation
 
-" Syntax Highlighting & auto-indent
-let python_highlight_all=1
-syntax on
-set ofu=syntaxcomplete#Complete
-colorscheme peachpuff 
-set antialias
-filetype on
-filetype plugin on 
-filetype indent on
-set autoindent
+
+" Show < or > when characters are not displayed on the left or right.
+set list
+set list listchars=nbsp:¬,tab:>-,precedes:<,extends:>
+
+
+" Folding
+set foldenable                 " Enable folding
+set foldmethod=indent          " Fold based on indent level
+nnoremap <space> za            " Enable folding with the spacebar
+
+
+" Show More Info in the statusline, without going overboard 
+set laststatus=2
+set statusline=%<%f\ %m%r%y%=%-35.(Line:\ %l/%L\ [%p%%][Format=%{&ff}]%)
+
+
+" Use :w!! to write a file when you forget to edit it with sudo
+cmap w!! w !sudo tee % >/dev/null
+
 
 " Wildmenu
 set wildmenu
 set wildmode=longest,list,full
 set wildignore=.svn,CVS,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
 
-" Show < or > when characters are not displayed on the left or right.
-set list
-set list listchars=nbsp:¬,tab:>-,precedes:<,extends:>
 
-" Set to auto read when a file is changed from the outside
-set autoread
+" Allows cursor change in tmux mode
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
-" Show More Info in the statusline, without going overboard 
-set laststatus=2
-set statusline=%<%f\ %m%r%y%=%-35.(Line:\ %l/%L\ [%p%%][Format=%{&ff}]%)
-
-" Use :w!! to write a file when you forget to edit it with sudo
-cmap w!! w !sudo tee % >/dev/null
 
 " === Coding tweaks ===
-" All setting are protected by 'au' ('autocmd') statements.  Only files ending
-" in .py or .pyw will trigger the Python settings while files ending in *.c or
-" *.h will trigger the C settings. 
 
-au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
-au BufRead,BufNewFile *py,*pyw,*.c,*.h set softtabstop=4
-au BufRead,BufNewFile *.py,*pyw set shiftwidth=4
-au BufRead,BufNewFile *.py,*.pyw set expandtab
+" Use the below highlight group when displaying bad whitespace is desired.
+highlight BadWhitespace ctermbg=red guibg=red
 
+" Use UNIX (\n) line endings for new files
+au BufNewFile *.vim,*.pl,*.sh set fileformat=unix
+
+" Turn on line numbering for certain files
+au BufRead,BufNewFile *.vim,*.pl,*.sh set nu
+
+
+" === Python ===
+let python_highlight_all=1
+au BufRead,BufNewFile *.py, *.pyw 
+    \ set textwidth=79
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set expandtab
+    \ set nu
+    \ set fileformat=unix
+    \ match BadWhitespace /^\t\+/ " Tabs at the beginning of a line are bad
+    \ match BadWhitespace /\s\+$/ " Trailing Whitespace is bad
+
+
+" === JavaScript, HTML and CSS ===
+au BufRead,BufNewFile *.js, *.html, *.css 
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+    \ set nu
+
+
+" === C ===
 fu Select_c_style()
     if search('^\t', 'n', 150)
         set shiftwidth=8
@@ -63,32 +101,15 @@ fu Select_c_style()
         set expandtab
     en
 endf
-au BufRead,BufNewFile *.c,*.h call Select_c_style()
+au BufRead,BufNewFile *.c,*.h 
+    \ call Select_c_style()
+    \ set textwidth=79
+    \ set softtabstop=4
+    \ set formatoptions-=c formatoptions-=o formatoptions-=r
+    \ set fileformat=unix
+    \ set nu
+    \ match BadWhitespace /\s\+$/ " Trailing Whitespace is bad
+
 au BufRead,BufNewFile Makefile* set noexpandtab
 
-" Use the below highlight group when displaying bad whitespace is desired.
-highlight BadWhitespace ctermbg=red guibg=red
 
-" Display tabs at the beginning of a line in Python mode as bad.
-au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
-
-" Make trailing whitespace be flagged as bad.
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-" Wrap text after a certain number of characters
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h set textwidth=79
-
-" Turn off settings in 'formatoptions' relating to comment formatting.
-" - c : do not automatically insert the comment leader when wrapping based on
-"    'textwidth'
-" - o : do not insert the comment leader when using 'o' or 'O' from command mode
-" - r : do not insert the comment leader when hitting <Enter> in insert mode
-" Python: not needed, C: prevents insertion of '*' at the beginning of every line in a comment
-au BufRead,BufNewFile *.c,*.h set formatoptions-=c formatoptions-=o formatoptions-=r
-
-" Use UNIX (\n) line endings.
-" Only used for new files so as to not force existing files to change their line endings.
-au BufNewFile *.py,*.pyw,*.c,*.h,*.vim,*.pl,*.sh set fileformat=unix
-
-" Turn on line numbering for certain files
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.vim,*.pl,*.sh set nu
