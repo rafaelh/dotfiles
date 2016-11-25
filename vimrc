@@ -1,6 +1,11 @@
-set nocompatible               " Must be the first line - no compatability with legacy vi
+"
+" .vimrc
+"
+" Initial settings in required order. The first line removes legacy vi
+" compatability, and the second enables the pathogen module manager
 
-execute pathogen#infect()      " Enables Pathogen
+set nocompatible
+execute pathogen#infect()
 
 
 " === Global Settings ===
