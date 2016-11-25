@@ -1,7 +1,8 @@
 set nocompatible        " Must be the first line - no compatability with legacy vi
 
+
 " === Global Settings ===
-colorscheme peachpuff
+colorscheme molokai
 set modeline
 set encoding=utf-8             " Character Encoding
 set ignorecase                 " Searches are case insensitive
