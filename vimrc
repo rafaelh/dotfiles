@@ -1,4 +1,6 @@
-set nocompatible        " Must be the first line - no compatability with legacy vi
+set nocompatible               " Must be the first line - no compatability with legacy vi
+
+execute pathogen#infect()      " Enables Pathogen
 
 " === Global Settings ===
 colorscheme peachpuff
