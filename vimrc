@@ -7,6 +7,10 @@
 set nocompatible
 execute pathogen#infect()
 
+" Plugin settngs
+
+let g:pydiction_location = '/data/data/com.termux/files/home/dot_android/vim/bundle/pydiction/complete-dict'
+let g:pydiction_menu_height = 5 " Sets height of the menu
 
 " === Global Settings ===
 colorscheme molokai
