@@ -10,6 +10,9 @@ set show-all-if-ambiguous on
 
 PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] [\[\e[1;34m\]\w\[\e[1;32m\]]\$\[\e[0m\] '
 
+# Path
+PATH=$PATH:$HOME/dot_android/bin
+
 # Aliases
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
