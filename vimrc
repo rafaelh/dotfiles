@@ -83,16 +83,15 @@ au BufRead,BufNewFile *.vim,*.pl,*.sh set nu
 
 " === Python ===
 let python_highlight_all=1
-au BufRead,BufNewFile *.py, *.pyw 
-    \ set textwidth=79
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set expandtab
-    \ set nu
-    \ set fileformat=unix
-    \ match BadWhitespace /^\t\+/ " Tabs at the beginning of a line are bad
-    \ match BadWhitespace /\s\+$/ " Trailing Whitespace is bad
+au BufRead,BufNewFile *.py,*.pyw set textwidth=79
+au BufRead,BufNewFile *.py,*.pyw set tabstop=4
+""    \ set softtabstop=4
+ ""   \ set shiftwidth=4
+  ""  \ set expandtab
+""    \ set nu
+ ""   \ set fileformat=unix
+  "  \ match BadWhitespace /^\t\+/ " Tabs at the beginning of a line are bad
+ "   \ match BadWhitespace /\s\+$/ " Trailing Whitespace is bad
 
 
 " === JavaScript, HTML and CSS ===
