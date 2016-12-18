@@ -85,20 +85,20 @@ HISTCONTROL=ignoredups:ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
 
-if [ "$EUID" -ne 0 ]; then
-    vim () { 
-        if [[ `"$@"` > 1 ]]; then /usr/bin/vim $@;
-        elif [ $1 = '' ]; then /usr/bin/vim;
-        elif [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
-        else
-            echo -n "File is readonly. Edit as root? (Y/n): "
-            read -n 1 yn; echo;
-        if [ "$yn" = 'n' ] || [ "$yn" = 'N' ]; then /usr/bin/vim $*;
-        else sudo /usr/bin/vim $*;
-        fi
-        fi
-}
-fi
+#if [ "$EUID" -ne 0 ]; then
+#    vim () { 
+#        if [[ `"$@"` > 1 ]]; then /usr/bin/vim $@;
+#        elif [ $1 = '' ]; then /usr/bin/vim;
+#        elif [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
+#        else
+#            echo -n "File is readonly. Edit as root? (Y/n): "
+#            read -n 1 yn; echo;
+#        if [ "$yn" = 'n' ] || [ "$yn" = 'N' ]; then /usr/bin/vim $*;
+#        else sudo /usr/bin/vim $*;
+#        fi
+#        fi
+#}
+#fi
 
 # Makes [tab] show all possibilities immediately, rather than when pressed twice 
 set show-all-if-ambiguous on
