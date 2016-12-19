@@ -1,0 +1,46 @@
+#
+# .nanorc - intended for use with Cygwin
+#
+
+
+# Set autoindentation, and tabsize - the default is 8.
+set autoindent
+set tabsize 4
+
+# Set smooth scrolling by default
+set smooth
+
+# Stops nano from breaking long lines into smaller ones.
+set nowrap
+
+# Add Syntax highlighting. Comment out any you don't want.
+include "/usr/share/nano/asm.nanorc"
+include "/usr/share/nano/fortran.nanorc"
+include "/usr/share/nano/man.nanorc"
+include "/usr/share/nano/patch.nanorc"
+include "/usr/share/nano/sh.nanorc"
+include "/usr/share/nano/awk.nanorc"
+include "/usr/share/nano/gentoo.nanorc"
+include "/usr/share/nano/mgp.nanorc"
+include "/usr/share/nano/perl.nanorc"
+include "/usr/share/nano/tcl.nanorc"
+include "/usr/share/nano/c.nanorc"
+include "/usr/share/nano/groff.nanorc"
+include "/usr/share/nano/mutt.nanorc"
+include "/usr/share/nano/php.nanorc"
+include "/usr/share/nano/tex.nanorc"
+include "/usr/share/nano/cmake.nanorc"
+include "/usr/share/nano/html.nanorc"
+include "/usr/share/nano/nanorc.nanorc"
+include "/usr/share/nano/pov.nanorc"
+include "/usr/share/nano/xml.nanorc"
+include "/usr/share/nano/css.nanorc"
+include "/usr/share/nano/java.nanorc"
+include "/usr/share/nano/objc.nanorc"
+include "/usr/share/nano/python.nanorc"
+include "/usr/share/nano/debian.nanorc"
+include "/usr/share/nano/makefile.nanorc"
+include "/usr/share/nano/ocaml.nanorc"
+include "/usr/share/nano/ruby.nanorc"
+
+# See 'man nanorc' for more options.
