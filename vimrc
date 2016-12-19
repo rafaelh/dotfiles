@@ -37,6 +37,7 @@ set list listchars=nbsp:¬,tab:>-,precedes:<,extends:>
 " Folding
 set foldenable                 " Enable folding
 set foldmethod=indent          " Fold based on indent level
+set foldlevel=99               " Don't fold automatically
 nnoremap <space> za            " Enable folding with the spacebar
 
 
