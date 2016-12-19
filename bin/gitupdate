@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+
+import os
+
+# Set repo directory, and find its contents
+gitdir = '/gitrepos/'
+gitrepos = os.getenv("HOME") + gitdir
+repos = os.listdir(gitrepos)
+
+print "Updating Repositories in %s" % gitrepos
+
+# Update each one
+for repo in repos:
+    print '\033[1;32;40m>>> \033[1;37;40mUpdating: %s\033[0;37;40m' % repo
+    os.system('git pull "gitrepos""repo"')
