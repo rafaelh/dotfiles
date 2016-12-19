@@ -10,6 +10,6 @@ print "Updating Repositories in %s" % gitdir
 
 # Update each one
 for repo in repos:
-    print '\033[1;32;40m>>> \033[1;37;40mUpdating: %s\033[0;37;40m' % repo
+    print '\n\033[1;32;40m>>> \033[1;37;40mUpdating: %s\033[0;37;40m' % repo
     cmdstring = "git -C %s%s pull" % (gitdir, repo)
     os.system(cmdstring)
