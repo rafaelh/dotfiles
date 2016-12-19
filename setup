@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #!/bin/bash
 
 # Variables
@@ -8,10 +9,17 @@ olddir=~/dotfiles_old             # old dotfiles backup directory
 echo "Creating $olddir for backup of any existing dotfiles in ~"
 mkdir -p $olddir
 echo "...done"
+=======
+# Setup environment for Termux
+
+# Variables
+dir=~/dot_android                 # dotfiles directory
+>>>>>>> 8555d560c991819c5cdd47a90895f53bb34cc930
 
 # change to the dotfiles directory
 echo "Changing to the $dir directory"
 cd $dir
+<<<<<<< HEAD
 echo "...done"
 
 # move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
@@ -21,3 +29,23 @@ for file in $(ls); do
     echo "Creating symlink to $file in home directory."
     ln -s $dir/$file ~/.$file
 done
+=======
+
+# Create symlinks for all files in the directory
+for file in $(ls); do
+    echo "Creating symlink to $file in home directory."
+    ln -s $dir/$file ~/.$file
+done
+rm ~/.README.md 
+
+# Grant access to internal storage
+termux-setup-storage
+
+# Install packages
+apt-get update
+apt-get upgrade
+apt-get install git vim-python inetutils man openssh dnsutils fontconfig-utils wget tar nmap apt-transport-https bash-completion bsdtar bzip2 curl diffutils dos2unix elinks figlet findutils gnupg gnutls grep gzip lftp mlocate linux-man-pages p7zip procps psmisc pwgen python2 rsync sed sharutils strace unrar unzip zip clang python-dev libxml2-dev libffi-dev libxslt-dev
+
+# Install python packages
+pip install jedi
+>>>>>>> 8555d560c991819c5cdd47a90895f53bb34cc930

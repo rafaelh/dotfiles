@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -114,15 +115,35 @@ PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] [\[\e[1
 if [ "$EUID" -eq 0 ]; then
     PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] [\[\e[1;34m\]\w\[\e[1;31m\]]\$\[\e[0m\] '
 fi
+=======
+# .bashrc for Termux on Android
+
+# Basic environmental settings
+shopt -s histappend
+shopt -s checkwinsize
+HISTCONTROL=ignoredups:ignoreboth
+HISTSIZE=1000
+HISTFILESIZE=2000
+set show-all-if-ambiguous on
+
+PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] [\[\e[1;34m\]\w\[\e[1;32m\]]\$\[\e[0m\] '
+
+# Path
+PATH=$PATH:$HOME/.bin
+>>>>>>> 8555d560c991819c5cdd47a90895f53bb34cc930
 
 # Aliases
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+<<<<<<< HEAD
 alias fdisk='sudo fdisk'
+=======
+>>>>>>> 8555d560c991819c5cdd47a90895f53bb34cc930
 alias rm='rm -i'
 alias cp='cp -rfv'
 alias ls='ls -h --color=auto'
 alias grep='grep --colour=auto'
+<<<<<<< HEAD
 alias df='pydf'
 alias path='echo -e ${PATH//:/\\n}'
 alias service='sudo service'
@@ -135,6 +156,11 @@ alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-u
 
 # Tweak Directory Colours
 #eval "`dircolors -b ${HOME}/dot_lin/dir_colors`"
+=======
+alias path='echo -e ${PATH//:/\\n}'
+alias wget='wget -c'
+alias update='apt update && apt upgrade'
+>>>>>>> 8555d560c991819c5cdd47a90895f53bb34cc930
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -145,5 +171,20 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
+<<<<<<< HEAD
 # Requirement for WSL
 cd
+=======
+# Shortcuts for the Google Pixel C
+shortcuts() {
+    echo " [    Left Bracket     ... + o"
+    echo " ]    Right Bracket    ... + p"
+    echo " {    L Curly Bracket  ... + shift + o"
+    echo " }    R Curly Bracket  ... + shift + p"
+    echo " \\    Backslash        ... + ="
+    echo " |    Pipe             ... + shift + ="
+    echo " \`    Backtick         ... + 2"
+    echo " ~    Tilde            ... + shift + 2"
+    echo " Esc  Escape           ... + 1"
+}
+>>>>>>> 8555d560c991819c5cdd47a90895f53bb34cc930

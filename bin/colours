@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 #!/bin/bash
+=======
+>>>>>>> 8555d560c991819c5cdd47a90895f53bb34cc930
 #
 #   This file echoes a bunch of color codes to the 
 #   terminal to demonstrate what's available.  Each 
