@@ -33,3 +33,7 @@ for file in $(ls); do
 done
 rm ~/.README.md
 rm ~/.setup 
+
+# Download git plugins
+git -C ~/dot_lin/vim/bundle/ clone https://github.com/Raimondi/delimitMate
+git -C ~/dot_lin/vim/bundle/ clone https://github.com/ajh17/VimCompletesMe
