@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import os
-import sys
 
 def gitupdate( dir ):
     workingdir = os.getenv("HOME") + dir
@@ -14,16 +13,6 @@ def gitupdate( dir ):
         os.system(cmdstring)
     return;
 
-#opts = sys.argv[1:]
-#print opts
-
 gitupdate('/gitrepos/')
 gitupdate('/.vim/bundle/')
 print ""
-
-
-# Setup
-# Check if gitrepos exists. If not, create it, and create a dot_lin symlink
-# check if each of these directories has contents. If not, clone it
-# git clone https://github.com/ajh17/VimCompletesMe
-# https://github.com/jiangmiao/auto-pairs
