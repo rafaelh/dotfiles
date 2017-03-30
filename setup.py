@@ -33,3 +33,5 @@ def gitsync(gitrepo, gitname):
 gitsync('https://github.com/jiangmiao/auto-pairs', 'auto-pairs')
 gitsync('https://github.com/ajh17/VimCompletesMe', 'VimCompletesMe')
 gitsync('https://github.com/PProvost/vim-ps1', 'vim-ps1')
+gitsync('https://github.com/scrooloose/nerdtree', 'nerdtree')
+gitsync('https://github.com/Xuyuanp/nerdtree-git-plugin', 'nerdtree-git-plugin')
