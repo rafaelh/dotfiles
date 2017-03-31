@@ -46,7 +46,7 @@ set statusline=%<%F\ %m%r%y%=%-35.(Ln:\ %l(%c)/%L\ [%p%%][Format=%{&ff}]%)
 
 
 " Use :w!! to write a file when you forget to edit it with sudo
-cmap w!! w !sudo tee % >/dev/null
+cmap sudo w !sudo tee % >/dev/null
 
 
 " Wildmenu
