@@ -6,6 +6,7 @@ homedir = os.getenv("HOME") + '/'
 repodir = os.getenv("HOME") + '/dot_lin/'
 links = os.listdir(repodir)
 ignore = ['.git', 'README.md', 'setup.py', 'setup']
+windowsdirs = ['']
 
 # Remove standard config files
 if os.path.exists('/etc/skel'):
@@ -14,18 +15,37 @@ if os.path.exists('/etc/skel'):
         cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
         os.system(cmdstring)
 
+
+# Create Directories
+if not os.path.exists(homedir + 'gitrepos'):
+    cmdstring = "mkdir %s/gitrepos" % homedir
+    os.system(cmdstring)
+    cmdstring = "ln -s %s %s" % (repodir, homedir + 'gitrepos/dot_lin')
+    os.system(cmdstring)
+
+def linkfolder(windowspath, windowsfolder):
+    cmdstring = "ln -s %s %s" % ('/cygdrive/c/Users/' + os.getenv("USER") + windowspath, homedir + windowsfolder)
+    os.system(cmdstring)
+
+if os.path.exists('/cygdrive'):
+    linkfolder('/Dropbox', 'dropbox')
+    linkfolder('/OneDrive', 'onedrive')
+    linkfolder('/Downloads', 'downloads')
+    linkfolder('/Dropbox/Computers/Projects', 'projects')
+
+
 # Simlink dotfiles
 for link in links:
     if link not in ignore and not os.path.exists(homedir + '.' + link):
-        print "\033[1;32;40m>>> \033[1;37;40mLinking: %s\033[0;37;40m" % link
+        print("\033[1;32;40m>>> \033[1;37;40mLinking: %s\033[0;37;40m" % link)
         cmdstring = "ln -s %s%s %s.%s" % (repodir, link, homedir, link)
         os.system(cmdstring)
-        print cmdstring
+
 
 # Download git plugins
 def gitsync(gitrepo, gitname):
     if not os.listdir(repodir + 'vim/bundle/' + gitname):
-        print "Syncing %s" % gitname
+        print("Syncing %s" % gitname)
         cmdstring = "git -C %svim/bundle/ clone %s" % (repodir, gitrepo)
         os.system(cmdstring)
     return;
