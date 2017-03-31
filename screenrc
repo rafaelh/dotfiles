@@ -60,26 +60,3 @@ pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
 #
 # Add the Windows List to the bottom of the terminal, as well as the status line
 hardstatus alwayslastline "%{= kg}[ %{G}%H%{g} ] %{-b ..}%-w%{+b ..}[%n*%t]%{-}%+w %-= %{kG}Load: %{kg}%l %{kG}%C%a  %{kg}%D %d-%m-%Y%{=}"
-
-
-# Below is an example of a bound window. This allows screen to open task-specific windows without
-# needing to open them in a shell, saving RAM. It also makes the title of the program appear in
-# the windows list at the bottom of the terminal.
-
-# SSH to the test server, Scratch, via public IP
-bind S screen -t 'scratch' ssh rafael@192.168.16.150
-
-# Open rTorrent, which monitors the $HOME/downloads directory for torrent files.
-bind R screen -t 'rtorrent' rtorrent
-
-# Open mp3blaster, for musical goodness
-bind B screen -t 'mp3blaster' mp3blaster
-
-# Open a Text web browser at Google
-bind L screen -t 'Lynx' lynx http://www.google.com.au/
-
-# Open an IRC window
-bind I screen -t 'irssi' irssi
-
-# Open htop to view System info
-bind H screen -t 'htop' htop

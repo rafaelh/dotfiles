@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 
 # Set environment variables
@@ -23,9 +23,12 @@ if not os.path.exists(homedir + 'gitrepos'):
     cmdstring = "ln -s %s %s" % (repodir, homedir + 'gitrepos/dot_lin')
     os.system(cmdstring)
 
-def linkfolder(windowspath, windowsfolder):
-    cmdstring = "ln -s %s %s" % ('/cygdrive/c/Users/' + os.getenv("USER") + windowspath, homedir + windowsfolder)
-    os.system(cmdstring)
+def linkfolder(windowspath, linkname):
+    linkpath = homedir + linkname
+    if not os.path.exists(linkpath):
+        cmdstring = "ln -s %s %s" % ('/cygdrive/c/Users/' + os.getenv("USER")
+                + windowspath, linkpath)
+        os.system(cmdstring)
 
 if os.path.exists('/cygdrive'):
     linkfolder('/Dropbox', 'dropbox')
