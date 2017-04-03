@@ -47,8 +47,10 @@ for link in links:
 
 # Download git plugins
 def gitsync(gitrepo, gitname):
-    if not os.listdir(repodir + 'vim/bundle/' + gitname):
-        print("Syncing %s" % gitname)
+    if not os.path.exists(repodir + 'vim/bundle/' + gitname):
+        print("\033[1;32;40m>>> \033[1;37;40mSyncing: %s\033[0;37;40m" % gitname)
+        cmdstring = "mkdir %s" % repodir + 'vim/bundle/' + gitname
+        os.system(cmdstring)
         cmdstring = "git -C %svim/bundle/ clone %s" % (repodir, gitrepo)
         os.system(cmdstring)
     return;
@@ -58,3 +60,5 @@ gitsync('https://github.com/ajh17/VimCompletesMe', 'VimCompletesMe')
 gitsync('https://github.com/PProvost/vim-ps1', 'vim-ps1')
 gitsync('https://github.com/scrooloose/nerdtree', 'nerdtree')
 gitsync('https://github.com/Xuyuanp/nerdtree-git-plugin', 'nerdtree-git-plugin')
+gitsync('https://github.com/tpope/vim-sensible', 'sensible-vim')
+gitsync('https://github.com/jistr/vim-nerdtree-tabs', 'vim-nerdtree-tabs')
