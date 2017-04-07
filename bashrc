@@ -19,7 +19,7 @@ shopt -s checkwinsize
 set show-all-if-ambiguous on
 
 
-# Aliases
+# Aliases - All Environments
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias ls='ls -h --color=auto'
@@ -32,12 +32,15 @@ alias mount='mount | column -t'
 alias openports='netstat -tulanp'
 alias wget='wget -c'
 
-# Ubuntu/Debian 
-alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
-alias autoupdate='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
+if [ "$(uname)" == "Linux" ]; then
+    # Ubuntu/Debian 
+    alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
+    alias autoupdate='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
 
-# Cygwin
-alias winpython="/cygdrive/c/Python36/python"
+elif [ "(expr substr $(uname -s) 1 5)" == "CYGWIN_NT"]; then
+    # Cygwin
+    alias winpython="/cygdrive/c/Python36/python"
+
 
 
 # Less Colors for Man Pages
