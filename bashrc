@@ -10,7 +10,7 @@ if [ -f /etc/bash_completion ]; then
 fi
 
 
-# Basic environmental settings
+# Basic Settings - All Environments
 HISTCONTROL=ignoredups:ignoreboth
 HISTSIZE=1000
 HISTFILESIZE=2000
@@ -18,8 +18,6 @@ shopt -s histappend
 shopt -s checkwinsize
 set show-all-if-ambiguous on
 
-
-# Aliases - All Environments
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias ls='ls -h --color=auto'
@@ -32,22 +30,25 @@ alias mount='mount | column -t'
 alias openports='netstat -tulanp'
 alias wget='wget -c'
 
-if [ "$(uname)" == "Linux" ]; then
-    # Ubuntu/Debian 
+
+# Ubuntu/Debian Specific
+if [[ `uname -s` == Linux* ]]; then
     alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
     alias autoupdate='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
 
-elif [ "(expr substr $(uname -s) 1 5)" == "CYGWIN_NT"]; then
-    # Cygwin
-    alias winpython="/cygdrive/c/Python36/python"
+# Cygwin Specific
+elif [[ `uname -s` == CYGWIN* ]]; then
+    alias ifconfig="ipconfig"
+    alias traceroute="tracert"
+    alias keyring="rundll32.exe keymgr.dll KRShowKeyMgr"
+    alias ps="ps -W"
+    alias sudo=""
+    alias python="/cygdrive/c/Python36/python"
+    alias pip="/cygdrive/c/Python36/Scripts/pip.exe"
 
-<<<<<<< HEAD
-
-=======
-# Cygwin
-alias python="/cygdrive/c/Python36/python"
-alias pip="/cygdrive/c/Python36/Scripts/pip.exe"
->>>>>>> b983e1d002e74af08ee6f1c4549eff17420e9513
+    export CYGWIN="nodosfilewarning server"
+    export DISPLAY=localhost:0.0
+fi
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
