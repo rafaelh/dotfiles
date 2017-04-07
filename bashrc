@@ -41,7 +41,13 @@ elif [ "(expr substr $(uname -s) 1 5)" == "CYGWIN_NT"]; then
     # Cygwin
     alias winpython="/cygdrive/c/Python36/python"
 
+<<<<<<< HEAD
 
+=======
+# Cygwin
+alias python="/cygdrive/c/Python36/python"
+alias pip="/cygdrive/c/Python36/Scripts/pip.exe"
+>>>>>>> b983e1d002e74af08ee6f1c4549eff17420e9513
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
