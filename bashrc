@@ -38,6 +38,7 @@ if [[ `uname -s` == Linux* ]]; then
 
 # Cygwin Specific
 elif [[ `uname -s` == CYGWIN* ]]; then
+    alias update="~/.bin/cygupdate"
     alias ifconfig="ipconfig"
     alias traceroute="tracert"
     alias keyring="rundll32.exe keymgr.dll KRShowKeyMgr"
