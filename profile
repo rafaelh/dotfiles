@@ -22,6 +22,10 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 if [ "$HOSTNAME" = seal ]; then
-    echo -n "RAID Status: "
+    echo -n "RAID Status:"
     cat /proc/mdstat | grep U | cut -d "," -f 3
+    echo -n "SELinux:     "
+    getenforce
+    echo -n "Firewall:    "
+    firewall-cmd --state
 fi
