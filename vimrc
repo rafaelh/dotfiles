@@ -90,10 +90,10 @@ au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /\s\+$/ " Trailing Whitespa
 
 
 " === JavaScript, HTML and CSS ===
-au BufRead,BufNewFile *.js, *.html, *.css set tabstop=2
-au BufRead,BufNewFile *.js, *.html, *.css set softtabstop=2
-au BufRead,BufNewFile *.js, *.html, *.css set shiftwidth=2
-au BufRead,BufNewFile *.js, *.html, *.css set nu
+au BufRead,BufNewFile *.js,*.html,*.css set tabstop=2
+au BufRead,BufNewFile *.js,*.html,*.css set softtabstop=2
+au BufRead,BufNewFile *.js,*.html,*.css set shiftwidth=2
+au BufRead,BufNewFile *.js,*.html,*.css set nu
 
 
 " === C ===
