@@ -5,6 +5,7 @@ import os
 
 commands = ['apt-get update',
             'apt-get upgrade -y',
+            'apt-get install nodejs',
             ]
 
 for command in commands:
