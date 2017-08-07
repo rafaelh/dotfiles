@@ -5,7 +5,10 @@ import os
 
 commands = ['apt-get update',
             'apt-get upgrade -y',
-            'apt-get install nodejs',
+            'apt-get install -y nodejs most',
+            'apt-get install -y mysql-server',
+            'service mysql start'
+            'mysql_secure_installation',
             ]
 
 for command in commands:
