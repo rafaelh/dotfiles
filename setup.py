@@ -26,11 +26,11 @@ if not os.path.exists(homedir + 'gitrepos'):
 def linkfolder(windowspath, linkname):
     linkpath = homedir + linkname
     if not os.path.exists(linkpath):
-        cmdstring = "ln -s %s %s" % ('/cygdrive/c/Users/' + os.getenv("USER")
+        cmdstring = "ln -s %s %s" % ('/mnt/c/Users/' + os.getenv("USER")
                 + windowspath, linkpath)
         os.system(cmdstring)
 
-if os.path.exists('/cygdrive'):
+if os.path.exists('/mnt/c'):
     linkfolder('/Dropbox', 'dropbox')
     linkfolder('/OneDrive', 'onedrive')
     linkfolder('/Downloads', 'downloads')
