@@ -32,7 +32,7 @@ def linkfolder(windowspath, linkname):
 
 if os.path.exists('/mnt/c'):
     linkfolder('/Dropbox', 'dropbox')
-    linkfolder('/OneDrive', 'onedrive')
+    linkfolder('/\"Box Sync\"', 'box')
     linkfolder('/Downloads', 'downloads')
     linkfolder('/Dropbox/Computers/Projects', 'projects')
 
