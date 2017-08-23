@@ -29,7 +29,7 @@ alias path='echo -e ${PATH//:/\\n}'
 alias mount='mount | column -t'
 alias openports='netstat -tulanp'
 alias wget='wget -c'
-
+alias term='echo $TERM'
 
 # Ubuntu/Debian Specific
 if [[ `uname -s` == Linux* ]]; then
@@ -96,11 +96,15 @@ if [ "$EUID" -ne 0 ]; then
         fi
     }
 
-    # Run Private Commands
+    # Run Private Commands specific to the machine
     if [ -f /home/$USER/.private ]; then
         . /home/$USER/.private
     fi
 
+    # Run Private Commands that apply to all machines
+    if [ -f /mnt/c/Users/$USER/Dropbox/Computers/Private_Bash.sh ]; then
+        . /mnt/c/Users/$USER/Dropbox/Computers/Private_Bash.sh
+    fi
 fi
 
 

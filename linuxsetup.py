@@ -3,10 +3,10 @@ import os
 
 # Need to detect environment
 
-commands = ['apt-get update',
-            'apt-get upgrade -y',
-            'apt-get install -y nodejs most',
-            'apt-get install -y mysql-server',
+commands = ['apt update',
+            'apt upgrade -y',
+            'apt install -y nodejs most pydf apache2',
+            'apt install -y mysql-server',
             'service mysql start'
             'mysql_secure_installation',
             ]
