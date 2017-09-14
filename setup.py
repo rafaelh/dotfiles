@@ -3,7 +3,7 @@ import os
 
 # Set environment variables
 homedir = os.getenv("HOME") + '/'
-repodir = os.getenv("HOME") + '/dot_lin/'
+repodir = os.getenv("HOME") + '/dotfiles/'
 links = os.listdir(repodir)
 ignore = ['.git', 'README.md', 'setup.py', 'setup']
 windowsdirs = ['']
@@ -20,7 +20,7 @@ if os.path.exists('/etc/skel'):
 if not os.path.exists(homedir + 'gitrepos'):
     cmdstring = "mkdir %s/gitrepos" % homedir
     os.system(cmdstring)
-    cmdstring = "ln -s %s %s" % (repodir, homedir + 'gitrepos/dot_lin')
+    cmdstring = "ln -s %s %s" % (repodir, homedir + 'gitrepos/dotfiles')
     os.system(cmdstring)
 
 def linkfolder(windowspath, linkname):

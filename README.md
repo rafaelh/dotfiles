@@ -1,4 +1,4 @@
-# dot_lin
+# dotfiles
 
 This is a script to set up all my standard settings on new linux, mac or WSL environments. It isn't intended for anyone else to use, but you are welcome to  do so if you wish.
 
