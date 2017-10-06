@@ -11,6 +11,8 @@ commands = ['apt update',
             'mysql_secure_installation',
             ]
 
+# tlp, tlp-rdw
+
 for command in commands:
     cmdstring = command
     os.system(command)
