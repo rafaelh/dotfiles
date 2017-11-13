@@ -31,6 +31,10 @@ alias openports='netstat -tulanp'
 alias wget='wget -c'
 alias term='echo $TERM'
 
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
 # Ubuntu/Debian Specific
 if [[ `uname -s` == Linux* ]]; then
     alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
