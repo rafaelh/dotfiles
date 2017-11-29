@@ -14,6 +14,7 @@
 set completion-ignore-case on
 set show-all-if-ambiguous on
 set match-hidden-files on
+set mark-symlinked-directories on
 
 # Other Settings
 set bell-style none
