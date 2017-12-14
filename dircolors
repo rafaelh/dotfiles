@@ -103,10 +103,10 @@ TERM xterm-termite
 
 ## Special files
 
-NORMAL 00;38;5;244 # no color code at all
+NORMAL 00;38;5;252 # no color code at all
 #FILE 00 # regular file: use no color at all
 RESET 0 # reset to "normal" color
-DIR 00;38;5;21 # directory 01;34
+DIR 00;38;5;33 # directory 01;34
 LINK 00;38;5;14 # symbolic link. (If you set this to 'target' instead of a
  # numerical value, the color is as for the file pointed to.)
 MULTIHARDLINK 00 # regular file with more than one link
@@ -115,48 +115,48 @@ SOCK 48;5;230;38;5;136;01 # socket
 DOOR 48;5;230;38;5;136;01 # door
 BLK 48;5;230;38;5;244;01 # block device driver
 CHR 48;5;230;38;5;244;01 # character device driver
-ORPHAN 48;5;235;38;5;160 # symlink to nonexistent file, or non-stat'able file
-SETUID 48;5;160;38;5;230 # file that is setuid (u+s)
-SETGID 48;5;136;38;5;230 # file that is setgid (g+s)
+ORPHAN 48;5;235;38;5;9 # symlink to nonexistent file, or non-stat'able file
+SETUID 48;5;160;38;5;88 # file that is setuid (u+s)
+SETGID 48;5;136;38;5;90 # file that is setgid (g+s)
 CAPABILITY 30;41 # file with capability
 STICKY_OTHER_WRITABLE 48;5;64;38;5;230 # dir that is sticky and other-writable (+t,o+w)
-OTHER_WRITABLE 48;5;235;38;5;33 # dir that is other-writable (o+w) and not sticky
+OTHER_WRITABLE 48;5;0;38;5;33 # dir that is other-writable (o+w) and not sticky
 STICKY 48;5;33;38;5;230 # dir with the sticky bit set (+t) and not other-writable
 # This is for files with execute permission:
-EXEC 00;38;5;10
+EXEC 00;38;5;47
 
 ## Archives or compressed (violet + bold for compression)
-.tar    00;38;5;61
-.tgz    00;38;5;61
-.arj    00;38;5;61
-.taz    00;38;5;61
-.lzh    00;38;5;61
-.lzma   00;38;5;61
-.tlz    00;38;5;61
-.txz    00;38;5;61
-.zip    00;38;5;61
-.z      00;38;5;61
-.Z      00;38;5;61
-.dz     00;38;5;61
-.gz     00;38;5;61
-.lz     00;38;5;61
-.xz     00;38;5;61
-.bz2    00;38;5;61
-.bz     00;38;5;61
-.tbz    00;38;5;61
-.tbz2   00;38;5;61
-.tz     00;38;5;61
-.deb    00;38;5;61
-.rpm    00;38;5;61
-.jar    00;38;5;61
-.rar    00;38;5;61
-.ace    00;38;5;61
-.zoo    00;38;5;61
-.cpio   00;38;5;61
-.7z     00;38;5;61
-.rz     00;38;5;61
-.apk    00;38;5;61
-.gem    00;38;5;61
+.tar    00;38;5;13
+.tgz    00;38;5;13
+.arj    00;38;5;13
+.taz    00;38;5;13
+.lzh    00;38;5;13
+.lzma   00;38;5;13
+.tlz    00;38;5;13
+.txz    00;38;5;13
+.zip    00;38;5;13
+.z      00;38;5;13
+.Z      00;38;5;13
+.dz     00;38;5;13
+.gz     00;38;5;13
+.lz     00;38;5;13
+.xz     00;38;5;13
+.bz2    00;38;5;13
+.bz     00;38;5;13
+.tbz    00;38;5;13
+.tbz2   00;38;5;13
+.tz     00;38;5;13
+.deb    00;38;5;13
+.rpm    00;38;5;13
+.jar    00;38;5;13
+.rar    00;38;5;13
+.ace    00;38;5;13
+.zoo    00;38;5;13
+.cpio   00;38;5;13
+.7z     00;38;5;13
+.rz     00;38;5;13
+.apk    00;38;5;13
+.gem    00;38;5;13
 
 # Image formats (yellow)
 .jpg    00;38;5;136
@@ -196,12 +196,12 @@ EXEC 00;38;5;10
 .ttl             00;38;5;11
 .nt              00;38;5;11
 .torrent         00;38;5;11
-.xml             00;38;5;11
+#.xml             00;38;5;11
 *Makefile        00;38;5;11
 *Rakefile        00;38;5;11
 *Dockerfile      00;38;5;11
 *build.xml       00;38;5;11
-*rc              00;38;5;11
+#*rc              00;38;5;11
 *1               00;38;5;11
 .nfo             00;38;5;11
 *README          00;38;5;11
@@ -212,7 +212,7 @@ EXEC 00;38;5;10
 .ini             00;38;5;11
 .yml             00;38;5;11
 .cfg             00;38;5;11
-.conf            00;38;5;11
+#.conf            00;38;5;11
 .h               00;38;5;11
 .hpp             00;38;5;11
 .c               00;38;5;11

@@ -18,7 +18,7 @@ for command in commands:
     cmdstring = command
     os.system(command)
 
-choice = input("Install Web development Tools? (N/y)").
+choice = input("Install Web development Tools? (N/y)")
 if choice == 'y':
     print("installing webdev tools")
 
@@ -32,7 +32,7 @@ if choice == 'y':
     cmdstring = command
     os.system(command)
 
-choice = input("Install nodejs? (n/y)").
+choice = input("Install nodejs? (n/y)")
 if choice == 'y':
     print("installing nodejs")
 

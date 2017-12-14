@@ -69,7 +69,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 if [ "$EUID" -eq 0 ]; then
 
     # Set a colour prompt
-    PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] [\[\e[1;34m\]\w\[\e[1;31m\]]\$\[\e[0m\] '
+    PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] [\[\e[0;33m\]\w\[\e[1;31m\]]\$\[\e[0m\] '
 
     # Set additional Directories for inclusion in the Path
     export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/root/.bin
@@ -85,7 +85,7 @@ fi
 if [ "$EUID" -ne 0 ]; then
 
     # Set a colour prompt
-    PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] [\[\e[1;34m\]\w\[\e[1;32m\]]\$\[\e[0m\] '
+    PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] [\[\e[0;33m\]\w\[\e[1;32m\]]\$\[\e[0m\] '
 
     # Aliases
     alias fdisk='sudo fdisk'
