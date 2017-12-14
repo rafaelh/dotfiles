@@ -103,27 +103,26 @@ TERM xterm-termite
 
 ## Special files
 
-NORMAL 00;38;5;252 # no color code at all
-#FILE 00 # regular file: use no color at all
-RESET 0 # reset to "normal" color
-DIR 00;38;5;33 # directory 01;34
-LINK 00;38;5;14 # symbolic link. (If you set this to 'target' instead of a
- # numerical value, the color is as for the file pointed to.)
-MULTIHARDLINK 00 # regular file with more than one link
-FIFO 48;5;230;38;5;136;01 # pipe
-SOCK 48;5;230;38;5;136;01 # socket
-DOOR 48;5;230;38;5;136;01 # door
-BLK 48;5;230;38;5;244;01 # block device driver
-CHR 48;5;230;38;5;244;01 # character device driver
-ORPHAN 48;5;235;38;5;9 # symlink to nonexistent file, or non-stat'able file
-SETUID 48;5;160;38;5;88 # file that is setuid (u+s)
-SETGID 48;5;136;38;5;90 # file that is setgid (g+s)
-CAPABILITY 30;41 # file with capability
+NORMAL         00;38;5;244             # no color code at all
+#FILE          00                      # regular file: use no color at all
+RESET          0                       # reset to "normal" color
+DIR            00;38;5;33              # directory
+LINK           00;38;5;14              # symbolic link. (If you set this to 'target' instead of a
+                                       # numerical value, the color is as for the file pointed to.)
+MULTIHARDLINK  00                      # regular file with more than one link
+FIFO           48;5;230;38;5;136;01    # pipe
+SOCK           48;5;230;38;5;136;01    # socket
+DOOR           48;5;230;38;5;136;01    # door
+BLK            48;5;230;38;5;244;01    # block device driver
+CHR            48;5;230;38;5;244;01    # character device driver
+ORPHAN         48;5;235;38;5;9         # symlink to nonexistent file, or non-stat'able file
+SETUID         48;5;160;38;5;88        # file that is setuid (u+s)
+SETGID         48;5;136;38;5;90        # file that is setgid (g+s)
+CAPABILITY     30;41                   # file with capability
 STICKY_OTHER_WRITABLE 48;5;64;38;5;230 # dir that is sticky and other-writable (+t,o+w)
-OTHER_WRITABLE 48;5;0;38;5;33 # dir that is other-writable (o+w) and not sticky
-STICKY 48;5;33;38;5;230 # dir with the sticky bit set (+t) and not other-writable
-# This is for files with execute permission:
-EXEC 00;38;5;47
+OTHER_WRITABLE 48;5;0;38;5;33          # dir that is other-writable (o+w) and not sticky
+STICKY         48;5;33;38;5;230        # dir with the sticky bit set (+t) and not other-writable
+EXEC           00;38;5;47              # Files with execute permission
 
 ## Archives or compressed (violet + bold for compression)
 .tar    00;38;5;13
@@ -160,7 +159,7 @@ EXEC 00;38;5;47
 
 # Image formats (yellow)
 .jpg    00;38;5;136
-.JPG    00;38;5;136 #stupid but needed
+.JPG    00;38;5;136
 .jpeg   00;38;5;136
 .gif    00;38;5;136
 .bmp    00;38;5;136
@@ -188,7 +187,7 @@ EXEC 00;38;5;47
 .CR2    00;38;5;136
 .ico    00;38;5;136
 
-# Files of special interest (base1) Yellow
+# Files of special interest (Yellow)
 .tex             00;38;5;11
 .rdf             00;38;5;11
 .owl             00;38;5;11
@@ -225,7 +224,7 @@ EXEC 00;38;5;47
 .sql             00;38;5;11
 .csv             00;38;5;11
 
-# "unimportant" files as logs and backups (base01) Dark Gray
+# "unimportant" files as logs and backups (Dark Gray)
 .log        00;38;5;240
 .bak        00;38;5;240
 .aux        00;38;5;240
@@ -248,7 +247,7 @@ EXEC 00;38;5;47
 .class      00;38;5;240
 .cache      00;38;5;240
 
-# Audio formats (orange)
+# Audio formats (Orange)
 .aac    00;38;5;166
 .au     00;38;5;166
 .flac   00;38;5;166
@@ -269,35 +268,35 @@ EXEC 00;38;5;47
 .xspf   00;38;5;166
 
 # Video formats (as audio + bold)
-.mov    00;38;5;166
-.MOV    00;38;5;166
-.mpg    00;38;5;166
-.mpeg   00;38;5;166
-.m2v    00;38;5;166
-.mkv    00;38;5;166
-.ogm    00;38;5;166
-.mp4    00;38;5;166
-.m4v    00;38;5;166
-.mp4v   00;38;5;166
-.vob    00;38;5;166
-.qt     00;38;5;166
-.nuv    00;38;5;166
-.wmv    00;38;5;166
-.asf    00;38;5;166
-.rm     00;38;5;166
-.rmvb   00;38;5;166
-.flc    00;38;5;166
-.avi    00;38;5;166
-.fli    00;38;5;166
-.flv    00;38;5;166
-.gl     00;38;5;166
-.m2ts   00;38;5;166
-.divx   00;38;5;166
-.webm   00;38;5;166
+.mov    00;38;5;168
+.MOV    00;38;5;168
+.mpg    00;38;5;168
+.mpeg   00;38;5;168
+.m2v    00;38;5;168
+.mkv    00;38;5;168
+.ogm    00;38;5;168
+.mp4    00;38;5;168
+.m4v    00;38;5;168
+.mp4v   00;38;5;168
+.vob    00;38;5;168
+.qt     00;38;5;168
+.nuv    00;38;5;168
+.wmv    00;38;5;168
+.asf    00;38;5;168
+.rm     00;38;5;168
+.rmvb   00;38;5;168
+.flc    00;38;5;168
+.avi    00;38;5;168
+.fli    00;38;5;168
+.flv    00;38;5;168
+.gl     00;38;5;168
+.m2ts   00;38;5;168
+.divx   00;38;5;168
+.webm   00;38;5;168
 # http://wiki.xiph.org/index.php/MIME_Types_and_File_Extensions
-.axv 00;38;5;166
-.anx 00;38;5;166
-.ogv 00;38;5;166
-.ogx 00;38;5;166
+.axv 00;38;5;168
+.anx 00;38;5;168
+.ogv 00;38;5;168
+.ogx 00;38;5;168
 
 
