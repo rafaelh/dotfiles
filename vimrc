@@ -12,7 +12,7 @@ execute pathogen#infect()
 colorscheme molokai
 set modeline
 set encoding=utf-8             " Character Encoding
-set mouse=a                    " Enable Mouse Support
+"set mouse=a                    " Enable Mouse Support
 set ignorecase                 " Searches are case insensitive
 set smartcase                  " Unless they contain at least 1 capital letter
 set incsearch                  " Incremental searching
