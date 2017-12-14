@@ -1,0 +1,21 @@
+#!/bin/bash
+# crush - archive and compress file/folder(s)
+
+# Extract last parameter (archive filename) for variable
+ARCHIVENAME="${!#}"
+
+# Remove last paramerter (archive filename) for file/folder list to compress
+length=$(($#-1))
+FILES=${@:1:$length}
+
+# Usage - display usage if no parameters are given
+if [[ -z $@ ]]; then
+  echo "crush <file> <folder>... <compressed-name>.tar.gz"
+  exit
+fi
+
+# Tar the files, name archive after last file/folder if no name given
+if [[ ! -f $ARCHIVENAME ]]; then
+  tar -czvpf "$ARCHIVENAME".tar.gz $FILES; else
+  tar -czvpf "$ARCHIVENAME".tar.gz "$@"
+fi
