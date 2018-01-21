@@ -1,5 +1,9 @@
 [user]
-	email = rafael.hart9@gmail.com
-	name = Rafael Hart
+    email = rafael.hart9@gmail.com
+    name = Rafael Hart
+
 [push]
-	default = matching
+    default = matching
+
+[color]
+    ui = true

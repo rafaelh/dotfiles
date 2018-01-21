@@ -65,13 +65,13 @@ export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # Colour variable to make the next function more readable
-COLOR_RED="\033[0;31m"
-COLOR_YELLOW="\033[0;33m"
-COLOR_GREEN="\033[0;32m"
-COLOR_OCHRE="\033[38;5;95m"
-COLOR_BLUE="\033[0;34m"
-COLOR_WHITE="\033[0;37m"
-COLOR_RESET="\033[0m""]"
+COLOR_RED="\e[0;31m"
+COLOR_YELLOW="\e[0;33m"
+COLOR_GREEN="\e[0;32m"
+COLOR_OCHRE="\e[38;5;95m"
+COLOR_BLUE="\e[0;34m"
+COLOR_WHITE="\e[0;37m"
+COLOR_RESET="\e[0m"
 
 function git_color {
     local git_status="$(git status 2> /dev/null)"
@@ -94,10 +94,10 @@ function git_branch {
 
     if [[ $git_status =~ $on_branch  ]]; then
         local branch=${BASH_REMATCH[1]}
-        echo "($branch)"
+        echo " ($branch)"
     elif [[ $git_status =~ $on_commit  ]]; then
         local commit=${BASH_REMATCH[1]}
-        echo "($commit)"
+        echo " ($commit)"
     fi
 }
 
@@ -121,10 +121,12 @@ fi
 if [ "$EUID" -ne 0 ]; then
 
     # Set a colour prompt
-    PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] [\[\e[0;33m\]\w\[\e[1;32m\]]\$\[\e[0m\] '
+    PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] '
+    PS1+='[\[\e[0;33m\]\w\[\e[1;32m\]]\$\[\e[0m\]'
     PS1+="\[\$(git_color)\]"        # colors git status
     PS1+="\$(git_branch)"           # prints current branch
-    PS1+="\[$COLOR_BLUE\]\$\[$COLOR_RESET\] "   # '#' for root, else '$'
+    PS1+="$COLOR_RESET "             # Ends prompt
+
     # Aliases
     alias fdisk='sudo fdisk'
     alias service='sudo service'
