@@ -76,7 +76,7 @@ COLOR_RESET="\e[0m"
 function git_color {
     local git_status="$(git status 2> /dev/null)"
 
-    if [[ ! $git_status =~ "working directory clean"  ]]; then
+    if [[ ! $git_status =~ "working tree clean"  ]]; then
         echo -e $COLOR_RED
     elif [[ $git_status =~ "Your branch is ahead of"  ]]; then
         echo -e $COLOR_YELLOW
@@ -122,10 +122,10 @@ if [ "$EUID" -ne 0 ]; then
 
     # Set a colour prompt
     PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] '
-    PS1+='[\[\e[0;33m\]\w\[\e[1;32m\]]\$\[\e[0m\]'
-    PS1+="\[\$(git_color)\]"        # colors git status
-    PS1+="\$(git_branch)"           # prints current branch
-    PS1+="$COLOR_RESET "             # Ends prompt
+    PS1+='[\[\e[0;33m\]\w\[\e[1;32m\]]\$\[\e[0m\]'   # Working Directory
+    PS1+="\[\$(git_color)\]"                         # Colors git status
+    PS1+="\$(git_branch)"                            # Prints current branch
+    PS1+="$COLOR_RESET "                             # Ends prompt
 
     # Aliases
     alias fdisk='sudo fdisk'
