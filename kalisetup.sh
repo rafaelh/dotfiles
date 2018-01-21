@@ -25,5 +25,14 @@ then
     apt update && apt install code
 fi
 
+echo "Do you wish to install NodeJS?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes ) curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - && apt install -y nodejs; break;;
+        No ) exit;;
+    esac
+done
 
-# tlp, tlp-rdw
+
+
+# tlp, tlp-rdw & enable

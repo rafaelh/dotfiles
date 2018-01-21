@@ -29,3 +29,7 @@ if [ "$HOSTNAME" = seal ]; then
     echo -n "Firewall:    "
     firewall-cmd --state
 fi
+
+if [ "$HOSTNAME" = "animus" ]; then
+    echo -n "dropbox status"
+fi

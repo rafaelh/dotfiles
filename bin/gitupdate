@@ -8,7 +8,7 @@ def gitupdate( dir ):
     print("\nUpdating Repositories in %s" % workingdir)
 
     for repo in repos:
-        print("\n\033[1;32;40m>>> \033[1;37;40mUpdating: %s\033[0;37;40m" % repo)
+        print("\n\033[1;32;00m>>> \033[1;37;00mUpdating: %s\033[0;37;00m" % repo)
         cmdstring = "git -C %s%s pull" % (workingdir, repo)
         os.system(cmdstring)
     return;
