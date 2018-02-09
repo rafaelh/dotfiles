@@ -5,7 +5,7 @@ import os
 homedir = os.getenv("HOME") + '/'
 repodir = os.getenv("HOME") + '/dotfiles/'
 links = os.listdir(repodir)
-ignore = ['.git', 'README.md', 'setup.py', 'setup', 'kalisetup.py']
+ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup', 'kalisetup.py']
 windowsdirs = ['']
 
 # Remove standard config files
