@@ -31,6 +31,11 @@ alias openports='netstat -tulanp'
 alias wget='wget -c'
 alias term='echo $TERM'
 
+# Fedora Aliases
+if [ -f /etc/redhat-release ]; then
+    alias update-grub='sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
+fi
+
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
