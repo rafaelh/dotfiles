@@ -156,6 +156,8 @@ if [ "$EUID" -ne 0 ]; then
     fi
 fi
 
+# For Docker
+export DOCKER_HOST=tcp://0.0.0.0:2375
 
 # For WSL + ConEmu - doesn't start in the right directory
 cd
