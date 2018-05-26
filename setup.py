@@ -5,7 +5,7 @@ import os
 homedir = os.getenv("HOME") + '/'
 repodir = os.getenv("HOME") + '/dotfiles/'
 links = os.listdir(repodir)
-ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup', 'kalisetup.py']
+ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup']
 windowsdirs = ['']
 
 # Remove standard config files
@@ -17,12 +17,6 @@ if os.path.exists('/etc/skel'):
 
 
 # Create Directories
-if not os.path.exists(homedir + 'gitrepos'):
-    cmdstring = "mkdir %s/gitrepos" % homedir
-    os.system(cmdstring)
-    cmdstring = "ln -s %s %s" % (repodir, homedir + 'gitrepos/dotfiles')
-    os.system(cmdstring)
-
 def linkfolder(windowspath, linkname):
     linkpath = homedir + linkname
     if not os.path.exists(linkpath):
@@ -32,7 +26,6 @@ def linkfolder(windowspath, linkname):
 
 if os.path.exists('/mnt/c'):
     linkfolder('/Dropbox', 'dropbox')
-    linkfolder('/\"Box Sync\"', 'box')
     linkfolder('/Downloads', 'downloads')
     linkfolder('/Dropbox/Computers/Projects', 'projects')
 
