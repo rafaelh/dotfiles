@@ -4,3 +4,4 @@ sudo apt install -y python3 python3-setuptools python3-dev build-essential pytho
 sudo pip3 install --upgrade virtualenv
 sudo pip3 install --upgrade boto3
 sudo pip3 install --upgrade awscli
+sudo pip3 install --upgrade pylint
