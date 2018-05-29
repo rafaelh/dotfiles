@@ -66,8 +66,7 @@ if [[ `uname -s` == Linux* ]]; then
 fi
 
 # WSL Specific
-if [ -f /mnt/c/ ]; then
-    echo "Windows Subsystem for Linux"
+if [ -d /mnt/c/ ]; then
     export DISPLAY=localhost:0.0
     alias update='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
 fi
