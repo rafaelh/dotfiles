@@ -154,3 +154,4 @@ fi
 
 # For WSL + ConEmu - doesn't start in the right directory
 cd
+
