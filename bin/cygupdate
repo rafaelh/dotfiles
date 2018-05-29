@@ -1,5 +1,0 @@
-#!/bin/bash
-
-wget -NP /usr/local/bin/ http://cygwin.com/setup-x86_64.exe
-chmod u+x /usr/local/bin/setup-x86_64.exe
-/usr/local/bin/setup-x86_64.exe -n

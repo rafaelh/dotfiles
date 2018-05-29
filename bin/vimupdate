@@ -13,6 +13,5 @@ def gitupdate( dir ):
         os.system(cmdstring)
     return;
 
-gitupdate('/gitrepos/')
 gitupdate('/.vim/bundle/')
 print ("")
