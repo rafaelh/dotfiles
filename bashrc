@@ -9,7 +9,6 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-
 # Basic Settings - All Environments
 HISTCONTROL=ignoredups:ignoreboth
 HISTSIZE=1000
@@ -31,35 +30,6 @@ alias openports='netstat -tulanp'
 alias wget='wget -c'
 alias term='echo $TERM'
 
-# Fedora Aliases
-if [ -f /etc/redhat-release ]; then
-    alias update-grub='sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
-fi
-
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-fi
-
-# Ubuntu/Debian Specific
-if [[ `uname -s` == Linux* ]]; then
-    alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
-    alias autoupdate='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
-
-# Cygwin Specific
-elif [[ `uname -s` == CYGWIN* ]]; then
-    alias update="~/.bin/cygupdate"
-    alias ifconfig="ipconfig"
-    alias traceroute="tracert"
-    alias keyring="rundll32.exe keymgr.dll KRShowKeyMgr"
-    alias ps="ps -W"
-    alias sudo=""
-    alias python="/cygdrive/c/Python36/python"
-    alias pip="/cygdrive/c/Python36/Scripts/pip.exe"
-
-    export CYGWIN="nodosfilewarning server"
-    export DISPLAY=localhost:0.0
-fi
-
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
@@ -78,6 +48,31 @@ COLOR_BLUE="\e[0;34m"
 COLOR_WHITE="\e[0;37m"
 COLOR_RESET="\e[0m"
 
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+# Environment-specific settings ===============================================
+
+# Fedora Aliases
+if [ -f /etc/redhat-release ]; then
+    alias update-grub='sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
+fi
+
+# Ubuntu/Debian Specific
+if [[ `uname -s` == Linux* ]]; then
+    alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
+    alias autoupdate='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
+
+# WSL Specific
+if [ -f /mnt/c/ ]; then
+    echo "Windows Subsystem for Linux"
+    export DISPLAY=localhost:0.0
+    alias update='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
+fi
+
+
+# Adding git status to prompt =================================================
 function git_color {
     local git_status="$(git status 2> /dev/null)"
 
@@ -156,8 +151,6 @@ if [ "$EUID" -ne 0 ]; then
     fi
 fi
 
-# For Docker
-export DOCKER_HOST=tcp://0.0.0.0:2375
 
 # For WSL + ConEmu - doesn't start in the right directory
 cd
