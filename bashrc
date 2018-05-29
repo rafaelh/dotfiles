@@ -145,8 +145,8 @@ if [ "$EUID" -ne 0 ]; then
     fi
 
     # Run Private Commands that apply to all machines
-    if [ -f /mnt/c/Users/$USER/Dropbox/Computers/Private_Bash.sh ]; then
-        . /mnt/c/Users/$USER/Dropbox/Computers/Private_Bash.sh
+    if [ -f dropbox/Computers/Private_Bash.sh ]; then
+        . dropbox/Computers/Private_Bash.sh
     fi
 fi
 
