@@ -4,5 +4,6 @@ sudo apt-get install ruby ruby-dev build-essential ruby-bundler
 gem install bundle jekyll jekyll-paginate jekyll-sitemap jekyll-feed
 bundle install
 
-sudo apt install nodejs npm gulp
-sudo npm install npm --global
+#sudo apt install nodejs npm gulp
+#sudo npm install npm --global
+#sudo npm install gulp-sass
