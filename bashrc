@@ -139,6 +139,10 @@ if [ "$EUID" -ne 0 ]; then
         fi
     }
 
+    # Install Ruby Gems without root
+    export GEM_HOME=$HOME/.gems
+    export PATH=$HOME/.gems/bin:$PATH
+
     # Run Private Commands specific to the machine
     if [ -f /home/$USER/.private ]; then
         . /home/$USER/.private
