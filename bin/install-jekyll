@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt-get install ruby ruby-dev build-essential ruby-bundler
-gem install bundle jekyll jekyll-paginate jekyll-sitemap jekyll-feed
+gem install bundle jekyll jekyll-paginate jekyll-sitemap jekyll-feed sass
 bundle install
 
 #sudo apt install nodejs npm gulp
