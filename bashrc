@@ -17,6 +17,10 @@ shopt -s histappend
 shopt -s checkwinsize
 set show-all-if-ambiguous on
 
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export EDITOR=vim
+export PAGER=most
+
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias ls='ls -h --color=auto'
