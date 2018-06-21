@@ -20,7 +20,21 @@ set show-all-if-ambiguous on
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export EDITOR=vim
 export PAGER=most
+
+export LANGUAGE=en_AU.UTF-8
 export LANG=en_AU.UTF-8
+export LC_CTYPE="en_AU.UTF-8"
+export LC_NUMERIC="en_AU.UTF-8"
+export LC_TIME="en_AU.UTF-8"
+export LC_COLLATE=en_AU.UTF-8
+export LC_MONETARY="en_AU.UTF-8"
+export LC_MESSAGES=en_AU.UTF-8
+export LC_PAPER="en_AU.UTF-8"
+export LC_NAME="en_AU.UTF-8"
+export LC_ADDRESS="en_AU.UTF-8"
+export LC_TELEPHONE="en_AU.UTF-8"
+export LC_MEASUREMENT="en_AU.UTF-8"
+export LC_IDENTIFICATION="en_AU.UTF-8"
 
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
