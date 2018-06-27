@@ -36,6 +36,7 @@ export LC_TELEPHONE="en_AU.UTF-8"
 export LC_MEASUREMENT="en_AU.UTF-8"
 export LC_IDENTIFICATION="en_AU.UTF-8"
 
+alias razer='xinput set-button-map 14 3 2 1 && xinput set-button-map 15 3 2 1'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias ls='ls -h --color=auto'
