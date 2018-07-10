@@ -21,8 +21,8 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export EDITOR=vim
 export PAGER=most
 
-export LANGUAGE=en_AU.UTF-8
-export LANG=en_AU.UTF-8
+export LANGUAGE="en_AU.UTF-8"
+export LANG="en_AU.UTF-8"
 
 alias razer='xinput set-button-map 14 3 2 1 && xinput set-button-map 15 3 2 1'
 alias fgrep='fgrep --color=auto'
