@@ -113,7 +113,7 @@ if [ "$EUID" -eq 0 ]; then
     PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] [\[\e[0;33m\]\w\[\e[1;31m\]]\$\[\e[0m\] '
 
     # Set additional Directories for inclusion in the Path
-    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/root/.bin
+    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/root/.bin:/root/.local/bin
 
     # Run Private Commands
     if [ -f /root/.private ]; then
@@ -136,7 +136,7 @@ if [ "$EUID" -ne 0 ]; then
     alias service='sudo service'
 
     # Set additional Directories for inclusion in the Path
-    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/home/$USER/.bin
+    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/home/$USER/.bin:/home/$USER/.local/bin
 
     vim () { 
         if [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
