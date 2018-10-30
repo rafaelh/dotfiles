@@ -36,6 +36,9 @@ alias wget='wget -c'
 alias term='echo $TERM'
 alias yt='youtube-dl'
 
+# For Python
+export BETTER_EXCEPTIONS=1
+
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
