@@ -1,4 +1,4 @@
-# Environment variables have been added so that the script doesn't need to be edited
+#!/bin/bash
 # Check https://github.com/docker/compose/releases for the latest version number
 
 export DOCKER_CHANNEL=edge
