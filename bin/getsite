@@ -1,9 +1,11 @@
 #!/bin/bash
 
 if [ $# == 0 ] ; then
-    echo "Usage: getsite [domain name] [URL]"
+    echo "Usage: getsite [URL]"
     exit 1;
 fi
+
+DOMAIN=echo $1 | awk -F[/:] '{print $4}'
 
 wget                              \
     --recursive                   \
@@ -12,6 +14,6 @@ wget                              \
     --html-extension              \
     --convert-links               \
     --restrict-file-names=windows \
-    --domains $1                  \
+    --domains "$DOMAIN"           \
     --no-parent                   \
-    $2
+    "$1"
