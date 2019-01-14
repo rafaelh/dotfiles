@@ -5,7 +5,7 @@ if [ $# == 0 ] ; then
     exit 1;
 fi
 
-DOMAIN=echo $1 | awk -F[/:] '{print $4}'
+DOMAIN=$(echo "$1" | awk -F[/:] '{print $4}')
 
 wget                              \
     --recursive                   \
