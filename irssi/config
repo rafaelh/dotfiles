@@ -54,10 +54,7 @@ chatnets = {
   SILC = { type = "SILC"; };
   Ubuntu = { type = "IRC"; };
   Freenode = { type = "IRC"; };
-  Darkmyst = {
-    type = "IRC";
-    autosendcmd = "";
-  };
+  Darkmyst = { type = "IRC"; autosendcmd = ""; };
 };
 
 channels = (
