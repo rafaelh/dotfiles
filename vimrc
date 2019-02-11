@@ -12,7 +12,6 @@ execute pathogen#infect()
 colorscheme molokai
 set modeline
 set encoding=utf-8             " Character Encoding
-"set mouse=a                    " Enable Mouse Support
 set ignorecase                 " Searches are case insensitive
 set smartcase                  " Unless they contain at least 1 capital letter
 set incsearch                  " Incremental searching
@@ -27,6 +26,9 @@ set autoread                   " Set to autoread if file is updated externally
 syntax enable                  " Enable syntax processing
 filetype plugin indent on      " load file type plugins + indentation
 
+" === Plugin-specific settings ===
+" lightline
+set noshowmode                 " Removes doubled-up mode display (eg INSERT)
 
 " Show < or > when characters are not displayed on the left or right.
 set list
