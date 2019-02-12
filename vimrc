@@ -8,12 +8,11 @@ execute pathogen#infect()
 
 
 " === Global Settings ===
-colorscheme molokai
+colorscheme monokai256
 set modeline
 set mouse=a                    " Enable mouse support. Press Shift when highlighing to override
 set encoding=utf-8             " Character Encoding
 set ignorecase                 " Searches are case insensitive
-set smartcase                  " Unless they contain at least 1 capital letter
 set incsearch                  " Incremental searching
 set hlsearch                   " Highlight matches
 set showcmd                    " Show command in bottom bar
@@ -28,17 +27,7 @@ filetype plugin indent on      " load file type plugins + indentation
 
 " === Plugin-specific settings ===
 " lightline
-set noshowmode                 " Removes doubled-
-
-" Testing changes:
-nmap <S-Insert> "+gP 
-vmap <S-Insert> "-d"+P 
-imap <S-Insert> <C-O>:set paste<CR><C-R>+\|<C-O>:set nopaste<CR> 
-cmap <S-Insert> <C-R>+ 
-imap <C-Insert> <C-O>"+y 
-vmap <C-Insert> "+y 
-vmap <S-Del> "+d 
-imap <C-Del> <C-O>daw "
+set noshowmode                 " Removes doubled-up mode (eg INSERT)
 
 " Folding
 set foldenable                 " Enable folding
