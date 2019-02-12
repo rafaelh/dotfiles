@@ -39,6 +39,7 @@ for link in links:
         os.system(cmdstring)
 
 
+
 # Download git plugins
 def gitsync(gitrepo, gitname):
     if not os.path.exists(repodir + 'vim/bundle/' + gitname):
@@ -50,7 +51,6 @@ def gitsync(gitrepo, gitname):
     return;
 
 gitsync('https://github.com/jiangmiao/auto-pairs', 'auto-pairs')
-#gitsync('https://github.com/ajh17/VimCompletesMe', 'VimCompletesMe')
 gitsync('https://github.com/PProvost/vim-ps1', 'vim-ps1')
 gitsync('https://github.com/scrooloose/nerdtree', 'nerdtree')
 gitsync('https://github.com/Xuyuanp/nerdtree-git-plugin', 'nerdtree-git-plugin')
@@ -59,3 +59,4 @@ gitsync('https://github.com/jistr/vim-nerdtree-tabs', 'vim-nerdtree-tabs')
 gitsync('https://github.com/pangloss/vim-javascript', 'vim-javascript')
 gitsync('https://github.com/itchyny/lightline.vim', 'lightline.vim')
 gitsync('https://github.com/plasticboy/vim-markdown', 'vim-markdown')
+gitsync('https://github.com/ajh17/VimCompletesMe', 'VimCompletesMe')
