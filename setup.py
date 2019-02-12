@@ -14,7 +14,8 @@ if os.path.exists('/etc/skel'):
     for basicdotfile in basicdotfiles:
         cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
         os.system(cmdstring)
-
+cmdstring = "rm -rf %s.vim/bundle/*" % homedir
+os.system(cmdstring)
 
 # Create Directories
 def linkfolder(windowspath, linkname):
@@ -49,12 +50,12 @@ def gitsync(gitrepo, gitname):
     return;
 
 gitsync('https://github.com/jiangmiao/auto-pairs', 'auto-pairs')
-gitsync('https://github.com/ajh17/VimCompletesMe', 'VimCompletesMe')
+#gitsync('https://github.com/ajh17/VimCompletesMe', 'VimCompletesMe')
 gitsync('https://github.com/PProvost/vim-ps1', 'vim-ps1')
 gitsync('https://github.com/scrooloose/nerdtree', 'nerdtree')
 gitsync('https://github.com/Xuyuanp/nerdtree-git-plugin', 'nerdtree-git-plugin')
 gitsync('https://github.com/tpope/vim-sensible', 'sensible-vim')
 gitsync('https://github.com/jistr/vim-nerdtree-tabs', 'vim-nerdtree-tabs')
-gitsync('https://github.com/vim-scripts/indentpython.vim', 'indentpython.vim')
 gitsync('https://github.com/pangloss/vim-javascript', 'vim-javascript')
 gitsync('https://github.com/itchyny/lightline.vim', 'lightline.vim')
+gitsync('https://github.com/plasticboy/vim-markdown', 'vim-markdown')

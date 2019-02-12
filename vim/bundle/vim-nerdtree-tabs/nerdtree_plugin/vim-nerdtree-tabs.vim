@@ -143,6 +143,10 @@ fun! s:NERDTreeOpenAllTabs()
   let l:current_tab = tabpagenr()
   tabdo call s:NERDTreeMirrorOrCreate()
   exe 'tabn ' . l:current_tab
+  if g:nerdtree_tabs_autofind
+    call s:NERDTreeUnfocus()
+    call s:NERDTreeFindFile()
+  endif
 endfun
 
 " }}}
@@ -452,7 +456,9 @@ fun! s:LoadPlugin()
     autocmd VimEnter * call <SID>VimEnterHandler()
     autocmd TabEnter * call <SID>TabEnterHandler()
     autocmd TabLeave * call <SID>TabLeaveHandler()
-    autocmd WinEnter * call <SID>WinEnterHandler()
+    " We enable nesting for this autocommand (see :h autocmd-nested) so that
+    " exiting Vim when NERDTree is the last window triggers the VimLeave event.
+    autocmd WinEnter * nested call <SID>WinEnterHandler()
     autocmd WinLeave * call <SID>WinLeaveHandler()
     autocmd BufWinEnter * call <SID>BufWinEnterHandler()
     autocmd BufRead * call <SID>BufReadHandler()
@@ -573,9 +579,14 @@ fun! s:WinEnterHandler()
     return
   endif
 
+  " We need to handle VimLeave properly.
+  " But we shouldn't nest redefined autocmds
+  let s:ei = &eventignore
+  let &eventignore = 'VimEnter,TabEnter,TabLeave,WinEnter,WinLeave,BufWinEnter,BufRead'
   if g:nerdtree_tabs_autoclose
     call s:CloseIfOnlyNerdTreeLeft()
   endif
+  let &eventignore = s:ei
 endfun
 
 " }}}
