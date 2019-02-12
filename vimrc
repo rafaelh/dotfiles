@@ -1,5 +1,4 @@
-"
-" .vimrc
+
 "
 " Initial settings in required order. The first line removes legacy vi
 " compatability, and the second enables the pathogen module manager
@@ -11,6 +10,7 @@ execute pathogen#infect()
 " === Global Settings ===
 colorscheme molokai
 set modeline
+set mouse=a                    " Enable mouse support. Press Shift when highlighing to override
 set encoding=utf-8             " Character Encoding
 set ignorecase                 " Searches are case insensitive
 set smartcase                  " Unless they contain at least 1 capital letter
@@ -28,12 +28,17 @@ filetype plugin indent on      " load file type plugins + indentation
 
 " === Plugin-specific settings ===
 " lightline
-set noshowmode                 " Removes doubled-up mode display (eg INSERT)
+set noshowmode                 " Removes doubled-
 
-" Show < or > when characters are not displayed on the left or right.
-set list
-set list listchars=nbsp:¬,tab:>-,precedes:<,extends:>
-
+" Testing changes:
+nmap <S-Insert> "+gP 
+vmap <S-Insert> "-d"+P 
+imap <S-Insert> <C-O>:set paste<CR><C-R>+\|<C-O>:set nopaste<CR> 
+cmap <S-Insert> <C-R>+ 
+imap <C-Insert> <C-O>"+y 
+vmap <C-Insert> "+y 
+vmap <S-Del> "+d 
+imap <C-Del> <C-O>daw "
 
 " Folding
 set foldenable                 " Enable folding
@@ -41,21 +46,13 @@ set foldmethod=indent          " Fold based on indent level
 set foldlevel=99               " Don't fold automatically
 nnoremap <space> za            " Enable folding with the spacebar
 
-
-" Show More Info in the statusline, without going overboard
-set laststatus=2
-set statusline=%<%F\ %m%r%y%=%-35.(Ln:\ %l(%c)/%L\ [%p%%][Format=%{&ff}]%)
-
-
 " Use :w!! to write a file when you forget to edit it with sudo
 cmap sudo w !sudo tee % >/dev/null
-
 
 " Wildmenu
 set wildmenu
 set wildmode=longest,list,full
 set wildignore=.svn,CVS,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
-
 
 " Allows cursor change in tmux mode
 if exists('$TMUX')
