@@ -38,10 +38,14 @@ for link in links:
         cmdstring = "ln -s %s%s %s.%s" % (repodir, link, homedir, link)
         os.system(cmdstring)
 
-
-
 # Download git plugins
+if not os.path.exists(repodir + 'vim/bundle'):
+    cmdstring = "mkdir %s" % repodir + 'vim/bundle'
+    os.system(cmdstring)
+
 def gitsync(gitrepo, gitname):
+    if not os.path.exists(repodir + 'vim/bundle'):
+        cmdstring = "mkdir %s" % repodir + 'vim/bundle'
     if not os.path.exists(repodir + 'vim/bundle/' + gitname):
         print("\033[1;32;40m>>> \033[1;37;40mSyncing: %s\033[0;37;40m" % gitname)
         cmdstring = "mkdir %s" % repodir + 'vim/bundle/' + gitname
