@@ -1,0 +1,269 @@
+#!/usr/bin/env python3
+
+# Get commandline argument
+
+# If not true, print the following:
+'''
+Usage: port <port_number>
+
+Ports 0    to 1023  are Well-Known Ports (ssh, ftp, etc)
+Ports 1024 to 49151 are Registered Ports for Software Applications
+Ports 49152 to 65535 are Public Ports
+
+'''
+
+# If true, look it up and print it:
+
+"""
+0 TCP, UDP	Reserved; do not use (but is a permissible source port value if the sending process does not expect messages in response)	
+Offical
+1	TCP, UDP	TCPMUX	
+Offical
+5	TCP, UDP	RJE (Remote Job Entry)	
+Offical
+7	TCP, UDP	ECHO protocol	
+Offical
+9	TCP, UDP	DISCARD protocol	
+Offical
+11	TCP, UDP	SYSTAT protocol	
+Offical
+13	TCP, UDP	DAYTIME protocol	
+Offical
+17	TCP, UDP	QOTD (Quote of the Day) protocol	
+Offical
+18	TCP, UDP	Message Send Protocol	
+Offical
+19	TCP, UDP	CHARGEN (Character Generator) protocol	
+Offical
+20	TCP	FTP - data port (FTP-d)	
+Offical
+21	TCP	FTP - control (command) port (FTP-c)	
+Offical
+22	TCP, UDP	SSH (Secure Shell) - used for secure logins, file transfers (scp, sftp) and port forwarding	
+Offical
+23	TCP, UDP	Telnet protocol - unencrypted text communications	
+Offical
+25	TCP, UDP	SMTP (Simple Mail Transport Protocol) - used for e-mail routing between mailservers	
+Offical
+26	TCP, UDP	RSFTP - A simple FTP-like protocol	
+Unoffical
+35	TCP, UDP	QMS Magicolor 2 printer	
+Unoffical
+37	TCP, UDP	TIME protocol	
+Offical
+38	TCP, UDP	Route Access Protocol	
+Offical
+39	TCP, UDP	Resource Location Protocol	
+Offical
+41	TCP, UDP	Graphics	
+Offical
+42	TCP, UDP	Host Name Server	
+Offical
+43	TCP	WHOIS protocol	
+Offical
+49	TCP, UDP	TACACS Login Host protocol	
+Offical
+53	TCP, UDP	DNS (Domain Name System)	
+Offical
+57	TCP	MTP, Mail Transfer Protocol	
+Offical
+67	UDP	BOOTP (BootStrap Protocol) server; also used by DHCP (Dynamic Host Configuration Protocol)	
+Offical
+68	UDP	BOOTP client; also used by DHCP	
+Offical
+69	UDP	TFTP (Trivial File Transfer Protocol)	
+Offical
+70	TCP	Gopher protocol	
+Offical
+79	TCP	Finger protocol	
+Offical
+80	TCP	HTTP (HyperText Transfer Protocol) - used for transferring web pages	
+Offical
+81	TCP	Torpark - Onion routing ORport	
+Unoffical
+82	UDP	Torpark - Control Port	
+Unoffical
+88	TCP	Kerberos - authenticating agent	
+Offical
+101	TCP	HOSTNAME	
+102	TCP	ISO-TSAP protocol	
+107	TCP	Remote Telnet Service	
+109	TCP	POP, Post Office Protocol, version 2	
+110	TCP	POP3 (Post Office Protocol version 3) - used for retrieving E-mails	
+Offical
+111	TCP, UDP	SUNRPC protocol	
+113	TCP	ident - old server identification system, still used by IRC servers to identify its users	
+Offical
+115	TCP	SFTP, Simple File Transfer Protocol	
+117	TCP	UUCP-PATH	
+118	TCP, UDP	SQL Services	
+Offical
+119	TCP	NNTP (Network News Transfer Protocol) - used for retrieving newsgroups messages	
+Offical
+123	UDP	NTP (Network Time Protocol) - used for time synchronization	
+Offical
+135	TCP, UDP	EPMAP / Microsoft RPC Locator Service	
+Offical
+137	TCP, UDP	NetBIOS NetBIOS Name Service	
+Offical
+138	TCP, UDP	NetBIOS NetBIOS Datagram Service	
+Offical
+139	TCP, UDP	NetBIOS NetBIOS Session Service	
+Offical
+143	TCP, UDP	IMAP4 (Internet Message Access Protocol 4) - used for retrieving E-mails	
+Offical
+152	TCP, UDP	BFTP, Background File Transfer Program	
+ 
+ 153	TCP, UDP	SGMP, Simple Gateway Monitoring Protocol	
+  
+  156	TCP, UDP	SQL Service	
+  Offical
+  158	TCP, UDP	DMSP, Distributed Mail Service Protocol	
+  161	TCP, UDP	SNMP (Simple Network Management Protocol)	
+  Offical
+  162	TCP, UDP	SNMPTRAP	
+  Offical
+  170	TCP	Print-srv	
+  179	TCP	BGP (Border Gateway Protocol)	
+  Offical
+  194	TCP	IRC (Internet Relay Chat)	
+  Offical
+  201	TCP, UDP	AppleTalk Routing Maintenance	
+  209	TCP, UDP	The Quick Mail Transfer Protocol	
+  213	TCP, UDP	IPX	
+  Offical
+  218	TCP, UDP	MPP, Message Posting Protocol	
+  220	TCP, UDP	IMAP, Interactive Mail Access Protocol, version 3	
+  259	TCP, UDP	ESRO, Efficient Short Remote Operations	
+  264	TCP, UDP	BGMP, Border Gateway Multicast Protocol	
+  311	TCP	Apple Server-Admin-Tool, Workgroup-Manager-Tool	
+  318	TCP, UDP	TSP, Time Stamp Protocol	
+  323	TCP, UDP	IMMP, Internet Message Mapping Protocol	
+  383
+
+  TCP, UDP	HP OpenView HTTPs Operations Agent	
+  366	TCP, UDP	SMTP, Simple Mail Transfer Protocol. ODMR, On-Demand Mail Relay	
+  369	TCP, UDP	Rpc2portmap	
+  Offical
+  371	TCP, UDP	ClearCase albd	
+  Offical
+  384	TCP, UDP	A Remote Network Server System	
+  387	TCP, UDP	AURP, AppleTalk Update-based Routing Protocol	
+  389	TCP, UDP	LDAP (Lightweight Directory Access Protocol)	
+  Offical
+  401	TCP, UDP	UPS Uninterruptible Power Supply	
+  Offical
+  411	TCP	Direct Connect Hub port	
+  Unoffical
+  427	TCP, UDP	SLP (Service Location Protocol)	
+  Offical
+  443	TCP	HTTPS - HTTP Protocol over TLS/SSL (encrypted transmission)	
+  Offical
+  444	TCP, UDP	SNPP, Simple Network Paging Protocol	
+  445	TCP	Microsoft-DS (Active Directory, Windows shares, Sasser worm, Agobot, Zobotworm)	
+  Offical
+  445	UDP	Microsoft-DS SMB file sharing	
+  Offical
+  464	TCP, UDP	Kerberos Change/Set password	
+  Offical
+  465	TCP	SMTP over SSL - CONFLICT with registered Cisco protocol	
+  Conflict
+  500	TCP, UDP	ISAKMP, IKE-Internet Key Exchange	
+  Offical
+  512	TCP	exec, Remote Process Execution	
+  512	UDP	comsat, together with biff: notifies users of new c.q. yet unread e-mail	
+  513	TCP	Login	
+  513	UDP	Who	
+  514	TCP	rsh protocol - used to execute non-interactive commandline commands on a remote system and see the screen return	
+  514	UDP	syslog protocol - used for system logging	
+  Offical
+  515	TCP	Line Printer Daemon protocol - used in LPD printer servers	
+  517	TCP	Talk	
+  518	UDP	NTalk	
+  520	TCP	efs	
+  520	UDP	Routing - RIP	
+  Offical
+  513	UDP	Router	
+  524	TCP, UDP	NCP (NetWare Core Protocol) is used for a variety things such as access to primary NetWare server resources, Time Synchronization, etc.	
+  Offical
+  525	UDP	Timed, Timeserver	
+  530	TCP, UDP	RPC	
+  Offical
+  531	TCP, UDP	AOL Instant Messenger, IRC	
+  532	TCP	netnews	
+  533	UDP	netwall, For Emergency Broadcasts	
+  540	TCP	UUCP (Unix-to-Unix Copy Protocol)	
+  542	TCP, UDP	commerce (Commerce Applications)	
+  543	TCP	klogin, Kerberos login	
+  544	TCP	kshell, Kerberos Remote shell	
+  546	TCP, UDP	DHCPv6 client	
+  547	TCP, UDP	DHCPv6 server	
+  548	TCP	AFP (Apple Filing Protocol)	
+  550	UDP	new-rwho, new-who	
+  554	TCP, UDP	RTSP (Real Time Streaming Protocol)	
+  Offical
+  556	TCP	Remotefs, rfs, rfs_server	
+  560	UDP	rmonitor, Remote Monitor	
+  561	UDP	monitor	
+  563	TCP, UDP	NNTP protocol over TLS/SSL (NNTPS)	
+  Offical
+  587	TCP	email message submission (SMTP) (RFC 2476)	
+  Offical
+  591	TCP	FileMaker 6.0 Web Sharing (HTTP Alternate, see port 80)	
+  Offical
+  593	TCP, UDP	HTTP RPC Ep Map	
+  Offical
+  604	TCP	TUNNEL	
+  631	TCP, UDP	IPP, Internet Printing Protocol	
+  636	TCP, UDP	LDAP over SSL (encrypted transmission)	
+  Offical
+  639	TCP, UDP	MSDP, Multicast Source Discovery Protocol	
+  646	TCP	LDP, Label Distribution Protocol	
+  647	TCP	DHCP Failover Protocol	
+  648	TCP	RRP, Registry Registrar Protocol	
+  652	TCP	DTCP, Dynamic Tunnel Configuration Protocol	
+  654	TCP	AODV, Ad hoc On-Demand Distance Vector	
+  665	TCP	sun-dr, Remote Dynamic Reconfiguration	
+  Unoffical
+  666	UDP	Doom, First online FPS	
+  674	TCP	ACAP, Application Configuration Access Protocol	
+  691	TCP	MS Exchange Routing	
+  Offical
+  692	TCP	Hyperwave-ISP	
+  695	TCP	IEEE-MMS-SSL	
+  698	TCP	OLSR, Optimized Link State Routing	
+  699	TCP	Access Network	
+  700	TCP	EPP, Extensible Provisioning Protocol	
+  701	TCP	LMP, Link Management Protocol.	
+  702	TCP	IRIS over BEEP	
+  706	TCP	SILC, Secure Internet Live Conferencing	
+  711	TCP	TDP, Tag Distribution Protocol	
+  712	TCP	TBRPF, Topology Broadcast based on Reverse-Path Forwarding	
+  720	TCP	SMQP, Simple Message Queue Protocol	
+  749	TCP, UDP	kerberos-adm, Kerberos administration	
+  750	UDP	Kerberos version IV	
+  782	TCP	Conserver serial-console management server	
+  829	TCP	CMP (Certificate Management Protocol)	
+  860	TCP	iSCSI	
+  873	TCP	rsync File synchronisation protocol	
+  Offical
+  901	TCP	Samba Web Administration Tool (SWAT)	
+  Unoffical
+  902	 	VMware Server	
+  Unoffical
+  911	TCP	Network Console on Acid (NCA) - local tty redirection over OpenSSH	
+  981	TCP	SofaWare Technologies Remote HTTPS management for firewall devices running embedded Checkpoint Firewall-1 software	
+  Unoffical
+  989	TCP, UDP	FTP Protocol (data) over TLS/SSL	
+  Offical
+  990	TCP, UDP	FTP Protocol (control) over TLS/SSL	
+  Offical
+  991	TCP, UDP	NAS (Netnews Admin System)	
+  992	TCP, UDP	Telnet protocol over TLS/SSL	
+  Offical
+  993	TCP	IMAP4 over SSL (encrypted transmission)	
+  Offical
+  995	TCP	POP3 over SSL (encrypted transmission)	
+  Offical
+ """ 
+  
