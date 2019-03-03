@@ -1,30 +1,45 @@
 #!/usr/bin/env python3
 
-# Get commandline argument
+import sys
 
-# If not true, print the following:
-'''
-Usage: port <port_number>
+portlist = {
+    0 : "Port 0: TCP, UDP - Reserved; do not use (but is a permissible source port value if the sending process does not expect messages in response",	
+    1 : "Port 1: TCP, UDP - TCPMUX",
+    5 : "Port 5: TCP, UDP - RJE (Remote Job Entry)",
+    7 : "Port 7: TCP, UDP - ECHO protocol",	
+    9 : "Port 9: TCP, UDP - DISCARD protocol",	
 
-Ports 0    to 1023  are Well-Known Ports (ssh, ftp, etc)
-Ports 1024 to 49151 are Registered Ports for Software Applications
-Ports 49152 to 65535 are Public Ports
+    }
 
-'''
+def lookup(port):
+    returnedresults = False
+    if port.isdigit():
+        for a, b in portlist.items():
+            if a == int(port):
+                print (b)
+                returnedresults = True
+        if not returnedresults:
+            print("No entry for that port")
+    else:
+        print("Not a valid port")
 
-# If true, look it up and print it:
+if __name__ == "__main__":
+
+    if len(sys.argv) == 1:
+        print("Usage: port <port_number>\n")
+        print("0     to 1023  - Well-Known Ports (ssh, ftp, etc)")
+        print("1024  to 49151 - Registered Ports for Software Applications")
+        print("49152 to 65535 - Public Ports\n")
+
+    if len(sys.argv) > 1:
+        print("")
+        for argv in sys.argv[1:]:
+            lookup(argv)
+        print("")
 
 """
-0 TCP, UDP	Reserved; do not use (but is a permissible source port value if the sending process does not expect messages in response)	
-Offical
-1	TCP, UDP	TCPMUX	
-Offical
-5	TCP, UDP	RJE (Remote Job Entry)	
-Offical
-7	TCP, UDP	ECHO protocol	
-Offical
-9	TCP, UDP	DISCARD protocol	
-Offical
+
+
 11	TCP, UDP	SYSTAT protocol	
 Offical
 13	TCP, UDP	DAYTIME protocol	
