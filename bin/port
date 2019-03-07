@@ -16,6 +16,12 @@ portlist = {
     20 : "Port 20: TCP - FTP - data port (FTP-d)",
     21 : "Port 21: TCP - FTP - control (command) port (FTP-c)",
     22 : "Port 22: TCP, UDP - SSH (Secure Shell) - used for secure logins, file transfers (scp, sftp), port forwarding",
+    23 : "Port 23: TCP, UDP - Telnet protocol - unencrypted text communications",
+    25 : "Port 25: TCP, UDP - SMTP (Simple Mail Transport Protocol) - used for e-mail routing between mailservers",
+    26 : "Port 26: TCP, UDP - RSFTP - A simple FTP-like protocol",
+    35 : "Port 35: TCP, UDP - QMS Magicolor 2 printer",
+    37 : "Port 37: TCP, UDP - TIME protocol",
+    38 : "Port 38: TCP, UDP - Route Access Protocol",
     }
 
 def lookup(port):
@@ -48,18 +54,6 @@ if __name__ == "__main__":
 
 
 
-23	TCP, UDP	Telnet protocol - unencrypted text communications
-Offical
-25	TCP, UDP	SMTP (Simple Mail Transport Protocol) - used for e-mail routing between mailservers
-Offical
-26	TCP, UDP	RSFTP - A simple FTP-like protocol
-Unoffical
-35	TCP, UDP	QMS Magicolor 2 printer
-Unoffical
-37	TCP, UDP	TIME protocol
-Offical
-38	TCP, UDP	Route Access Protocol
-Offical
 39	TCP, UDP	Resource Location Protocol
 Offical
 41	TCP, UDP	Graphics
