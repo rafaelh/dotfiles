@@ -23,7 +23,7 @@ portlist = {
     37 : "Port 37: TCP, UDP - TIME protocol",
     38 : "Port 38: TCP, UDP - Route Access Protocol",
     39 : "Port 39: TCP, UDP - Resource Location Protocol",
-    41 : "Port 41: TCP, UDP - Graphics"
+    41 : "Port 41: TCP, UDP - Graphics",
     42 : "Port 42: TCP, UDP - Host Name Server",
     43 : "Port 43: TCP - WHOIS protocol",
     49 : "Port 49: TCP, UDP - TACACS Login Host protocol",
