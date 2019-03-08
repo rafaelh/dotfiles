@@ -22,6 +22,12 @@ portlist = {
     35 : "Port 35: TCP, UDP - QMS Magicolor 2 printer",
     37 : "Port 37: TCP, UDP - TIME protocol",
     38 : "Port 38: TCP, UDP - Route Access Protocol",
+    39 : "Port 39: TCP, UDP - Resource Location Protocol",
+    41 : "Port 41: TCP, UDP - Graphics"
+    42 : "Port 42: TCP, UDP - Host Name Server",
+    43 : "Port 43: TCP - WHOIS protocol",
+    49 : "Port 49: TCP, UDP - TACACS Login Host protocol",
+    53 : "Port 53: TCP, UDP - DNS (Domain Name System)",
     }
 
 def lookup(port):
@@ -54,17 +60,7 @@ if __name__ == "__main__":
 
 
 
-39	TCP, UDP	Resource Location Protocol
-Offical
-41	TCP, UDP	Graphics
-Offical
-42	TCP, UDP	Host Name Server
-Offical
-43	TCP	WHOIS protocol
-Offical
-49	TCP, UDP	TACACS Login Host protocol
-Offical
-53	TCP, UDP	DNS (Domain Name System)
+
 Offical
 57	TCP	MTP, Mail Transfer Protocol
 Offical
