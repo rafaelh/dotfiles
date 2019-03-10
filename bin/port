@@ -87,9 +87,41 @@ portlist = {
     443: "Port 443: TCP - HTTPS",
     444: "Port 444: TCP, UDP - SNPP, Simple Network Paging Protocol",
     445: "Port 445: TCP - Microsoft-DS (Active Directory, Windows shares, Sasser worm, Agobot, Zobotworm)",
-
-
-
+    445: "Port 445: UDP - Microsoft-DS SMB file sharing",
+    464: "Port 464: TCP, UDP - Kerberos Change/Set password",
+    465: "Port 465: TCP	- SMTP over SSL - CONFLICT with registered Cisco protocol",
+    500: "Port 500: TCP, UDP - ISAKMP, IKE-Internet Key Exchange",
+    512: "Port 512: TCP - exec, Remote Process Execution",
+    512: "Port 512: UDP - comsat, together with biff: notifies users of new c.q. yet unread e-mail",
+    513: "Port 513: TCP	- Login",
+    513: "Port 513: UDP	- Who",
+    514: "Port 514: TCP	- rsh protocol - used to execute non-interactive commandline commands on a remote system and see the screen return",
+    514: "Port 514: UDP - syslog protocol",
+    515: "Port 515: TCP	- Line Printer Daemon protocol - used in LPD printer servers",
+    517: "Port 517: TCP - Talk",
+    518: "Port 518: UDP	- NTalk",
+    520: "Port 520: TCP	- efs",
+    520: "Port 520: UDP - Routing - RIP",
+    513: "Port 513: UDP - Router",
+    524: "Port 524: TCP, UDP - NCP (NetWare Core Protocol) is used for a variety things such as access to primary NetWare server resources, Time Synchronization, etc.",
+    525: "Port 525: UDP - Timed, Timeserver",
+    530: "Port 530: TCP, UDP - RPC",
+    531: "Port 531: TCP, UDP - AOL Instant Messenger, IRC",
+    532: "Port 532: TCP - netnews",
+    533: "Port 533: UDP - netwall, For Emergency Broadcasts",
+    540: "Port 540: TCP - UUCP (Unix-to-Unix Copy Protocol)",
+    542: "Port 542: TCP, UDP - commerce (Commerce Applications)",
+    543: "Port 543: TCP - klogin, Kerberos login",
+    544: "Port 544: TCP	- kshell, Kerberos Remote shell",
+    546: "Port 546: TCP, UDP - DHCPv6 client",
+    547: "Port 547: TCP, UDP - DHCPv6 server",
+    548: "Port 548: TCP - AFP (Apple Filing Protocol)",
+    550: "Port 550: UDP	- new-rwho, new-who",
+    554: "Port 554: TCP, UDP - RTSP (Real Time Streaming Protocol)",
+    556: "Port 556: TCP - Remotefs, rfs, rfs_server",
+    560: "Port 560: UDP - rmonitor, Remote Monitor",
+    561: "Port 561: UDP	- monitor",
+    563: "Port 563: TCP, UDP - NNTP protocol over TLS/SSL (NNTPS)",
 
 
 
@@ -127,51 +159,6 @@ if __name__ == "__main__":
 
 
 
-       445	UDP	Microsoft-DS SMB file sharing
-  Offical
-  464	TCP, UDP	Kerberos Change/Set password
-  Offical
-  465	TCP	SMTP over SSL - CONFLICT with registered Cisco protocol
-  Conflict
-  500	TCP, UDP	ISAKMP, IKE-Internet Key Exchange
-  Offical
-  512	TCP	exec, Remote Process Execution
-  512	UDP	comsat, together with biff: notifies users of new c.q. yet unread e-mail
-  513	TCP	Login
-  513	UDP	Who
-  514	TCP	rsh protocol - used to execute non-interactive commandline commands on a remote system and see the screen return
-  514	UDP	syslog protocol - used for system logging
-  Offical
-  515	TCP	Line Printer Daemon protocol - used in LPD printer servers
-  517	TCP	Talk
-  518	UDP	NTalk
-  520	TCP	efs
-  520	UDP	Routing - RIP
-  Offical
-  513	UDP	Router
-  524	TCP, UDP	NCP (NetWare Core Protocol) is used for a variety things such as access to primary NetWare server resources, Time Synchronization, etc.
-  Offical
-  525	UDP	Timed, Timeserver
-  530	TCP, UDP	RPC
-  Offical
-  531	TCP, UDP	AOL Instant Messenger, IRC
-  532	TCP	netnews
-  533	UDP	netwall, For Emergency Broadcasts
-  540	TCP	UUCP (Unix-to-Unix Copy Protocol)
-  542	TCP, UDP	commerce (Commerce Applications)
-  543	TCP	klogin, Kerberos login
-  544	TCP	kshell, Kerberos Remote shell
-  546	TCP, UDP	DHCPv6 client
-  547	TCP, UDP	DHCPv6 server
-  548	TCP	AFP (Apple Filing Protocol)
-  550	UDP	new-rwho, new-who
-  554	TCP, UDP	RTSP (Real Time Streaming Protocol)
-  Offical
-  556	TCP	Remotefs, rfs, rfs_server
-  560	UDP	rmonitor, Remote Monitor
-  561	UDP	monitor
-  563	TCP, UDP	NNTP protocol over TLS/SSL (NNTPS)
-  Offical
   587	TCP	email message submission (SMTP) (RFC 2476)
   Offical
   591	TCP	FileMaker 6.0 Web Sharing (HTTP Alternate, see port 80)
