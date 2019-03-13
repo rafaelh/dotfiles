@@ -31,7 +31,8 @@ portlist = {
     57 : "Port 57: TCP - MTP, Mail Transfer Protocol",
     67 : "Port 67: UDP - BOOTP (BootStrap Protocol) server; also used by DHCP (Dynamic Host Configuration Protocol)",
     68 : "Port 68: UDP - BOOTP client; also used by DHCP",
-   }
+    69 : "Port 69: UDP - TFTP (Trivial File Transfer Protocol)",
+}
 
 def lookup(port):
     returnedresults = False
@@ -64,8 +65,7 @@ if __name__ == "__main__":
 
 
 
-69	UDP	TFTP (Trivial File Transfer Protocol)
-Offical
+
 70	TCP	Gopher protocol
 Offical
 79	TCP	Finger protocol
