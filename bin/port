@@ -32,7 +32,97 @@ portlist = {
     67 : "Port 67: UDP - BOOTP (BootStrap Protocol) server; also used by DHCP (Dynamic Host Configuration Protocol)",
     68 : "Port 68: UDP - BOOTP client; also used by DHCP",
     69 : "Port 69: UDP - TFTP (Trivial File Transfer Protocol)",
-}
+    70 : "Port 70: TCP - Gopher protocol",
+    79 : "Port 79: TCP - Finger protocol",
+    80 : "Port 80: TCP - HTTP (HyperText Transfer Protocol)",
+    81 : "Port 81: TCP - Torpark - Onion routing ORport",
+    82 : "Port 82: UDP - Torpark - Control Port",
+    88 : "Port 88: TCP - Kerberos - authenticating agent",
+    101: "Port 101: TCP	- HOSTNAME",
+    102: "Port 102: TCP - ISO-TSAP protocol",
+    107: "Port 107: TCP - Remote Telnet Service",
+    109: "Port 109: TCP - POP (Post Office Protocol, version 2)",
+    110: "Port 110: TCP - POP3 (Post Office Protocol, version 3)",
+    111: "Port 111: TCP, UDP - SUNRPC protocol",
+    113: "Port 113: TCP	- ident - old server identification system, still used by IRC servers to identify its users",
+    115: "Port 115: TCP - SFTP, Simple File Transfer Protocol",
+    117: "Port 117: TCP - UUCP-PATH",
+    118: "Port 118: TCP, UDP - SQL Services",
+    119: "Port 119: TCP - NNTP (Network News Transfer Protocol)",
+    123: "Port 123: UDP	NTP (Network Time Protocol)",
+    135: "Port 135: TCP, UDP - EPMAP / Microsoft RPC Locator Service",
+    137: "Port 137: TCP, UDP - NetBIOS Name Service",
+    138: "Port 138: TCP, UDP - NetBIOS NetBIOS Datagram Service",
+    139: "Port 139: TCP, UDP - NetBIOS NetBIOS Session Service",
+    143: "Port 143: TCP, UDP - IMAP4 (Internet Message Access Protocol 4)",
+    152: "Port 152: TCP, UDP - BFTP, Background File Transfer Program",
+    153: "Port 153: TCP, UDP - SGMP, Simple Gateway Monitoring Protocol",
+    156: "Port 156: TCP, UDP - SQL Service",
+    158: "Port 158: TCP, UDP - DMSP, Distributed Mail Service Protocol",
+    161: "Port 161: TCP, UDP - SNMP (Simple Network Management Protocol)",
+    162: "Port 162: TCP, UDP - SNMPTRAP",
+    170: "Port 170: TCP - Print-srv",
+    179: "Port 179: TCP - BGP (Border Gateway Protocol)",
+    194: "Port 194: TCP - IRC (Internet Relay Chat)",
+    201: "Port 201: TCP, UDP - AppleTalk Routing Maintenance",
+    209: "Port 209: TCP, UDP - The Quick Mail Transfer Protocol",
+    213: "Port 213: TCP, UDP - IPX",
+    218: "Port 218: TCP, UDP - MPP, Message Posting Protocol",
+    220: "Port 220: TCP, UDP - IMAP, Interactive Mail Access Protocol, version 3",
+    259: "Port 259: TCP, UDP - ESRO, Efficient Short Remote Operations",
+    264: "Port 264: TCP, UDP - BGMP, Border Gateway Multicast Protocol",
+    311: "Port 311: TCP - Apple Server-Admin-Tool, Workgroup-Manager-Tool",
+    318: "Port 318: TCP, UDP - TSP, Time Stamp Protocol",
+    323: "Port 323: TCP, UDP - IMMP, Internet Message Mapping Protocol",
+    383: "Port 383: TCP, UDP - HP OpenView HTTPs Operations Agent",
+    366: "Port 366: TCP, UDP - SMTP, Simple Mail Transfer Protocol. ODMR, On-Demand Mail Relay",
+    369: "Port 369: TCP, UDP - Rpc2portmap",
+    371: "Port 371: TCP, UDP - ClearCase albd",
+    384: "Port 384: TCP, UDP - A Remote Network Server System",
+    387: "Port 387: TCP, UDP - AURP, AppleTalk Update-based Routing Protocol",
+    389: "Port 389: TCP, UDP - LDAP (Lightweight Directory Access Protocol)",
+    401: "Port 401: TCP, UDP - UPS Uninterruptible Power Supply",
+    411: "Port 411: TCP - Direct Connect Hub port",
+    427: "Port 427: TCP, UDP - SLP (Service Location Protocol)",
+    443: "Port 443: TCP - HTTPS",
+    444: "Port 444: TCP, UDP - SNPP, Simple Network Paging Protocol",
+    445: "Port 445: TCP - Microsoft-DS (Active Directory, Windows shares, Sasser worm, Agobot, Zobotworm)",
+    445: "Port 445: UDP - Microsoft-DS SMB file sharing",
+    464: "Port 464: TCP, UDP - Kerberos Change/Set password",
+    465: "Port 465: TCP	- SMTP over SSL - CONFLICT with registered Cisco protocol",
+    500: "Port 500: TCP, UDP - ISAKMP, IKE-Internet Key Exchange",
+    512: "Port 512: TCP - exec, Remote Process Execution",
+    512: "Port 512: UDP - comsat, together with biff: notifies users of new c.q. yet unread e-mail",
+    513: "Port 513: TCP	- Login",
+    513: "Port 513: UDP	- Who",
+    514: "Port 514: TCP	- rsh protocol - used to execute non-interactive commandline commands on a remote system and see the screen return",
+    514: "Port 514: UDP - syslog protocol",
+    515: "Port 515: TCP	- Line Printer Daemon protocol - used in LPD printer servers",
+    517: "Port 517: TCP - Talk",
+    518: "Port 518: UDP	- NTalk",
+    520: "Port 520: TCP	- efs",
+    520: "Port 520: UDP - Routing - RIP",
+    513: "Port 513: UDP - Router",
+    524: "Port 524: TCP, UDP - NCP (NetWare Core Protocol) is used for a variety things such as access to primary NetWare server resources, Time Synchronization, etc.",
+    525: "Port 525: UDP - Timed, Timeserver",
+    530: "Port 530: TCP, UDP - RPC",
+    531: "Port 531: TCP, UDP - AOL Instant Messenger, IRC",
+    532: "Port 532: TCP - netnews",
+    533: "Port 533: UDP - netwall, For Emergency Broadcasts",
+    540: "Port 540: TCP - UUCP (Unix-to-Unix Copy Protocol)",
+    542: "Port 542: TCP, UDP - commerce (Commerce Applications)",
+    543: "Port 543: TCP - klogin, Kerberos login",
+    544: "Port 544: TCP	- kshell, Kerberos Remote shell",
+    546: "Port 546: TCP, UDP - DHCPv6 client",
+    547: "Port 547: TCP, UDP - DHCPv6 server",
+    548: "Port 548: TCP - AFP (Apple Filing Protocol)",
+    550: "Port 550: UDP	- new-rwho, new-who",
+    554: "Port 554: TCP, UDP - RTSP (Real Time Streaming Protocol)",
+    556: "Port 556: TCP - Remotefs, rfs, rfs_server",
+    560: "Port 560: UDP - rmonitor, Remote Monitor",
+    561: "Port 561: UDP	- monitor",
+    563: "Port 563: TCP, UDP - NNTP protocol over TLS/SSL (NNTPS)",
+    }
 
 def lookup(port):
     returnedresults = False
@@ -64,143 +154,7 @@ if __name__ == "__main__":
 
 
 
-
-
-70	TCP	Gopher protocol
-Offical
-79	TCP	Finger protocol
-Offical
-80	TCP	HTTP (HyperText Transfer Protocol) - used for transferring web pages
-Offical
-81	TCP	Torpark - Onion routing ORport
-Unoffical
-82	UDP	Torpark - Control Port
-Unoffical
-88	TCP	Kerberos - authenticating agent
-Offical
-101	TCP	HOSTNAME
-102	TCP	ISO-TSAP protocol
-107	TCP	Remote Telnet Service
-109	TCP	POP, Post Office Protocol, version 2
-110	TCP	POP3 (Post Office Protocol version 3) - used for retrieving E-mails
-Offical
-111	TCP, UDP	SUNRPC protocol
-113	TCP	ident - old server identification system, still used by IRC servers to identify its users
-Offical
-115	TCP	SFTP, Simple File Transfer Protocol
-117	TCP	UUCP-PATH
-118	TCP, UDP	SQL Services
-Offical
-119	TCP	NNTP (Network News Transfer Protocol) - used for retrieving newsgroups messages
-Offical
-123	UDP	NTP (Network Time Protocol) - used for time synchronization
-Offical
-135	TCP, UDP	EPMAP / Microsoft RPC Locator Service
-Offical
-137	TCP, UDP	NetBIOS NetBIOS Name Service
-Offical
-138	TCP, UDP	NetBIOS NetBIOS Datagram Service
-Offical
-139	TCP, UDP	NetBIOS NetBIOS Session Service
-Offical
-143	TCP, UDP	IMAP4 (Internet Message Access Protocol 4) - used for retrieving E-mails
-Offical
-152	TCP, UDP	BFTP, Background File Transfer Program
-
- 153	TCP, UDP	SGMP, Simple Gateway Monitoring Protocol
-
-  156	TCP, UDP	SQL Service
-  Offical
-  158	TCP, UDP	DMSP, Distributed Mail Service Protocol
-  161	TCP, UDP	SNMP (Simple Network Management Protocol)
-  Offical
-  162	TCP, UDP	SNMPTRAP
-  Offical
-  170	TCP	Print-srv
-  179	TCP	BGP (Border Gateway Protocol)
-  Offical
-  194	TCP	IRC (Internet Relay Chat)
-  Offical
-  201	TCP, UDP	AppleTalk Routing Maintenance
-  209	TCP, UDP	The Quick Mail Transfer Protocol
-  213	TCP, UDP	IPX
-  Offical
-  218	TCP, UDP	MPP, Message Posting Protocol
-  220	TCP, UDP	IMAP, Interactive Mail Access Protocol, version 3
-  259	TCP, UDP	ESRO, Efficient Short Remote Operations
-  264	TCP, UDP	BGMP, Border Gateway Multicast Protocol
-  311	TCP	Apple Server-Admin-Tool, Workgroup-Manager-Tool
-  318	TCP, UDP	TSP, Time Stamp Protocol
-  323	TCP, UDP	IMMP, Internet Message Mapping Protocol
-  383
-
-  TCP, UDP	HP OpenView HTTPs Operations Agent
-  366	TCP, UDP	SMTP, Simple Mail Transfer Protocol. ODMR, On-Demand Mail Relay
-  369	TCP, UDP	Rpc2portmap
-  Offical
-  371	TCP, UDP	ClearCase albd
-  Offical
-  384	TCP, UDP	A Remote Network Server System
-  387	TCP, UDP	AURP, AppleTalk Update-based Routing Protocol
-  389	TCP, UDP	LDAP (Lightweight Directory Access Protocol)
-  Offical
-  401	TCP, UDP	UPS Uninterruptible Power Supply
-  Offical
-  411	TCP	Direct Connect Hub port
-  Unoffical
-  427	TCP, UDP	SLP (Service Location Protocol)
-  Offical
-  443	TCP	HTTPS - HTTP Protocol over TLS/SSL (encrypted transmission)
-  Offical
-  444	TCP, UDP	SNPP, Simple Network Paging Protocol
-  445	TCP	Microsoft-DS (Active Directory, Windows shares, Sasser worm, Agobot, Zobotworm)
-  Offical
-  445	UDP	Microsoft-DS SMB file sharing
-  Offical
-  464	TCP, UDP	Kerberos Change/Set password
-  Offical
-  465	TCP	SMTP over SSL - CONFLICT with registered Cisco protocol
-  Conflict
-  500	TCP, UDP	ISAKMP, IKE-Internet Key Exchange
-  Offical
-  512	TCP	exec, Remote Process Execution
-  512	UDP	comsat, together with biff: notifies users of new c.q. yet unread e-mail
-  513	TCP	Login
-  513	UDP	Who
-  514	TCP	rsh protocol - used to execute non-interactive commandline commands on a remote system and see the screen return
-  514	UDP	syslog protocol - used for system logging
-  Offical
-  515	TCP	Line Printer Daemon protocol - used in LPD printer servers
-  517	TCP	Talk
-  518	UDP	NTalk
-  520	TCP	efs
-  520	UDP	Routing - RIP
-  Offical
-  513	UDP	Router
-  524	TCP, UDP	NCP (NetWare Core Protocol) is used for a variety things such as access to primary NetWare server resources, Time Synchronization, etc.
-  Offical
-  525	UDP	Timed, Timeserver
-  530	TCP, UDP	RPC
-  Offical
-  531	TCP, UDP	AOL Instant Messenger, IRC
-  532	TCP	netnews
-  533	UDP	netwall, For Emergency Broadcasts
-  540	TCP	UUCP (Unix-to-Unix Copy Protocol)
-  542	TCP, UDP	commerce (Commerce Applications)
-  543	TCP	klogin, Kerberos login
-  544	TCP	kshell, Kerberos Remote shell
-  546	TCP, UDP	DHCPv6 client
-  547	TCP, UDP	DHCPv6 server
-  548	TCP	AFP (Apple Filing Protocol)
-  550	UDP	new-rwho, new-who
-  554	TCP, UDP	RTSP (Real Time Streaming Protocol)
-  Offical
-  556	TCP	Remotefs, rfs, rfs_server
-  560	UDP	rmonitor, Remote Monitor
-  561	UDP	monitor
-  563	TCP, UDP	NNTP protocol over TLS/SSL (NNTPS)
-  Offical
-  587	TCP	email message submission (SMTP) (RFC 2476)
+587	TCP	email message submission (SMTP) (RFC 2476)
   Offical
   591	TCP	FileMaker 6.0 Web Sharing (HTTP Alternate, see port 80)
   Offical
