@@ -122,11 +122,7 @@ portlist = {
     560: "Port 560: UDP - rmonitor, Remote Monitor",
     561: "Port 561: UDP	- monitor",
     563: "Port 563: TCP, UDP - NNTP protocol over TLS/SSL (NNTPS)",
-
-
-
-
-  }
+    }
 
 def lookup(port):
     returnedresults = False
@@ -158,8 +154,7 @@ if __name__ == "__main__":
 
 
 
-
-  587	TCP	email message submission (SMTP) (RFC 2476)
+587	TCP	email message submission (SMTP) (RFC 2476)
   Offical
   591	TCP	FileMaker 6.0 Web Sharing (HTTP Alternate, see port 80)
   Offical
