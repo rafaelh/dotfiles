@@ -122,7 +122,19 @@ portlist = {
     560: "Port 560: UDP - rmonitor, Remote Monitor",
     561: "Port 561: UDP	- monitor",
     563: "Port 563: TCP, UDP - NNTP protocol over TLS/SSL (NNTPS)",
-    }
+    587: "Port 587: TCP	- Email message submission (SMTP) (RFC 2476)",
+    591: "Port 591: TCP - FileMaker 6.0 Web Sharing (HTTP Alternate, see port 80)",
+    593: "Port 593: TCP, UDP - HTTP RPC Ep Map",
+    604: "Port 604: TCP	TUNNEL",
+    631: "Port 631: TCP, UDP - IPP, Internet Printing Protocol",
+    636: "Port 636: TCP, UDP - LDAP over SSL (encrypted transmission)",
+    639: "Port 639: TCP, UDP - MSDP, Multicast Source Discovery Protocol",
+    646: "Port 646: TCP - LDP, Label Distribution Protocol",
+    647: "Port 647: TCP - DHCP Failover Protocol",
+    648: "Port 648: TCP - RRP, Registry Registrar Protocol",
+    652: "Port 652: TCP - DTCP, Dynamic Tunnel Configuration Protocol",
+    654: "Port 654: TCP - AODV, Ad hoc On-Demand Distance Vector",
+   }
 
 def lookup(port):
     returnedresults = False
@@ -145,31 +157,12 @@ if __name__ == "__main__":
         print("49152 to 65535 - Public Ports\n")
 
     if len(sys.argv) > 1:
-        print("")
         for argv in sys.argv[1:]:
             lookup(argv)
-        print("")
-
 """
 
 
 
-587	TCP	email message submission (SMTP) (RFC 2476)
-  Offical
-  591	TCP	FileMaker 6.0 Web Sharing (HTTP Alternate, see port 80)
-  Offical
-  593	TCP, UDP	HTTP RPC Ep Map
-  Offical
-  604	TCP	TUNNEL
-  631	TCP, UDP	IPP, Internet Printing Protocol
-  636	TCP, UDP	LDAP over SSL (encrypted transmission)
-  Offical
-  639	TCP, UDP	MSDP, Multicast Source Discovery Protocol
-  646	TCP	LDP, Label Distribution Protocol
-  647	TCP	DHCP Failover Protocol
-  648	TCP	RRP, Registry Registrar Protocol
-  652	TCP	DTCP, Dynamic Tunnel Configuration Protocol
-  654	TCP	AODV, Ad hoc On-Demand Distance Vector
   665	TCP	sun-dr, Remote Dynamic Reconfiguration
   Unoffical
   666	UDP	Doom, First online FPS
