@@ -36,8 +36,9 @@ alias wget='wget -c'
 alias term='echo $TERM'
 alias yt='youtube-dl'
 
-# For Python
+# For Python & Docker
 export BETTER_EXCEPTIONS=1
+export DOCKER_HOST=tcp://localhost:2375
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -166,4 +167,5 @@ fi
 
 # For WSL + ConEmu - doesn't start in the right directory
 cd
+
 
