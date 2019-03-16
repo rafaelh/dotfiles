@@ -134,7 +134,13 @@ portlist = {
     648: "Port 648: TCP - RRP, Registry Registrar Protocol",
     652: "Port 652: TCP - DTCP, Dynamic Tunnel Configuration Protocol",
     654: "Port 654: TCP - AODV, Ad hoc On-Demand Distance Vector",
-   }
+    665: "Port 665: TCP - sun-dr, Remote Dynamic Reconfiguration",
+    666: "Port 666: UDP	- Doom, First online FPS",
+    674: "Port 674: TCP - ACAP, Application Configuration Access Protocol",
+    691: "Port 691: TCP - MS Exchange Routing"
+    692: "Port 692: TCP - Hyperwave-ISP",
+    695: "Port 695: TCP - IEEE-MMS-SSL",
+    }
 
 def lookup(port):
     returnedresults = False
@@ -163,14 +169,7 @@ if __name__ == "__main__":
 
 
 
-  665	TCP	sun-dr, Remote Dynamic Reconfiguration
-  Unoffical
-  666	UDP	Doom, First online FPS
-  674	TCP	ACAP, Application Configuration Access Protocol
-  691	TCP	MS Exchange Routing
-  Offical
-  692	TCP	Hyperwave-ISP
-  695	TCP	IEEE-MMS-SSL
+
   698	TCP	OLSR, Optimized Link State Routing
   699	TCP	Access Network
   700	TCP	EPP, Extensible Provisioning Protocol
