@@ -5,6 +5,7 @@ import os
 homedir = os.getenv("HOME") + '/'
 repodir = os.getenv("HOME") + '/dotfiles/'
 links = os.listdir(repodir)
+mounts = os.listdir("/mnt")
 ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup']
 windowsdirs = ['']
 
@@ -37,6 +38,11 @@ for link in links:
         print("\033[1;32;40m>>> \033[1;37;40mLinking: %s\033[0;37;40m" % link)
         cmdstring = "ln -s %s%s %s.%s" % (repodir, link, homedir, link)
         os.system(cmdstring)
+
+# For Docker
+for mount in mounts:
+    cmdstring = "sudo ln -s /mnt/%s /%s" % (mount, mount)
+    os.system(cmdstring)
 
 # Download git plugins
 if not os.path.exists(repodir + 'vim/bundle'):
