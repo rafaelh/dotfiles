@@ -140,6 +140,15 @@ portlist = {
     691: "Port 691: TCP - MS Exchange Routing"
     692: "Port 692: TCP - Hyperwave-ISP",
     695: "Port 695: TCP - IEEE-MMS-SSL",
+    698: "Port 698: TCP	- OLSR, Optimized Link State Routing",
+    699: "Port 699: TCP	- Access Network",
+    700: "Port 700: TCP	- EPP, Extensible Provisioning Protocol",
+    701: "Port 701: TCP - LMP, Link Management Protocol",
+    702: "Port 702: TCP	- IRIS over BEEP",
+    706: "Port 706: TCP - SILC, Secure Internet Live Conferencing",
+    711: "Port 711: TCP - TDP, Tag Distribution Protocol",
+    712: "Port 712: TCP - TBRPF, Topology Broadcast based on Reverse-Path Forwarding",
+    720: "Port 720: TCP - SMQP, Simple Message Queue Protocol",
     }
 
 def lookup(port):
@@ -170,15 +179,6 @@ if __name__ == "__main__":
 
 
 
-  698	TCP	OLSR, Optimized Link State Routing
-  699	TCP	Access Network
-  700	TCP	EPP, Extensible Provisioning Protocol
-  701	TCP	LMP, Link Management Protocol.
-  702	TCP	IRIS over BEEP
-  706	TCP	SILC, Secure Internet Live Conferencing
-  711	TCP	TDP, Tag Distribution Protocol
-  712	TCP	TBRPF, Topology Broadcast based on Reverse-Path Forwarding
-  720	TCP	SMQP, Simple Message Queue Protocol
   749	TCP, UDP	kerberos-adm, Kerberos administration
   750	UDP	Kerberos version IV
   782	TCP	Conserver serial-console management server
