@@ -1,16 +1,17 @@
 #!/bin/bash
 
-$DIRECTORY="/mnt/c/Users/rhart/Music/"
-$SEAL="root@192.168.0.15:/raid/Music/Rafe"
+DIRECTORY="/mnt/c/Users/rhart/Music"
+#SEAL="root@192.168.0.15:/raid/Music/Rafe"
+SEAL="root@rafaelh.duckdns.org:/raid/Music/Rafe/"
 
 if [ -d "$DIRECTORY" ]; then
 
-    if [ "$1" == pull ]
+    if [ "$1" == pull ]; then
         echo ">>> Copying Music from SEAL to LT-RHART"
         rsync -avz --delete -e 'ssh -p 9012' $SEAL $DIRECTORY
     fi
 
-    if [ "$1" == push ];
+    if [ "$1" == push ]; then
         echo ">>> Copying Music from LT-RHART to SEAL"
 	rsync -avz --delete -e 'ssh -p 9012' $DIRECTORY $SEAL
     fi
