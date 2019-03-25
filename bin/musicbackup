@@ -1,0 +1,18 @@
+#!/bin/bash
+
+$DIRECTORY="/mnt/c/Users/rhart/Music/"
+$SEAL="root@192.168.0.15:/raid/Music/Rafe"
+
+if [ -d "$DIRECTORY" ]; then
+
+    if [ "$1" == pull ]
+        echo ">>> Copying Music from SEAL to LT-RHART"
+        rsync -avz --delete -e 'ssh -p 9012' $SEAL $DIRECTORY
+    fi
+
+    if [ "$1" == push ];
+        echo ">>> Copying Music from LT-RHART to SEAL"
+	rsync -avz --delete -e 'ssh -p 9012' $DIRECTORY $SEAL
+    fi
+
+fi
