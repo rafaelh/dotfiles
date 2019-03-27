@@ -157,7 +157,10 @@ portlist = {
     873: "Port 873: TCP - rsync File synchronisation protocol",
     901: "Port 901: TCP - Samba Web Administration Tool (SWAT)",
     902: "Port 902: TCP - VMware Server Console"
-   }
+    911: "Port 911: TCP - Network Console on Acid (NCA) - local tty redirection over OpenSSH",
+    981: "Port 981: TCP - SofaWare Technologies Remote HTTPS management for firewall devices running embedded Checkpoint Firewall-1 software",
+    989: "Port 989: TCP, UDP - FTP Protocol (data) over TLS/SSL",
+  }
 
 def lookup(port):
     returnedresults = False
@@ -188,10 +191,6 @@ Add a reverse search using https://www.speedguide.net/ports.php?filter=vmware
 
 
   Unoffical
-  911	TCP	Network Console on Acid (NCA) - local tty redirection over OpenSSH
-  981	TCP	SofaWare Technologies Remote HTTPS management for firewall devices running embedded Checkpoint Firewall-1 software
-  Unoffical
-  989	TCP, UDP	FTP Protocol (data) over TLS/SSL
   Offical
   990	TCP, UDP	FTP Protocol (control) over TLS/SSL
   Offical
