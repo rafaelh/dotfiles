@@ -1,8 +1,9 @@
 #!/bin/bash
 
-DIRECTORY="/mnt/c/Users/rhart/Music"
-#SEAL="root@192.168.0.15:/raid/Music/Rafe"
-SEAL="root@rafaelh.duckdns.org:/raid/Music/Rafe/"
+#DIRECTORY="/mnt/c/Users/rhart/Music"
+DIRECTORY="/mnt/c/Users/Rafael/Music"
+SEAL="root@192.168.0.15:/raid/Music/Rafe"
+#SEAL="root@rafaelh.duckdns.org:/raid/Music/Rafe/"
 
 if [ -d "$DIRECTORY" ]; then
 
