@@ -1,9 +1,14 @@
 #!/bin/bash
 
-#DIRECTORY="/mnt/c/Users/rhart/Music"
-DIRECTORY="/mnt/c/Users/Rafael/Music"
-SEAL="root@192.168.0.15:/raid/Music/Rafe"
-#SEAL="root@rafaelh.duckdns.org:/raid/Music/Rafe/"
+if [ "$HOSTNAME" = BELISKNER  ]; then
+    DIRECTORY="/mnt/c/Users/Rafael/Music"
+    SEAL="root@192.168.0.15:/raid/Music/Rafe"
+fi
+
+if [ "$HOSTNAME" = LT-RHART ]; then
+    DIRECTORY="/mnt/c/Users/rhart/"
+    SEAL="root@rafaelh.duckdns.org:/raid/Music/Rafe/Music"
+fi
 
 if [ -d "$DIRECTORY" ]; then
 
@@ -18,3 +23,4 @@ if [ -d "$DIRECTORY" ]; then
     fi
 
 fi
+
