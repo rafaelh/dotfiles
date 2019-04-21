@@ -35,6 +35,7 @@ alias openports='netstat -tulanp'
 alias wget='wget -c'
 alias term='echo $TERM'
 alias yt='youtube-dl'
+alias powershell='pwsh'
 
 # For Python & Docker
 export BETTER_EXCEPTIONS=1
