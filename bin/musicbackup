@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ "$HOSTNAME" = BELISKNER  ]; then
+    DIRECTORY="/mnt/c/Users/Rafael/Music"
+    SEAL="root@192.168.0.15:/raid/Music/Rafe"
+fi
+
+if [ "$HOSTNAME" = LT-RHART ]; then
+    DIRECTORY="/mnt/c/Users/rhart/"
+    SEAL="root@rafaelh.duckdns.org:/raid/Music/Rafe/Music"
+fi
+
+if [ -d "$DIRECTORY" ]; then
+
+    if [ "$1" == pull ]; then
+        echo ">>> Copying Music from SEAL to LT-RHART"
+        rsync -avz --delete -e 'ssh -p 9012' $SEAL $DIRECTORY
+    fi
+
+    if [ "$1" == push ]; then
+        echo ">>> Copying Music from LT-RHART to SEAL"
+	rsync -avz --delete -e 'ssh -p 9012' $DIRECTORY $SEAL
+    fi
+
+fi
+

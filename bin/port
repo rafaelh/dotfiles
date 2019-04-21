@@ -2,9 +2,13 @@
 
 import sys
 
+# https://isc.sans.edu/services.html
+
 portlist = {
     0 : "Port 0: TCP, UDP - Reserved; do not use (but is a permissible source port value if the sending process does not expect messages in response",
-    1 : "Port 1: TCP, UDP - TCPMUX",
+    1 : "Port 1: TCP, UDP - TCPMUX (TCP Port Service Multiplexer [rfc-1078])",
+    2 : "Port 2: TCP - compressnet Management Utility. Port 2 is not typically used."
+    3 : "Port 3: TCP, UDP - compressnet Compression Process"
     5 : "Port 5: TCP, UDP - RJE (Remote Job Entry)",
     7 : "Port 7: TCP, UDP - ECHO protocol",
     9 : "Port 9: TCP, UDP - DISCARD protocol",
@@ -149,7 +153,23 @@ portlist = {
     711: "Port 711: TCP - TDP, Tag Distribution Protocol",
     712: "Port 712: TCP - TBRPF, Topology Broadcast based on Reverse-Path Forwarding",
     720: "Port 720: TCP - SMQP, Simple Message Queue Protocol",
-    }
+    749: "Port 749: TCP, UDP - kerberos-adm, Kerberos administration",
+    750: "Port 750: UDP	- Kerberos version IV",
+    782: "Port 782: TCP - Conserver serial-console management server",
+    829: "Port 829: TCP - CMP (Certificate Management Protocol)",
+    860: "Port 860: TCP - iSCSI",
+    873: "Port 873: TCP - rsync File synchronisation protocol",
+    901: "Port 901: TCP - Samba Web Administration Tool (SWAT)",
+    902: "Port 902: TCP - VMware Server Console"
+    911: "Port 911: TCP - Network Console on Acid (NCA) - local tty redirection over OpenSSH",
+    981: "Port 981: TCP - SofaWare Technologies Remote HTTPS management for firewall devices running embedded Checkpoint Firewall-1 software",
+    989: "Port 989: TCP, UDP - FTP Protocol (data) over TLS/SSL",
+    990: "Port 990: TCP, UDP - FTP Protocol (control) over TLS/SSL",
+    991: "Port 991: TCP, UDP - NAS (Netnews Admin System)",
+    992: "Port 992: TCP, UDP - Telnet protocol over TLS/SSL",
+    993: "Port 993: TCP - IMAP4 over SSL (encrypted transmission)",
+    995: "Port 995: TCP - POP3 over SSL (encrypted transmission)",
+}
 
 def lookup(port):
     returnedresults = False
@@ -174,35 +194,8 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         for argv in sys.argv[1:]:
             lookup(argv)
+
 """
-
-
-
-
-  749	TCP, UDP	kerberos-adm, Kerberos administration
-  750	UDP	Kerberos version IV
-  782	TCP	Conserver serial-console management server
-  829	TCP	CMP (Certificate Management Protocol)
-  860	TCP	iSCSI
-  873	TCP	rsync File synchronisation protocol
-  Offical
-  901	TCP	Samba Web Administration Tool (SWAT)
-  Unoffical
-  902		VMware Server
-  Unoffical
-  911	TCP	Network Console on Acid (NCA) - local tty redirection over OpenSSH
-  981	TCP	SofaWare Technologies Remote HTTPS management for firewall devices running embedded Checkpoint Firewall-1 software
-  Unoffical
-  989	TCP, UDP	FTP Protocol (data) over TLS/SSL
-  Offical
-  990	TCP, UDP	FTP Protocol (control) over TLS/SSL
-  Offical
-  991	TCP, UDP	NAS (Netnews Admin System)
-  992	TCP, UDP	Telnet protocol over TLS/SSL
-  Offical
-  993	TCP	IMAP4 over SSL (encrypted transmission)
-  Offical
-  995	TCP	POP3 over SSL (encrypted transmission)
-  Offical
- """
+Add a reverse search using https://www.speedguide.net/ports.php?filter=vmware
+"""
 
