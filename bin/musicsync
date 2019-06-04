@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ "$HOSTNAME" = BELISKNER  ]; then
+    DIRECTORY="/mnt/c/Users/Rafael/Music/"
+    SERVER="root@192.168.0.15:/raid/Music/Rafe/"
+fi
+
+if [ "$HOSTNAME" = LT-HARTR ]; then
+    DIRECTORY="/mnt/c/Users/rhart/Music/"
+    SERVER="root@rafaelh.duckdns.org:/raid/Music/Rafe/"
+fi
+
+if [ -d "$DIRECTORY" ]; then
+
+    if [ "$1" == pull ]; then
+        echo ">>> Copying Music from Server to Local Machine"
+        rsync -avz --delete -e 'ssh -p 9012' $SERVER $DIRECTORY
+    fi
+
+    if [ "$1" == push ]; then
+        echo ">>> Copying Music from Local Machine to Server"
+	rsync -avz --delete -e 'ssh -p 9012' $DIRECTORY $SERVER
+    fi
+
+fi
+
