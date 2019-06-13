@@ -6,7 +6,7 @@ if [ "$HOSTNAME" = BELISKNER  ]; then
 fi
 
 if [ "$HOSTNAME" = LT-HARTR ]; then
-    DIRECTORY="/mnt/c/Users/rhart/Music/"
+    DIRECTORY='/mnt/c/Users/rhart/gdrive/Music/Mobile/'
     SERVER="root@rafaelh.duckdns.org:/raid/Music/Rafe/"
 fi
 
