@@ -1,0 +1,5 @@
+#!/bin/bash
+
+https://www.google.com/search?q=site:$1 inurl:login,register,upload,logout,redirect,redir,goto,admin
+https://www.google.com/search?q=site:$1 inurl:&
+
