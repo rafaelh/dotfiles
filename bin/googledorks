@@ -2,4 +2,7 @@
 
 https://www.google.com/search?q=site:$1 inurl:login,register,upload,logout,redirect,redir,goto,admin
 https://www.google.com/search?q=site:$1 inurl:&
+https://www.google.com/search?q=site:$1 ext:php,asp,aspx,jsp,jspa,txt,swf
+https://www.google.com/search?q=site:$1 -$1 -$1
+https://www.google.com/search?q=site:$1 filetype:txt
 
