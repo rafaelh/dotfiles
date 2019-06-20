@@ -33,3 +33,7 @@ fi
 if [ "$HOSTNAME" = "animus" ]; then
     echo -n "dropbox status"
 fi
+
+# Maybe make this Fedora specific, maybe not...
+KERN_DIR=/usr/src/kernels/`uname -r`
+
