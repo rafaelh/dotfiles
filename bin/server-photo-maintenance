@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Maintenance for Photo collection
+
+# Delete junk files
+find /raid/Photos -name "\._*" -exec rm -rf {} \;
+find /raid/Photos -name "\.DS_Store" -exec rm -rf {} \;
+find /raid/Photos -name "Thumbs.db" -exec rm -rf {} \;
+
+# Correct photo modification times based off EXIF data
+find /raid/Photos -type f -exec jhead -exonly -ft {} \;
