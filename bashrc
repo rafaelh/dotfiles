@@ -21,7 +21,6 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export EDITOR=vim
 export PAGER=most
 
-alias razer='xinput set-button-map 14 3 2 1 && xinput set-button-map 15 3 2 1'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias ls='ls -h --color=auto'
@@ -65,21 +64,24 @@ fi
 
 # Environment-specific settings ===============================================
 
-# Fedora Aliases
+# === Fedora Aliases ===
 if [ -f /etc/redhat-release ]; then
     alias update-grub='sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
 fi
 
-# Ubuntu/Debian Specific
+# === Ubuntu/Debian Specific ===
 if [[ `uname -s` == Linux* ]]; then
     alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
     alias autoupdate='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
 fi
 
-# WSL Specific
+# === WSL Specific ===
 if [ -d /mnt/c/ ]; then
     export DISPLAY=localhost:0.0
-    alias update='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
+    alias update='sudo apt-get update -y && \
+	          sudo apt-get upgrade -y && \
+		  sudo apt-get dist-upgrade -y && \
+		  sudo apt-get autoremove -y'
 fi
 
 
@@ -160,8 +162,8 @@ if [ "$EUID" -ne 0 ]; then
     fi
 
     # Run Private Commands that apply to all machines
-    if [ -f dropbox/Computers/Private_Bash.sh ]; then
-        . dropbox/Computers/Private_Bash.sh
+    if [ -f gdrive/Computers/Private_Bash.sh ]; then
+        . gdrive/Computers/Private_Bash.sh
     fi
 fi
 
