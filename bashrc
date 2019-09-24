@@ -64,24 +64,30 @@ fi
 
 # Environment-specific settings ===============================================
 
+GREEN="\033[1;32m"
+ENDCOLOR="\033[0m"
+
 # === Fedora Aliases ===
 if [ -f /etc/redhat-release ]; then
+    echo -ne $GREEN">>> "$ENDCOLOR; echo "RedHat / CentOS / Fedora"
     alias update-grub='sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
 fi
 
 # === Ubuntu/Debian Specific ===
-if [[ `uname -s` == Linux* ]]; then
+if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
+    echo -ne $GREEN">>> "$ENDCOLOR; echo "Ubuntu / Debian"
     alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
     alias autoupdate='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
 fi
 
 # === WSL Specific ===
 if [ -d /mnt/c/ ]; then
+    echo -ne $GREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
     export DISPLAY=localhost:0.0
     alias update='sudo apt-get update -y && \
-	          sudo apt-get upgrade -y && \
-		  sudo apt-get dist-upgrade -y && \
-		  sudo apt-get autoremove -y'
+	              sudo apt-get upgrade -y && \
+		          sudo apt-get dist-upgrade -y && \
+		          sudo apt-get autoremove -y'
 fi
 
 
