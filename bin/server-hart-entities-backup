@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Get current month
+MONTH=`date +"%Y-%B"`                # Get current month
+COMPRESSDIR="/home/dropbox/Dropbox"  # Directory to compress
+SAVEDIR="/raid/Computers/HART"       # Directory to save to
+
+echo $MONTH
+echo $COMPRESSDIR
+echo $SAVEDIR
+
+tar -zcvf $SAVEDIR/$MONTH.tar.gz $COMPRESSDIR
+chown dropbox:family $SAVEDIR/$MONTH.tar.gz
+

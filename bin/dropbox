@@ -1,0 +1,2 @@
+#!/bin/bash
+su dropbox -c "/home/rafael/.bin/dropbox-cli $@"

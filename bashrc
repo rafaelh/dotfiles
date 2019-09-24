@@ -33,8 +33,8 @@ alias mount='mount | column -t'
 alias openports='netstat -tulanp'
 alias wget='wget -c'
 alias term='echo $TERM'
-alias yt='youtube-dl'
 alias powershell='pwsh'
+alias enso='ssh admin@52.63.174.213' # Auth by private key
 
 # For Python & Docker
 export BETTER_EXCEPTIONS=1

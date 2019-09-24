@@ -21,7 +21,7 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ "$HOSTNAME" = seal ]; then
+if [ "$HOSTNAME" = ares ]; then
     echo -n "RAID Status:"
     cat /proc/mdstat | grep U | cut -d "," -f 3
     echo -n "SELinux:     "
