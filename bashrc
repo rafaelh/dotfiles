@@ -9,6 +9,15 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
+# Colour variables to make things pretty
+RED="\e[0;31m"
+YELLOW="\e[0;33m"
+OCHRE="\e[38;5;95m"
+# BLUE="\e[0;34m"
+# WHITE="\e[0;37m"
+GREEN="\033[1;32m"
+ENDCOLOR="\e[0m"
+
 # Basic Settings - All Environments
 HISTCONTROL=ignoredups:ignoreboth
 HISTSIZE=1000
@@ -49,23 +58,12 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
-# Colour variable to make the next function more readable
-COLOR_RED="\e[0;31m"
-COLOR_YELLOW="\e[0;33m"
-COLOR_GREEN="\e[0;32m"
-COLOR_OCHRE="\e[38;5;95m"
-COLOR_BLUE="\e[0;34m"
-COLOR_WHITE="\e[0;37m"
-COLOR_RESET="\e[0m"
-
+# Load color profiles for directory listing
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
 # Environment-specific settings ===============================================
-
-GREEN="\033[1;32m"
-ENDCOLOR="\033[0m"
 
 # === Fedora Aliases ===
 if [ -f /etc/redhat-release ]; then
@@ -96,13 +94,13 @@ function git_color {
     local git_status="$(git status 2> /dev/null)"
 
     if [[ ! $git_status =~ "clean"  ]]; then
-        echo -e $COLOR_RED
+        echo -e $RED
     elif [[ $git_status =~ "Your branch is ahead of"  ]]; then
-        echo -e $COLOR_YELLOW
+        echo -e $YELLOW
     elif [[ $git_status =~ "nothing to commit"  ]]; then
-        echo -e $COLOR_GREEN
+        echo -e $GREEN
     else
-        echo -e $COLOR_OCHRE
+        echo -e $OCHRE
     fi
 }
 
@@ -131,6 +129,7 @@ if [ "$EUID" -eq 0 ]; then
 
     # Run Private Commands
     if [ -f /root/.private ]; then
+        echo -ne $GREEN">>> "$ENDCOLOR; echo "Untracked commands loaded from ~/.private"
         . /root/.private
     fi
 fi
@@ -143,7 +142,7 @@ if [ "$EUID" -ne 0 ]; then
     PS1+='[\[\e[0;33m\]\w\[\e[1;32m\]]\$\[\e[0m\]'   # Working Directory
     PS1+="\[\$(git_color)\]"                         # Colors git status
     PS1+="\$(git_branch)"                            # Prints current branch
-    PS1+="$COLOR_RESET "                             # Ends prompt
+    PS1+="$ENDCOLOR "                                # Ends prompt
 
     # Aliases
     alias fdisk='sudo fdisk'
@@ -164,6 +163,7 @@ if [ "$EUID" -ne 0 ]; then
 
     # Run Private Commands specific to the machine
     if [ -f /home/$USER/.private ]; then
+        echo -ne $GREEN">>> "$ENDCOLOR; echo "Untracked commands loaded from ~/.private"
         . /home/$USER/.private
     fi
 
