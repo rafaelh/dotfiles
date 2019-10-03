@@ -49,6 +49,10 @@ alias enso='ssh admin@52.63.174.213' # Auth by private key
 export BETTER_EXCEPTIONS=1
 export DOCKER_HOST=tcp://localhost:2375
 
+# For NPM
+NPM_PACKAGES="${HOME}/.npm-packages"
+export PATH="$PATH:$NPM_PACKAGES/bin"
+
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
