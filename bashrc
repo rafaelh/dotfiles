@@ -73,9 +73,15 @@ fi
 
 # === Ubuntu/Debian Specific ===
 if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
-    echo -ne $GREEN">>> "$ENDCOLOR; echo "Ubuntu / Debian"
-    alias update='sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove'
-    alias autoupdate='sudo apt-get update -y && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoremove -y'
+    echo -ne $GREEN">>> "$ENDCOLOR; echo "Debian / Kali / Ubuntu"
+    alias update='sudo apt-get update && \
+	          sudo apt-get upgrade && \
+		  sudo apt-get dist-upgrade && \
+		  sudo apt-get autoremove'
+    alias autoupdate='sudo apt-get update -y && \
+	          sudo apt-get upgrade -y && \
+		  sudo apt-get dist-upgrade -y && \
+		  sudo apt-get autoremove -y'
 fi
 
 # === WSL Specific ===
@@ -83,9 +89,9 @@ if [ -d /mnt/c/ ]; then
     echo -ne $GREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
     export DISPLAY=localhost:0.0
     alias update='sudo apt-get update -y && \
-	              sudo apt-get upgrade -y && \
-		          sudo apt-get dist-upgrade -y && \
-		          sudo apt-get autoremove -y'
+	          sudo apt-get upgrade -y && \
+		  sudo apt-get dist-upgrade -y && \
+		  sudo apt-get autoremove -y'
 fi
 
 
@@ -176,5 +182,4 @@ fi
 
 # For WSL + ConEmu - doesn't start in the right directory
 cd
-
 
