@@ -35,14 +35,9 @@ if os.path.exists('/mnt/c'):
 # Simlink dotfiles
 for link in links:
     if link not in ignore and not os.path.exists(homedir + '.' + link):
-        print("\033[1;32;40m>>> \033[1;37;40mLinking: %s\033[0;37;40m" % link)
+        print("\033[1;32;40m>>> \033[1;37;40mLinking: %s\033[0;37;0m" % link)
         cmdstring = "ln -s %s%s %s.%s" % (repodir, link, homedir, link)
         os.system(cmdstring)
-
-# For Docker
-for mount in mounts:
-    cmdstring = "sudo ln -s /mnt/%s /%s" % (mount, mount)
-    os.system(cmdstring)
 
 # Download git plugins
 if not os.path.exists(repodir + 'vim/bundle'):
@@ -53,12 +48,12 @@ def gitsync(gitrepo, gitname):
     if not os.path.exists(repodir + 'vim/bundle'):
         cmdstring = "mkdir %s" % repodir + 'vim/bundle'
     if not os.path.exists(repodir + 'vim/bundle/' + gitname):
-        print("\033[1;32;40m>>> \033[1;37;40mSyncing: %s\033[0;37;40m" % gitname)
+        print("\n\033[1;32;40m>>> \033[1;37;40mSyncing: %s\033[0;37;0m" % gitname)
         cmdstring = "mkdir %s" % repodir + 'vim/bundle/' + gitname
         os.system(cmdstring)
         cmdstring = "git -C %svim/bundle/ clone %s" % (repodir, gitrepo)
         os.system(cmdstring)
-    return;
+    return
 
 gitsync('https://github.com/jiangmiao/auto-pairs', 'auto-pairs')
 gitsync('https://github.com/PProvost/vim-ps1', 'vim-ps1')
