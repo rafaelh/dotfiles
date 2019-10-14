@@ -43,7 +43,7 @@ alias openports='netstat -tulanp'
 alias wget='wget -c'
 alias term='echo $TERM'
 alias powershell='pwsh'
-alias enso='ssh admin@52.63.174.213' # Auth by private key
+alias enso='ssh admin@52.63.174.213'      # Auth by private key
 
 # For Python & Docker
 export BETTER_EXCEPTIONS=1
@@ -132,7 +132,8 @@ function git_branch {
 if [ "$EUID" -eq 0 ]; then
 
     # Set a colour prompt
-    PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] [\[\e[0;33m\]\w\[\e[1;31m\]]\$\[\e[0m\] '
+    PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] '
+    PS1+='[\[\e[0;33m\]\w\[\e[1;31m\]]\$\[\e[0m\]' # Working Directory
 
     # Set additional Directories for inclusion in the Path
     export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/root/.bin:/root/.local/bin
@@ -149,10 +150,7 @@ if [ "$EUID" -ne 0 ]; then
 
     # Set a colour prompt
     PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] '
-    PS1+='[\[\e[0;33m\]\w\[\e[1;32m\]]\$\[\e[0m\]'   # Working Directory
-    PS1+="\[\$(git_color)\]"                         # Colors git status
-    PS1+="\$(git_branch)"                            # Prints current branch
-    PS1+="$ENDCOLOR "                                # Ends prompt
+    PS1+='[\[\e[0;33m\]\w\[\e[1;32m\]]\$\[\e[0m\]' # Working Directory
 
     # Aliases
     alias fdisk='sudo fdisk'
@@ -183,6 +181,10 @@ if [ "$EUID" -ne 0 ]; then
     fi
 fi
 
+# Add Git Status ==============================================================
+PS1+="\[\$(git_color)\]"                         # Colors git status
+PS1+="\$(git_branch)"                            # Prints current branch
+PS1+="$ENDCOLOR "                                # Ends prompt
 
 # For WSL + ConEmu - doesn't start in the right directory
 cd
