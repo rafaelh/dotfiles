@@ -139,6 +139,9 @@ if [ "$EUID" -eq 0 ]; then
     # Set additional Directories for inclusion in the Path
     export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/root/.bin:/root/.local/bin
 
+    # Aliases
+    alias code="code --user-data-dir=\"/root/.vscode-root\""
+
     # Run Private Commands
     if [ -f /root/.private ]; then
         echo -ne $GREEN">>> "$ENDCOLOR; echo "Untracked commands loaded from ~/.private"
