@@ -44,6 +44,7 @@ alias wget='wget -c'
 alias term='echo $TERM'
 alias powershell='pwsh'
 alias enso='ssh admin@52.63.174.213'      # Auth by private key
+alias broken='sudo systemctl list-units --state=failed'
 
 # For Python & Docker
 export BETTER_EXCEPTIONS=1
