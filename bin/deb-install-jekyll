@@ -1,9 +1,11 @@
 #!/bin/bash
 
-sudo apt-get install ruby ruby-dev build-essential ruby-bundler
-gem install bundle jekyll jekyll-paginate jekyll-sitemap jekyll-feed sass
-bundle install
+GREEN="\033[1;32m"
+ENDCOLOR="\e[0m"
 
-#sudo apt install nodejs npm gulp
-#sudo npm install npm --global
-#sudo npm install gulp-sass
+echo -ne $GREEN">>> "$ENDCOLOR; echo "Installing Ruby & Jekyll"
+sudo apt-get install -y ruby ruby-dev build-essential ruby-bundler
+gem install bundle jekyll jekyll-paginate jekyll-sitemap jekyll-feed sass
+
+# bundle install <- this needs to be done in the right directory
+

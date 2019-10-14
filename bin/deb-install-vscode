@@ -1,6 +1,10 @@
 #!/bin/bash
-echo "Installing VSCode"
+GREEN="\033[1;32m"
+ENDCOLOR="\e[0m"
+
+echo -ne $GREEN">>> "$ENDCOLOR; echo "Installing VS Code"
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
 sudo echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list
-sudo apt update && apt install -y code
+sudo apt update -y
+sudo apt install -y code
