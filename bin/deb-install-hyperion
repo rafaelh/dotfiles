@@ -1,0 +1,19 @@
+#!/bin/bash
+
+GREEN="\033[1;32m"
+ENDCOLOR="\e[0m"
+
+echo -ne $GREEN">>> "$ENDCOLOR; echo "Getting Hyperion and dependencies"
+sudo apt install update
+sudo apt install -y mingw-w64
+
+echo -ne $GREEN">>> "$ENDCOLOR; echo "Building Hyperion"
+mkdir ~/temp-hyperion && cd ~/temp-hyperion
+wget https://github.com/nullsecuritynet/tools/raw/master/binary/hyperion/release/Hyperion-1.2.zip
+unzip Hyperion-1.2.zip
+i686-w64-mingw32-c++ Hyperion-1.2/Src/Crypter/*.cpp -o hyperion.exe && \
+echo -ne $GREEN">>> "$ENDCOLOR; echo "Placing in /usr/local/bin"
+mv hyperion.exe /usr/local/bin
+cd -
+rm -rf ~/temp-hyperion
+
