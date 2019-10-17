@@ -45,6 +45,7 @@ alias term='echo $TERM'
 alias powershell='pwsh'
 alias enso='ssh admin@52.63.174.213'      # Auth by private key
 alias broken='sudo systemctl list-units --state=failed'
+alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 # For Python & Docker
 export BETTER_EXCEPTIONS=1
@@ -78,27 +79,27 @@ fi
 
 # === Ubuntu/Debian Specific ===
 if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
-    echo -ne $GREEN">>> "$ENDCOLOR; echo "Debian / Kali / Ubuntu"
-    alias update='sudo apt-get update && \
-	          sudo apt-get upgrade && \
-		  sudo apt-get dist-upgrade && \
-		  sudo apt-get autoremove'
-    alias autoupdate='sudo apt-get update -y && \
-	          sudo apt-get upgrade -y && \
-		  sudo apt-get dist-upgrade -y && \
-		  sudo apt-get autoremove -y'
+    echo -ne "$GREEN"">>> ""$ENDCOLOR"; echo "Debian / Kali / Ubuntu"
+    alias update='sudo apt update &&         \
+                 sudo apt upgrade &&         \
+                 sudo apt dist-upgrade &&    \
+                 sudo apt autoremove'
+    alias autoupdate='sudo apt update &&     \
+                 sudo apt -y upgrade &&      \
+                 sudo apt -y dist-upgrade && \
+                 sudo apt -y autoremove'
+
 fi
 
 # === WSL Specific ===
 if [ -d /mnt/c/ ]; then
     echo -ne $GREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
     export DISPLAY=localhost:0.0
-    alias update='sudo apt-get update -y && \
-	          sudo apt-get upgrade -y && \
-		  sudo apt-get dist-upgrade -y && \
-		  sudo apt-get autoremove -y'
+    alias update='sudo apt update &&         \
+                 sudo apt upgrade &&         \
+                 sudo apt dist-upgrade &&    \
+                 sudo apt autoremove'
 fi
-
 
 # Adding git status to prompt =================================================
 function git_color {
@@ -189,7 +190,3 @@ fi
 PS1+="\[\$(git_color)\]"                         # Colors git status
 PS1+="\$(git_branch)"                            # Prints current branch
 PS1+="$ENDCOLOR "                                # Ends prompt
-
-# For WSL + ConEmu - doesn't start in the right directory
-cd
-
