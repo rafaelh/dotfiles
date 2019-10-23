@@ -21,19 +21,15 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ "$HOSTNAME" = ares ]; then
+if [ "$HOSTNAME" = skadi ]; then
     echo -n "RAID Status:"
     cat /proc/mdstat | grep U | cut -d "," -f 3
-    echo -n "SELinux:     "
-    getenforce
-    echo -n "Firewall:    "
-    firewall-cmd --state
-fi
-
-if [ "$HOSTNAME" = "animus" ]; then
-    echo -n "dropbox status"
+#    echo -n "SELinux:     "
+#    getenforce
+#    echo -n "Firewall:    "
+#    firewall-cmd --state
 fi
 
 # Maybe make this Fedora specific, maybe not...
-KERN_DIR=/usr/src/kernels/`uname -r`
+# KERN_DIR=/usr/src/kernels/`uname -r`
 
