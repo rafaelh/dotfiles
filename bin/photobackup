@@ -5,5 +5,5 @@ rsync -avz --delete -e 'ssh ' rafael@192.168.0.38:/raid/Photos /raid/Backup/
 echo ">>> Backing up Documents"
 rsync -avz --delete -e 'ssh ' rafael@192.168.0.38:/raid/Documents /raid/Backup/
 
-echo ">>> Backing up Movies"
-rsync -avz --delete -e 'ssh ' rafael@192.168.0.38:/raid/Movies /raid/Backup/
+#echo ">>> Backing up Movies"
+#rsync -avz --delete -e 'ssh ' rafael@192.168.0.38:/raid/Movies /raid/Backup/
