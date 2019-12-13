@@ -8,6 +8,6 @@ sudo apt install -y ruby-full build-essential
 mkdir ~/.gems
 chmod 0770 ~/.gems
 gem install bundle jekyll jekyll-paginate jekyll-sitemap jekyll-feed sass
-
+sudo gem update --system
 # bundle install <- this needs to be done in the right directory
 
