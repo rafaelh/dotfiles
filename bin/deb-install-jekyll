@@ -4,10 +4,9 @@ GREEN="\033[1;32m"
 ENDCOLOR="\e[0m"
 
 echo -ne $GREEN">>> "$ENDCOLOR; echo "Installing Ruby & Jekyll"
-sudo apt install -y ruby-full build-essential
 mkdir ~/.gems
 chmod 0770 ~/.gems
+sudo apt install -y ruby-full build-essential
 gem install bundle jekyll jekyll-paginate jekyll-sitemap jekyll-feed sass
 sudo gem update --system
-# bundle install <- this needs to be done in the right directory
 
