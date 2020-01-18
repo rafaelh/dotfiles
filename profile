@@ -24,7 +24,8 @@ fi
 if [ "$HOSTNAME" = skadi ]; then
     echo -n "RAID Status:"
     cat /proc/mdstat | grep U | cut -d "," -f 3
-#    echo -n "SELinux:     "
+    echo
+    #    echo -n "SELinux:     "
 #    getenforce
 #    echo -n "Firewall:    "
 #    firewall-cmd --state
