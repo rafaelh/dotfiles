@@ -1,0 +1,137 @@
+{
+  "import-2431382345": {
+    "address": "127.0.0.1",
+    "port": 8080,
+    "username": "",
+    "password": "",
+    "type": 1,
+    "title": "Burpsuite",
+    "color": "#e6000b",
+    "active": true,
+    "whitePatterns": [
+      {
+        "title": "wildcard",
+        "pattern": "*",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "burp",
+        "pattern": "burp",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      }
+    ],
+    "blackPatterns": [
+      {
+        "title": "*.mozilla.com/*",
+        "pattern": "*.mozilla.com",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "*.mozilla.org/*",
+        "pattern": "*.mozilla.org",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "SafeBrowsing",
+        "pattern": "*safebrowsing-cache.google.com",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "SafeBrowsing2",
+        "pattern": "*safebrowsing.clients.google.com",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "Safebrowsing3",
+        "pattern": "*safebrowsing.google.com",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "mozilla.net",
+        "pattern": "*.mozilla.net",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "digicert",
+        "pattern": "*ocsp.digicert.com",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "clients1.google",
+        "pattern": "*clients1.google.com",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "detectportal.firefox.com",
+        "pattern": "*detectportal.firefox.com",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "google safebrowsing",
+        "pattern": "safebrowsing.googleapis.com",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      },
+      {
+        "title": "",
+        "pattern": "*.accounts.firefox.com",
+        "type": 1,
+        "protocols": 1,
+        "active": true
+      }
+    ],
+    "index": 0,
+    "proxyDNS": false,
+    "pacURL": ""
+  },
+  "k20d21508277536715": {
+    "type": 5,
+    "title": "Default",
+    "color": "#00e53d",
+    "active": true,
+    "whitePatterns": [
+      {
+        "title": "All",
+        "active": true,
+        "pattern": "*",
+        "importedPattern": "*",
+        "type": 1,
+        "protocols": 1
+      }
+    ],
+    "blackPatterns": [],
+    "index": 1,
+    "pacURL": ""
+  },
+  "logging": {
+    "active": true,
+    "maxSize": 500
+  },
+  "mode": "patterns",
+  "browserVersion": "72.0.1",
+  "foxyProxyVersion": "7.4.3",
+  "foxyProxyEdition": "standard"
+}
