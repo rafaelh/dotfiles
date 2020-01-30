@@ -7,7 +7,7 @@ repodir = os.getenv("HOME") + '/dotfiles/'
 links = os.listdir(repodir)
 mounts = os.listdir("/mnt")
 ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup',
-        'foxyproxy.json']
+        'foxyproxy.json', 'wpscan']
 windowsdirs = ['']
 
 # Remove standard config files
