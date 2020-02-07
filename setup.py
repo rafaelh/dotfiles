@@ -29,8 +29,8 @@ def linkfolder(windowspath, linkname):
 
 if os.path.exists('/mnt/c'):
     linkfolder('/Dropbox', 'dropbox')
+    linkfolder('/Google\ Drive', 'gdrive')
     linkfolder('/Downloads', 'downloads')
-    linkfolder('/Dropbox/Computers/Projects', 'projects')
 
 
 # Simlink dotfiles
