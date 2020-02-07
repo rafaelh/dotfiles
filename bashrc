@@ -47,6 +47,7 @@ alias enso='ssh admin@52.63.174.213'      # Auth by private key
 alias broken='sudo systemctl list-units --state=failed'
 alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
 
+
 # For Python & Docker
 export BETTER_EXCEPTIONS=1
 export DOCKER_HOST=tcp://localhost:2375
