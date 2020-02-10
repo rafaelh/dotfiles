@@ -6,9 +6,11 @@ ENDCOLOR="\e[0m"
 
 
 # Install Core Packages -------------------------------------------------------
-echo -ne $GREEN">>> "$ENDCOLOR; echo "Syncing and Updating Packages"
+echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Syncing and updating existing packages"
 sudo apt update  -y
 sudo apt upgrade -y
+
+echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Installing missing packages"
 
 if [ $(sudo dpkg-query -W -f='${Status}' most 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'most' already installed";
@@ -27,7 +29,7 @@ then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'build-essential' already in
 else sudo apt install -y build-essential; fi
 
 # Install Python and useful libraries ----------------------------------------
-echo -ne $GREEN">>> "$ENDCOLOR; echo "Installing Python 3"
+echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Installing Python 3"
 if [ $(sudo dpkg-query -W -f='${Status}' python3 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'python3' already installed";
 else sudo apt install -y python3; fi
@@ -48,14 +50,14 @@ if [ $(sudo dpkg-query -W -f='${Status}' python3-venv 2>/dev/null | grep -c "ok 
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'python3-venv' already installed";
 else sudo apt install -y python3-venv; fi
 
-echo -ne $GREEN">>> "$ENDCOLOR; echo "Updating Pip packages"
+echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Updating Pip packages"
 sudo pip3 install --upgrade pip
 sudo pip3 install --upgrade pipenv
 sudo pip3 install --upgrade pylint
 
 
 # Create personal directory structure and sync useful repos -------------------
-echo -ne $GREEN">>> "$ENDCOLOR; echo "Creating Directories & Syncing Repos"
+echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Creating Directories & Syncing Repos"
 if [ -d ~/x ]; then
     echo -ne $YELLOW">>> "$ENDCOLOR; echo "Personal repo directory 'x' exists"
 else
