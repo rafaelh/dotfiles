@@ -18,15 +18,15 @@ python_packages = ['python3', 'python3-setuptools', 'python3-dev', 'python3-pip'
 # -----------------
 
 def print_green(message):
-    print("\n\033[1;33;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
+    print("\n\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
 
 def print_yellow(message):
-    print("\033[1;33;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
+    print("\033[1;33;40m>>> \033[0;37;40m" + message + "\033[0;37;0m")
 
 def update_packages():
     '''Do a general update of the system packages'''
     print_green("General Update")
-    updatecmds ['update', 'upgrade', 'dist-upgrade', 'autoremove']
+    updatecmds = ['update', 'upgrade', 'dist-upgrade', 'autoremove']
     for updatecmd in updatecmds:
         os.system("sudo apt -y " + updatecmd)
 update_packages()
@@ -35,10 +35,10 @@ update_packages()
 def package_install(package, cache):
     if cache[package].is_installed:
         print_yellow("Package '" + package + "' already installed")
-    else
+    else:
         cmdstring = "sudo apt install -y " + package
         if package == "pip": cmdstring += " && sudo pip3 install --upgrade pip"
-        os.command(cmdstring)
+        os.system(cmdstring)
 
 print_green("Installing missing packages")
 for package in package_list:
