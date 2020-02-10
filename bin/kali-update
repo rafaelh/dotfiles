@@ -66,6 +66,7 @@ def pip_package_install(pip_packages, installed_pip_packages):
         if package in installed_pip_packages:
             print_yellow("Pip package '" + package + "' already installed")
         else:
+            print_red("Installing pip package " + package)
             cmdstring = "sudo pip3 install --upgrade " + package
             os.system(cmdstring)
 
@@ -75,6 +76,7 @@ def create_directory(directory):
     if os.path.exists(directory):
         print_yellow("Directory exists: " + directory)
     else:
+        print_red("Creating directory: " + directory)
         cmdstring = "mkdir " + directory
         os.system(cmdstring)
 
@@ -88,7 +90,7 @@ def git_sync(gitrepo, directory):
         cmdstring = "git -C " + directory + " pull origin master"
         os.system(cmdstring)
     else:
-        print_yellow("Cloning " + directory)
+        print_red("Cloning " + directory)
         cmdstring = "git -C " + gitrepo + " " + directory
         if directory == '/impacket': cmdstring += " && pip install " + external_repo_directory + '/impacket'
         os.system(cmdstring)
@@ -97,21 +99,9 @@ print_green("Syncing git repositories")
 git_sync('https://github.com/danielmiessler/SecLists', external_repo_directory + '/seclists')
 git_sync('https://github.com/SecureAuthCorp/impacket', external_repo_directory + '/impacket')
 
+
 '''
-# Create Directories
-def linkfolder(windowspath, linkname):
-    linkpath = homedir + linkname
-    if not os.path.exists(linkpath):
-        cmdstring = "ln -s %s %s" % ('/mnt/c/Users/' + os.getenv("USER")
-                + windowspath, linkpath)
-        os.system(cmdstring)
-
-
-
-
-
 # Create personal directory structure and sync useful repos -------------------
-
 
 if [ -d ~/x/security ]; then
     echo -ne $YELLOW">>> "$ENDCOLOR; echo "Personal repo 'security' exists"
@@ -121,14 +111,11 @@ if [ -d ~/x/notes ]; then
     echo -ne $YELLOW">>> "$ENDCOLOR; echo "Personal repo 'notes' exists"
 else git clone git@github.com:rafaelh/notes.git ~/x/notes; fi
 
-if [ -d ~/z/seclists ]; then
-    echo -ne $YELLOW">>> "$ENDCOLOR; echo "External repo 'seclists' exists"
-else git clone https://github.com/danielmiessler/SecLists ~/z/seclists; fi
+def main():
+  # Program goes here
 
-if [ -d ~/z/impacket ]; then
-    echo -ne $YELLOW">>> "$ENDCOLOR; echo "External repo 'impacket' exists"
-else
-    git clone https://github.com/SecureAuthCorp/impacket ~/z/impacket
-    pip install ~/z/impacket
-fi
+if __name__ == '__main__':
+  main()
+
+
 '''
