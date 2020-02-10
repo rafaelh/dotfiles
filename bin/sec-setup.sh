@@ -6,9 +6,11 @@ ENDCOLOR="\e[0m"
 
 
 # Install Core Packages -------------------------------------------------------
-echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Syncing and updating existing packages"
-sudo apt update  -y
-sudo apt upgrade -y
+echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "General update"
+sudo apt update       -y
+sudo apt upgrade      -y
+sudo apt dist-upgrade -y
+sudo apt autoremove   -y
 
 echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Installing missing packages"
 
@@ -96,4 +98,3 @@ else
     git clone https://github.com/SecureAuthCorp/impacket ~/z/impacket
     pip install ~/z/impacket
 fi
-
