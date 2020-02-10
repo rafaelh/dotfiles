@@ -10,41 +10,41 @@ echo -ne $GREEN">>> "$ENDCOLOR; echo "Syncing and Updating Packages"
 sudo apt update  -y
 sudo apt upgrade -y
 
-if [ $(sudo dpkg-query -W -f='${Status}' most 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(sudo dpkg-query -W -f='${Status}' most 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'most' already installed";
 else sudo apt install -y most; fi
 
-if [ $(sudo dpkg-query -W -f='${Status}' ttf-mscorefonts-installer 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(sudo dpkg-query -W -f='${Status}' ttf-mscorefonts-installer 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'ttf-mscorefonts-installer' already installed";
 else sudo apt install -y ttf-mscorefonts-installer; fi
 
-if [ $(sudo dpkg-query -W -f='${Status}' pydf 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(sudo dpkg-query -W -f='${Status}' pydf 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'pydf' already installed";
 else sudo apt install -y pydf; fi
 
-if [ $(sudo dpkg-query -W -f='${Status}' build-essential 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(sudo dpkg-query -W -f='${Status}' build-essential 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'build-essential' already installed";
 else sudo apt install -y build-essential; fi
 
 # Install Python and useful libraries ----------------------------------------
 echo -ne $GREEN">>> "$ENDCOLOR; echo "Installing Python 3"
-if [ $(sudo dpkg-query -W -f='${Status}' python3 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(sudo dpkg-query -W -f='${Status}' python3 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'python3' already installed";
 else sudo apt install -y python3; fi
 
-if [ $(sudo dpkg-query -W -f='${Status}' python3-setuptools 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(sudo dpkg-query -W -f='${Status}' python3-setuptools 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'python3-setuptools' already installed";
 else sudo apt install -y python3-setuptools; fi
 
-if [ $(sudo dpkg-query -W -f='${Status}' python3-dev 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(sudo dpkg-query -W -f='${Status}' python3-dev 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'python3-dev' already installed";
 else sudo apt install -y python3-dev; fi
 
-if [ $(sudo dpkg-query -W -f='${Status}' python3-pip 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(sudo dpkg-query -W -f='${Status}' python3-pip 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'python3-pip' already installed";
 else sudo apt install -y python3-pip; fi
 
-if [ $(sudo dpkg-query -W -f='${Status}' python3-venv 2>/dev/null | grep -c "ok installed") -eq 0 ];
+if [ $(sudo dpkg-query -W -f='${Status}' python3-venv 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'python3-venv' already installed";
 else sudo apt install -y python3-venv; fi
 
