@@ -23,11 +23,13 @@ def print_green(message):
 def print_yellow(message):
     print("\033[1;33;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
 
-# Update Packages
-print_green("General Update")
-updatecmds ['update', 'upgrade', 'dist-upgrade', 'autoremove']
-for updatecmd in updatecmds:
-    os.system("sudo apt -y " + updatecmd)
+def update_packages():
+    '''Do a general update of the system packages'''
+    print_green("General Update")
+    updatecmds ['update', 'upgrade', 'dist-upgrade', 'autoremove']
+    for updatecmd in updatecmds:
+        os.system("sudo apt -y " + updatecmd)
+update_packages()
 
 # Install Missing Packages
 def package_install(package, cache):
