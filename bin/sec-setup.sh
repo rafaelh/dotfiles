@@ -28,6 +28,7 @@ if [ $(sudo dpkg-query -W -f='${Status}' build-essential 2>/dev/null | grep -c "
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'build-essential' already installed";
 else sudo apt install -y build-essential; fi
 
+
 # Install Python and useful libraries ----------------------------------------
 echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Installing Python 3"
 if [ $(sudo dpkg-query -W -f='${Status}' python3 2>/dev/null | grep -c "ok installed") -eq 1 ];
@@ -44,16 +45,23 @@ else sudo apt install -y python3-dev; fi
 
 if [ $(sudo dpkg-query -W -f='${Status}' python3-pip 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'python3-pip' already installed";
-else sudo apt install -y python3-pip; fi
+else
+    sudo apt install -y python3-pip
+    sudo pip3 install --upgrade pip
+fi
 
 if [ $(sudo dpkg-query -W -f='${Status}' python3-venv 2>/dev/null | grep -c "ok installed") -eq 1 ];
 then echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'python3-venv' already installed";
 else sudo apt install -y python3-venv; fi
 
 echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Updating Pip packages"
-sudo pip3 install --upgrade pip
-sudo pip3 install --upgrade pipenv
-sudo pip3 install --upgrade pylint
+if python3 -c "import pipenv" &> /dev/null; then
+    echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'pipenv' already installed"
+else sudo pip3 install --upgrade pipenv; fi
+
+if python3 -c "import pylint" &> /dev/null; then
+    echo -ne $YELLOW">>> "$ENDCOLOR; echo "Package 'pylint' already installed"
+else sudo pip3 install --upgrade pylint; fi
 
 
 # Create personal directory structure and sync useful repos -------------------
