@@ -31,6 +31,9 @@ def print_green(message):
 def print_yellow(message):
     print("\033[1;33;40m>>> \033[0;37;40m" + message + "\033[0;37;0m")
 
+def print_red(message):
+    print("\033[0;31;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
+
 def update_packages():
     ''' Do a general update of the system packages '''
     print_green("General Update")
@@ -44,6 +47,7 @@ def package_install(package, cache):
     if cache[package].is_installed:
         print_yellow("Package '" + package + "' already installed")
     else:
+        print_red(" Installing " + package)
         cmdstring = "sudo apt install -y " + package
         if package == "pip": cmdstring += " && sudo pip3 install --upgrade pip"
         os.system(cmdstring)
@@ -86,8 +90,10 @@ def git_sync(gitrepo, directory):
     else:
         print_yellow("Cloning " + directory)
         cmdstring = "git -C " + gitrepo + " " + directory
+        if directory == '/impacket': cmdstring += " && pip install " + external_repo_directory + '/impacket'
         os.system(cmdstring)
 
+print_green("Syncing git repositories")
 git_sync('https://github.com/danielmiessler/SecLists', external_repo_directory + '/seclists')
 git_sync('https://github.com/SecureAuthCorp/impacket', external_repo_directory + '/impacket')
 
@@ -104,51 +110,8 @@ def linkfolder(windowspath, linkname):
 
 
 
-# Download git plugins
-if not os.path.exists(repodir + 'vim/bundle'):
-    cmdstring = "mkdir %s" % repodir + 'vim/bundle'
-    os.system(cmdstring)
-
-def gitsync(gitrepo, gitname):
-    if not os.path.exists(repodir + 'vim/bundle'):
-        cmdstring = "mkdir %s" % repodir + 'vim/bundle'
-    if not os.path.exists(repodir + 'vim/bundle/' + gitname):
-        print("\n\033[1;32;40m>>> \033[1;37;40mSyncing: %s\033[0;37;0m" % gitname)
-        cmdstring = "mkdir %s" % repodir + 'vim/bundle/' + gitname
-        os.system(cmdstring)
-        cmdstring = "git -C %svim/bundle/ clone %s" % (repodir, gitrepo)
-        os.system(cmdstring)
-    return
-
-gitsync('https://github.com/jiangmiao/auto-pairs', 'auto-pairs')
-gitsync('https://github.com/PProvost/vim-ps1', 'vim-ps1')
-gitsync('https://github.com/scrooloose/nerdtree', 'nerdtree')
-gitsync('https://github.com/Xuyuanp/nerdtree-git-plugin', 'nerdtree-git-plugin')
-gitsync('https://github.com/tpope/vim-sensible', 'sensible-vim')
-gitsync('https://github.com/jistr/vim-nerdtree-tabs', 'vim-nerdtree-tabs')
-gitsync('https://github.com/pangloss/vim-javascript', 'vim-javascript')
-gitsync('https://github.com/itchyny/lightline.vim', 'lightline.vim')
-gitsync('https://github.com/plasticboy/vim-markdown', 'vim-markdown')
-
-
-
-
-
-
-
 # Create personal directory structure and sync useful repos -------------------
-echo -ne $GREEN"\n>>> "$ENDCOLOR; echo "Creating Directories & Syncing Repos"
-if [ -d ~/x ]; then
-    echo -ne $YELLOW">>> "$ENDCOLOR; echo "Personal repo directory 'x' exists"
-else
-    mkdir ~/x
-fi
 
-if [ -d ~/z ]; then
-    echo -ne $YELLOW">>> "$ENDCOLOR; echo "External repo directory 'z' exists"
-else
-    mkdir ~/z
-fi
 
 if [ -d ~/x/security ]; then
     echo -ne $YELLOW">>> "$ENDCOLOR; echo "Personal repo 'security' exists"
