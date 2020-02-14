@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# == 0 ] ; then
+    echo "Usage: pingsweep [3 Octets of IP Range, eg: 192.168.0]"
+    exit 1;
+fi
+
+for ip in `seq 1 254`; do
+    ping -c 1 $1.$ip | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" &
+done

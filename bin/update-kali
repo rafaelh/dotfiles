@@ -110,4 +110,7 @@ TODO:
 
 sudo apt remove -y chromium
 
+systemctl enable postresql
+system start postgresql
+
 '''
