@@ -98,6 +98,7 @@ def main():
     git_sync('git@github.com:rafaelh/notes.git', personal_repo_directory + '/notes')
     git_sync('https://github.com/danielmiessler/SecLists', external_repo_directory + '/seclists')
     git_sync('https://github.com/SecureAuthCorp/impacket', external_repo_directory + '/impacket')
+    git_sync('https://github.com/swisskyrepo/PayloadsAllTheThings', external_repo_directory + '/payloadsallthethings')
 
 if __name__ == '__main__':
   main()
