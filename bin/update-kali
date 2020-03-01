@@ -21,6 +21,11 @@ def update_packages():
     for updatecmd in updatecmds:
         os.system("sudo apt -y " + updatecmd)
 
+def check_service_status(service):
+    """ Returns 'active' or 'inactive' depending on service status """
+    status = "systemctl is-active " + service
+    return status
+
 def package_install(package, cache):
     if cache[package].is_installed:
         print_yellow("Package '" + package + "' already installed")
@@ -76,6 +81,7 @@ def main():
     package_list = ['most', 'ttf-mscorefonts-installer', 'pydf', 'python3-pip', 'python3-venv']
     pip_packages = ['pipenv', 'pylint']
 
+    # Update and upgrade apt packages
     update_packages()
 
     print_green("Installing missing packages")
@@ -100,11 +106,16 @@ def main():
     git_sync('https://github.com/SecureAuthCorp/impacket', external_repo_directory + '/impacket')
     git_sync('https://github.com/swisskyrepo/PayloadsAllTheThings', external_repo_directory + '/payloadsallthethings')
 
+    if check_service_status('sshd') == 'active':
+        print("sshd is active")
+    else:
+        print("sshd is inactive")
+
 if __name__ == '__main__':
-  main()
+    main()
 
 '''
-TODO: 
+TODO:
 * Install vscode and sync settings
 * Install Typora and sync settings
 
