@@ -45,6 +45,7 @@ def pip_package_install(pip_packages, installed_pip_packages):
             os.system(cmdstring)
 
 def create_directory(directory):
+    ''' Checks if the specified directory exists, and creates it if not '''
     if os.path.exists(directory):
         print_yellow("Directory exists: " + directory)
     else:
@@ -53,6 +54,7 @@ def create_directory(directory):
         os.system(cmdstring)
 
 def remove_directory(directory):
+    ''' Checks if the specified directory exists, and deletes it if it does '''
     directory = os.getenv("HOME") + '/' + directory
     if os.path.exists(directory):
         print_red("Removing directory: " + directory)
@@ -124,5 +126,12 @@ sudo apt remove -y chromium
 
 systemctl enable postresql
 system start postgresql
+
+Add loguru
+move to separate repo
+load variables from a file
+start making it generically useful
+
+
 
 '''
