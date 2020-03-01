@@ -4,10 +4,10 @@ import os
 # Set environment variables
 homedir = os.getenv("HOME") + '/'
 repodir = os.getenv("HOME") + '/dotfiles/'
-links = os.listdir(repodir)
+links = os.listdir(repodir + '/config/')
 mounts = os.listdir("/mnt")
 ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup',
-        'foxyproxy.json', 'wpscan']
+        'foxyproxy.json', 'wpscan', 'config']
 windowsdirs = ['']
 
 # Remove standard config files
@@ -65,4 +65,3 @@ gitsync('https://github.com/jistr/vim-nerdtree-tabs', 'vim-nerdtree-tabs')
 gitsync('https://github.com/pangloss/vim-javascript', 'vim-javascript')
 gitsync('https://github.com/itchyny/lightline.vim', 'lightline.vim')
 gitsync('https://github.com/plasticboy/vim-markdown', 'vim-markdown')
-
