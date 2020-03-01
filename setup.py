@@ -37,7 +37,7 @@ if os.path.exists('/mnt/c'):
 for link in links:
     if link not in ignore and not os.path.exists(homedir + '.' + link):
         print("\033[1;32;40m>>> \033[1;37;40mLinking: %s\033[0;37;0m" % link)
-        cmdstring = "ln -s %s%s %s.%s" % (repodir, link, homedir, link)
+        cmdstring = "ln -s %s%s %s.%s" % (repodir + '/config/', link, homedir, link)
         os.system(cmdstring)
 
 # Download git plugins
