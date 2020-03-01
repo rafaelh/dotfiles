@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# == 0 ] ; then
+    echo "Usage: commit all|notes|security|dotfiles \"commit message\""
+    exit 1;
+fi
+
+cd ~/x/notes
+git add *
+git commit -m "$@"
+git push
+
+cd ~/x/security
+git add *
+git commit -m "$@"
+git push
+
+#TODO:
+# Add switch
+# dotfiles
+# status?
