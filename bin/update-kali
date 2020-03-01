@@ -110,6 +110,7 @@ def main():
         print("sshd is active")
     else:
         print("sshd is inactive")
+        print(check_service_status('sshd'))
 
 if __name__ == '__main__':
     main()
