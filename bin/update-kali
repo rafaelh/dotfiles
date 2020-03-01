@@ -23,7 +23,7 @@ def update_packages():
 
 def check_service_status(service):
     """ Returns 'active' or 'inactive' depending on service status """
-    status = "systemctl is-active " + service
+    status = os.system("systemctl is-active " + service)
     return status
 
 def package_install(package, cache):
