@@ -27,10 +27,8 @@ def main():
     homedir = os.getenv("HOME") + '/'
     repodir = os.getenv("HOME") + '/dotfiles/config/'
     links = os.listdir(repodir)
-    mounts = os.listdir("/mnt")
     ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup',
             'foxyproxy.json', 'wpscan', 'config']
-    windowsdirs = ['']
 
     # Remove standard config files
     if os.path.exists('/etc/skel'):
