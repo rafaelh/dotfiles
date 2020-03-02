@@ -40,9 +40,9 @@ def main():
     os.system(cmdstring)
 
     if os.path.exists('/mnt/c'):
-        linkfolder('/Dropbox', 'dropbox', homedir)
-        linkfolder('/Google\ Drive', 'gdrive', homedir)
-        linkfolder('/Downloads', 'downloads', homedir)
+        linkfolder("/Dropbox", "dropbox", homedir)
+        linkfolder("/Google Drive", "gdrive", homedir)
+        linkfolder("/Downloads", "downloads", homedir)
 
     # Simlink dotfiles
     for link in links:
