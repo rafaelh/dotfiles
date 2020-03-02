@@ -2,6 +2,9 @@
 
 import os
 
+def print_green(message):
+    print("\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
+
 def linkfolder(windowspath, linkname, homedir):
     linkpath = homedir + linkname
     if not os.path.exists(linkpath):
@@ -9,15 +12,15 @@ def linkfolder(windowspath, linkname, homedir):
                 + windowspath, linkpath)
         os.system(cmdstring)
 
-def sync_vim_repo(gitrepo, gitname, repodir):
+def sync_vim_repo(gitrepo, gitname, configdir):
     """ Syncs a git repo containing a vim plugin """
-    if not os.path.exists(repodir + 'vim/bundle'):
-        cmdstring = "mkdir %s" % repodir + 'vim/bundle'
-    if not os.path.exists(repodir + 'vim/bundle/' + gitname):
-        print("\n\033[1;32;40m>>> \033[1;37;40mSyncing: %s\033[0;37;0m" % gitname)
-        cmdstring = "mkdir %s" % repodir + 'vim/bundle/' + gitname
+    if not os.path.exists(configdir + 'vim/bundle'):
+        cmdstring = "mkdir %s" % configdir + 'vim/bundle'
+    if not os.path.exists(configdir + 'vim/bundle/' + gitname):
+        print_green("Syncing: %s" % gitname)
+        cmdstring = "mkdir %s" % configdir + 'vim/bundle/' + gitname
         os.system(cmdstring)
-        cmdstring = "git -C %svim/bundle/ clone %s" % (repodir, gitrepo)
+        cmdstring = "git -C %svim/bundle/ clone %s" % (configdir, gitrepo)
         os.system(cmdstring)
     return
 
@@ -25,8 +28,8 @@ def sync_vim_repo(gitrepo, gitname, repodir):
 def main():
     # Set environment variables
     homedir = os.getenv("HOME") + '/'
-    repodir = os.getenv("HOME") + '/dotfiles/config/'
-    links = os.listdir(repodir)
+    configdir = os.getenv("HOME") + '/dotfiles/config/'
+    links = os.listdir(configdir)
     ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup',
             'foxyproxy.json', 'wpscan', 'config']
 
@@ -47,24 +50,24 @@ def main():
     # Simlink dotfiles
     for link in links:
         if link not in ignore and not os.path.exists(homedir + '.' + link):
-            print("\033[1;32;40m>>> \033[1;37;40mLinking: %s\033[0;37;0m" % link)
-            cmdstring = "ln -s %s%s %s.%s" % (repodir, link, homedir, link)
+            print_green("Linking: %s" % link)
+            cmdstring = "ln -s %s%s %s.%s" % (configdir, link, homedir, link)
             os.system(cmdstring)
 
     # Download git plugins
-    if not os.path.exists(repodir + 'vim/bundle'):
-        cmdstring = "mkdir %s" % repodir + 'vim/bundle'
+    if not os.path.exists(configdir + 'vim/bundle'):
+        cmdstring = "mkdir %s" % configdir + 'vim/bundle'
         os.system(cmdstring)
 
-    sync_vim_repo('https://github.com/jiangmiao/auto-pairs', 'auto-pairs', repodir)
-    sync_vim_repo('https://github.com/PProvost/vim-ps1', 'vim-ps1', repodir)
-    sync_vim_repo('https://github.com/scrooloose/nerdtree', 'nerdtree', repodir)
-    sync_vim_repo('https://github.com/Xuyuanp/nerdtree-git-plugin', 'nerdtree-git-plugin', repodir)
-    sync_vim_repo('https://github.com/tpope/vim-sensible', 'sensible-vim', repodir)
-    sync_vim_repo('https://github.com/jistr/vim-nerdtree-tabs', 'vim-nerdtree-tabs', repodir)
-    sync_vim_repo('https://github.com/pangloss/vim-javascript', 'vim-javascript', repodir)
-    sync_vim_repo('https://github.com/itchyny/lightline.vim', 'lightline.vim', repodir)
-    sync_vim_repo('https://github.com/plasticboy/vim-markdown', 'vim-markdown', repodir)
+    sync_vim_repo('https://github.com/jiangmiao/auto-pairs', 'auto-pairs', configdir)
+    sync_vim_repo('https://github.com/PProvost/vim-ps1', 'vim-ps1', configdir)
+    sync_vim_repo('https://github.com/scrooloose/nerdtree', 'nerdtree', configdir)
+    sync_vim_repo('https://github.com/Xuyuanp/nerdtree-git-plugin', 'nerdtree-git-plugin', configdir)
+    sync_vim_repo('https://github.com/tpope/vim-sensible', 'sensible-vim', configdir)
+    sync_vim_repo('https://github.com/jistr/vim-nerdtree-tabs', 'vim-nerdtree-tabs', configdir)
+    sync_vim_repo('https://github.com/pangloss/vim-javascript', 'vim-javascript', configdir)
+    sync_vim_repo('https://github.com/itchyny/lightline.vim', 'lightline.vim', configdir)
+    sync_vim_repo('https://github.com/plasticboy/vim-markdown', 'vim-markdown', configdir)
 
 if __name__ == "__main__":
     main()
