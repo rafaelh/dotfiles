@@ -1,7 +1,7 @@
 *.swp
 
-/irssi/nickserv.auth
-/irssi/away.log
-/irssi/irclogs/*
+config/irssi/nickserv.auth
+config/irssi/away.log
+config/irssi/irclogs/*
 
-/vim/bundle/*
+config/vim/bundle/*
