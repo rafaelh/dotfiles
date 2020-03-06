@@ -116,8 +116,10 @@ def main():
     for system in systemd_services:
         if check_service_status(system) == True:
             print_green(system + " is active")
+            print(system)
         else:
             print_red(system + " is inactive")
+            print(system)
 
 
 if __name__ == '__main__':
