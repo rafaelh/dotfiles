@@ -134,7 +134,7 @@ systemctl enable postresql
 system start postgresql
 
 Add loguru
-move to separate repo
+move to separate repo?
 load variables from a file
 start making it generically useful
 
