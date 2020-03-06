@@ -26,7 +26,7 @@ def update_packages():
 
 def check_service_status(service):
     """ Returns 'active' or 'inactive' depending on service status """
-    status = os.system("systemctl is-active " + service)
+    status = os.system("systemctl is-active --quiet " + service)
     return status
 
 def package_install(package, cache):
@@ -114,7 +114,7 @@ def main():
     print_green("Status of optional services")
     systemd_services = ['sshd', 'postgresql']
     for system in systemd_services:
-        if check_service_status(system) == 'active':
+        if check_service_status(system) == True:
             print_green(system + " is active")
         else:
             print_red(system + " is inactive")
