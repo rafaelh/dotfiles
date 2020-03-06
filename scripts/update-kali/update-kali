@@ -114,12 +114,11 @@ def main():
     print_green("Status of optional services")
     systemd_services = ['sshd', 'postgresql']
     for system in systemd_services:
-        if check_service_status(system) == True:
-            print_green(system + " is active")
-            print(system)
+        if check_service_status(system) == False:
+            print_yellow(system + " is active")
         else:
             print_red(system + " is inactive")
-            print(system)
+
 
 
 if __name__ == '__main__':
