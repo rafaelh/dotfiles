@@ -6,16 +6,19 @@ import sys
 
 
 def print_green(message):
+    """ Prints a message to the console prefixed with a green '>>>' """
     print("\n\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
 
 def print_yellow(message):
+    """ Prints a message to the console prefixed with a yellow '>>>' """
     print("\033[1;33;40m>>> \033[0;37;40m" + message + "\033[0;37;0m")
 
 def print_red(message):
+    """ Prints a message to the console prefixed with a red '>>>' """
     print("\033[0;31;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
 
 def update_packages():
-    ''' Do a general update of the system packages '''
+    """ Do a general update of the system packages """
     print_green("General Update")
     updatecmds = ['update', 'upgrade', 'dist-upgrade', 'autoremove']
     for updatecmd in updatecmds:
@@ -108,11 +111,14 @@ def main():
     git_sync('https://github.com/SecureAuthCorp/impacket', external_repo_directory + '/impacket')
     git_sync('https://github.com/swisskyrepo/PayloadsAllTheThings', external_repo_directory + '/payloadsallthethings')
 
-    if check_service_status('sshd') == 'active':
-        print("sshd is active")
-    else:
-        print("sshd is inactive")
-        print(check_service_status('sshd'))
+    print_green("Status of optional services")
+    systemd_services = ['sshd', 'postgresql']
+    for system in systemd_services:
+        if check_service_status(system) == 'active':
+            print_green(system + " is active")
+        else:
+            print_red(system + " is inactive")
+
 
 if __name__ == '__main__':
     main()
