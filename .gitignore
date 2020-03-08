@@ -1,5 +1,7 @@
 *.swp
 
+scripts/update-kali
+
 config/irssi/nickserv.auth
 config/irssi/away.log
 config/irssi/irclogs/*
