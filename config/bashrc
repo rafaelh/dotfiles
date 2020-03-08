@@ -163,7 +163,7 @@ if [ "$EUID" -ne 0 ]; then
     alias service='sudo service'
 
     # Set additional Directories for inclusion in the Path
-    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/home/$USER/dotfiles/scripts:/home/$USER/dotfiles/scripts/update-kali
+    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/home/$USER/.local/bin:/home/$USER/dotfiles/scripts:/home/$USER/dotfiles/scripts/update-kali
 
     vim () { 
         if [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
