@@ -143,7 +143,7 @@ if [ "$EUID" -eq 0 ]; then
     PS1+='[\[\e[0;33m\]\w\[\e[1;31m\]]\$\[\e[0m\]' # Working Directory
 
     # Set additional Directories for inclusion in the Path
-    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/root/dotfiles/scripts:/root/dotfiles/scripts/update-kali
+    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/root/dotfiles/scripts:/root/dotfiles/scripts/update-kali
 
     # Aliases
     alias code="code --user-data-dir=\"/root/.vscode-root\""
@@ -167,7 +167,7 @@ if [ "$EUID" -ne 0 ]; then
     alias service='sudo service'
 
     # Set additional Directories for inclusion in the Path
-    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/home/$USER/.local/bin:/home/$USER/dotfiles/scripts:/home/$USER/dotfiles/scripts/update-kali
+    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/$USER/.local/bin:/home/$USER/dotfiles/scripts:/home/$USER/dotfiles/scripts/update-kali
 
     vim () { 
         if [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
