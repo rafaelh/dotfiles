@@ -92,6 +92,7 @@ def main():
     sync_vim_repo('https://github.com/plasticboy/vim-markdown')
 
     git_sync('git@github.com:rafaelh/update-kali.git', os.getenv("HOME") + '/dotfiles/scripts/update-kali')
+    git_sync('git@github.com:rafaelh/recon.git', os.getenv("HOME") + '/dotfiles/scripts/recon')
 
 if __name__ == "__main__":
     main()
