@@ -1,6 +1,7 @@
 *.swp
 
 scripts/update-kali
+scripts/recon
 
 config/irssi/nickserv.auth
 config/irssi/away.log
