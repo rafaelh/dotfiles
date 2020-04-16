@@ -16,21 +16,9 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-if [ "$HOSTNAME" = skadi ]; then
-    echo -n "RAID Status:"
-    cat /proc/mdstat | grep U | cut -d "," -f 3
+if [ -f "/proc/mdstat" ]; then
+    status=`cat /proc/mdstat | grep algorithm | cut -d " " -f 18`
+    storage=`/bin/df | grep md0 | cut -d " " -f 12`
+    echo "RAID Status: ${status}, Storage Used: ${storage}"
     echo
-    #    echo -n "SELinux:     "
-#    getenforce
-#    echo -n "Firewall:    "
-#    firewall-cmd --state
 fi
-
-# Maybe make this Fedora specific, maybe not...
-# KERN_DIR=/usr/src/kernels/`uname -r`
-
