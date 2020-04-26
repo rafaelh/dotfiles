@@ -30,10 +30,11 @@ export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export EDITOR=vim
 export PAGER=most
 
+alias grep='grep --color-auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias ls='ls -h --color=auto'
-alias grep='grep --color=auto'
+alias diff='diff --color=auto'
 alias rm='rm -i'
 alias cp='cp -rfv'
 alias df='pydf||df -h'
@@ -43,10 +44,7 @@ alias openports='netstat -tulanp'
 alias wget='wget -c'
 alias term='echo $TERM'
 alias powershell='pwsh'
-alias enso='ssh admin@52.63.174.213'      # Auth by private key
-alias broken='sudo systemctl list-units --state=failed'
-alias publicip="dig +short myip.opendns.com @resolver1.opendns.com"
-
+alias enso='ssh admin@52.63.174.213' # Auth by private key
 
 # For Python & Docker
 export DOCKER_HOST=tcp://localhost:2375
@@ -76,7 +74,7 @@ fi
 
 # Environment-specific settings ===============================================
 
-# === Fedora Aliases ===
+# === Fedora Specific ===
 if [ -f /etc/redhat-release ]; then
     echo -ne $GREEN">>> "$ENDCOLOR; echo "RedHat / CentOS / Fedora"
     alias update-grub='sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
@@ -85,15 +83,10 @@ fi
 # === Ubuntu/Debian Specific ===
 if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
     echo -ne "$GREEN"">>> ""$ENDCOLOR"; echo "Debian / Kali / Ubuntu"
-    alias update='sudo apt update &&         \
-                 sudo apt upgrade &&         \
-                 sudo apt dist-upgrade &&    \
-                 sudo apt autoremove'
-    alias autoupdate='sudo apt update &&     \
-                 sudo apt -y upgrade &&      \
-                 sudo apt -y dist-upgrade && \
-                 sudo apt -y autoremove'
-
+    alias update='sudo apt update &&              \
+                  sudo apt upgrade &&             \
+                  sudo apt dist-upgrade &&        \
+                  sudo apt autoremove'
 fi
 
 # === WSL Specific ===
