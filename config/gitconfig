@@ -1,12 +1,18 @@
 [user]
-	email = rafael.hart9@gmail.com
-	name = "Rafe Hart"
+    email = rafael.hart9@gmail.com
+    name = "Rafe Hart"
 
 [push]
-	default = matching
+    default = matching
 
 [color]
-	ui = true
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+    ui = true
+    pager = true
 
 [credential]
-	helper = cache
+    helper = cache --timeout=3600
+
