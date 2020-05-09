@@ -1,6 +1,13 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
+# Colour variables to make things pretty
+RED="\e[0;31m"
+YELLOW="\e[0;33m"
+OCHRE="\e[38;5;95m"
+GREEN="\033[1;32m"
+ENDCOLOR="\e[0m"
+
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -9,12 +16,16 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-# Colour variables to make things pretty
-RED="\e[0;31m"
-YELLOW="\e[0;33m"
-OCHRE="\e[38;5;95m"
-GREEN="\033[1;32m"
-ENDCOLOR="\e[0m"
+# Load directory list color profiles
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+# Run Private Commands
+if [ -f $HOME/.private ]; then
+    echo -ne $GREEN">>> "$ENDCOLOR; echo "Untracked commands loaded from ~/.private"
+    . $HOME/.private
+fi
 
 # Basic Settings - All Environments
 HISTCONTROL=ignoredups:ignoreboth
@@ -64,19 +75,18 @@ export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
-# Load color profiles for directory listing
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-fi
-
+# Set the path
+PATH=${PATH}:/sbin
+PATH=${PATH}:/usr/sbin
+PATH=${PATH}:/usr/local/bin
+PATH=${PATH}:/usr/local/sbin
+PATH=${PATH}:$HOME/.local/bin
+PATH=${PATH}:$HOME/dotfiles/scripts
+PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
+PATH=${PATH}:$HOME/dotfiles/scripts/recon
+export PATH
 
 # Environment-specific settings ===============================================
-
-# === Fedora Specific ===
-if [ -f /etc/redhat-release ]; then
-    echo -ne $GREEN">>> "$ENDCOLOR; echo "RedHat / CentOS / Fedora"
-    alias update-grub='sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg'
-fi
 
 # === Ubuntu/Debian Specific ===
 if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
@@ -90,22 +100,24 @@ fi
 # === WSL Specific ===
 if [ -d /mnt/c/ ]; then
     echo -ne $GREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
+
     export DISPLAY=localhost:0.0
-    alias update='sudo apt update &&         \
-                 sudo apt upgrade &&         \
-                 sudo apt dist-upgrade &&    \
-                 sudo apt autoremove'
+
+    alias update='sudo apt update &&              \
+                  sudo apt upgrade &&             \
+                  sudo apt dist-upgrade &&        \
+                  sudo apt autoremove'
 fi
 
 # Adding git status to prompt =================================================
 function git_color {
     local git_status="$(git status 2> /dev/null)"
 
-    if [[ ! $git_status =~ "clean"  ]]; then
+    if [[ ! $git_status =~ "clean" ]]; then
         echo -e $RED
-    elif [[ $git_status =~ "Your branch is ahead of"  ]]; then
+    elif [[ $git_status =~ "Your branch is ahead of" ]]; then
         echo -e $YELLOW
-    elif [[ $git_status =~ "nothing to commit"  ]]; then
+    elif [[ $git_status =~ "nothing to commit" ]]; then
         echo -e $GREEN
     else
         echo -e $OCHRE
@@ -117,10 +129,10 @@ function git_branch {
     local on_branch="On branch ([^${IFS}]*)"
     local on_commit="HEAD detached at ([^${IFS}]*)"
 
-    if [[ $git_status =~ $on_branch  ]]; then
+    if [[ $git_status =~ $on_branch ]]; then
         local branch=${BASH_REMATCH[1]}
         echo " ($branch)"
-    elif [[ $git_status =~ $on_commit  ]]; then
+    elif [[ $git_status =~ $on_commit ]]; then
         local commit=${BASH_REMATCH[1]}
         echo " ($commit)"
     fi
@@ -133,17 +145,8 @@ if [ "$EUID" -eq 0 ]; then
     PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] '
     PS1+='[\[\e[0;33m\]\w\[\e[1;31m\]]\$\[\e[0m\]' # Working Directory
 
-    # Set additional Directories for inclusion in the Path
-    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/root/dotfiles/scripts:/root/dotfiles/scripts/update-kali:/root/dotfiles/scripts/recon
-
     # Aliases
     alias code="code --user-data-dir=\"/root/.vscode-root\""
-
-    # Run Private Commands
-    if [ -f /root/.private ]; then
-        echo -ne $GREEN">>> "$ENDCOLOR; echo "Untracked commands loaded from ~/.private"
-        . /root/.private
-    fi
 fi
 
 # Things to do if you AREN'T root =============================================
@@ -157,10 +160,7 @@ if [ "$EUID" -ne 0 ]; then
     alias fdisk='sudo fdisk'
     alias service='sudo service'
 
-    # Set additional Directories for inclusion in the Path
-    export PATH=$PATH:/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/home/$USER/.local/bin:/home/$USER/dotfiles/scripts:/home/$USER/dotfiles/scripts/update-kali:/home/$USER/dotfiles/scripts/recon
-
-    vim () { 
+    vim () {
         if [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
         else sudo /usr/bin/vim $@;
         fi
@@ -170,14 +170,8 @@ if [ "$EUID" -ne 0 ]; then
     export GEM_HOME=$HOME/.gems
     export PATH=$HOME/.gems/bin:$PATH
 
-    # Run Private Commands specific to the machine
-    if [ -f /home/$USER/.private ]; then
-        echo -ne $GREEN">>> "$ENDCOLOR; echo "Untracked commands loaded from ~/.private"
-        . /home/$USER/.private
-    fi
-
     # Run Private Commands that apply to all machines
-    if [ -f gdrive/Computers/Private_Bash.sh ]; then
+    if [ -f $HOME/gdrive/Computers/Private_Bash.sh ]; then
         . gdrive/Computers/Private_Bash.sh
     fi
 fi
