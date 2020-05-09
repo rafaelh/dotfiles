@@ -3,7 +3,7 @@ import os
 
 def print_green(message):
     """ Prints a message to the console prefixed with a green '>>>' """
-    print("\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
+    print("\n\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
 
 def gitupdate(directory):
     workingdir = os.getenv("HOME") + directory
