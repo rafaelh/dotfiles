@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 import os
 
-def gitupdate( dir ):
-    workingdir = os.getenv("HOME") + dir
+def print_green(message):
+    """ Prints a message to the console prefixed with a green '>>>' """
+    print("\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
+
+def gitupdate(directory):
+    workingdir = os.getenv("HOME") + directory
     repos = os.listdir(workingdir)
 
-    print("\nUpdating Repositories in %s" % workingdir)
-
     for repo in repos:
-        print("\n\033[1;32;40m>>> \033[1;37;40mUpdating: %s\033[0;37;40m" % repo)
+        print_green("Updating: " + repo)
         cmdstring = "git -C %s%s pull" % (workingdir, repo)
         os.system(cmdstring)
-    return;
+    return
 
-gitupdate('/.vim/bundle/')
-print ("")
+if __name__ = '__main__':
+    gitupdate('/.vim/bundle/')
+    print ("")
