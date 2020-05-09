@@ -15,6 +15,6 @@ def gitupdate(directory):
         os.system(cmdstring)
     return
 
-if __name__ = '__main__':
+if __name__ == "__main__":
     gitupdate('/.vim/bundle/')
     print ("")
