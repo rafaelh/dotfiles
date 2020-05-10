@@ -180,3 +180,4 @@ fi
 PS1+="\[\$(git_color)\]"                         # Colors git status
 PS1+="\$(git_branch)"                            # Prints current branch
 PS1+="$ENDCOLOR "                                # Ends prompt
+
