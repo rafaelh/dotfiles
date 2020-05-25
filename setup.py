@@ -46,6 +46,7 @@ def git_sync(gitrepo, directory):
         cmdstring = "git clone " + gitrepo + " " + directory
         os.system(cmdstring)
 
+# add apt install dos2unix and other useful packages
 
 def main():
     # Set environment variables
