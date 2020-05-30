@@ -54,9 +54,6 @@ alias term='echo $TERM'
 alias powershell='pwsh'
 alias enso='ssh admin@52.63.174.213' # Auth by private key
 
-# For Python & Docker
-export DOCKER_HOST=tcp://localhost:2375
-
 # For NPM
 NPM_PACKAGES="${HOME}/.npm-packages"
 export PATH="$PATH:$NPM_PACKAGES/bin"
