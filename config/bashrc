@@ -156,6 +156,8 @@ if [ "$EUID" -ne 0 ]; then
     # Aliases
     alias fdisk='sudo fdisk'
     alias service='sudo service'
+    alias dmesg='sudo dmesg'
+    alias systemctl='sudo systemctl'
 
     vim () {
         if [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
