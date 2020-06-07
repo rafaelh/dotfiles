@@ -88,9 +88,8 @@ export PATH
 # === Ubuntu/Debian Specific ===
 if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
     echo -ne "$GREEN"">>> ""$ENDCOLOR"; echo "Debian / Kali / Ubuntu"
-    alias update='sudo apt update &&              \
-                  sudo apt upgrade &&             \
-                  sudo apt dist-upgrade &&        \
+    alias update='sudo apt update &&       \
+                  sudo apt full-upgrade && \
                   sudo apt autoremove'
 fi
 
@@ -100,9 +99,8 @@ if [ -d /mnt/c/ ]; then
 
     export DISPLAY=localhost:0.0
 
-    alias update='sudo apt update &&              \
-                  sudo apt upgrade &&             \
-                  sudo apt dist-upgrade &&        \
+    alias update='sudo apt update &&       \
+                  sudo apt full-upgrade && \
                   sudo apt autoremove'
 fi
 
