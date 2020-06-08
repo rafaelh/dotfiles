@@ -60,7 +60,7 @@ export PATH="$PATH:$NPM_PACKAGES/bin"
 
 # For Go
 export GOROOT=/usr/lib/go
-export GOPATH=$HOME/go
+export GOPATH=$HOME/.go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 # Less Colors for Man Pages
