@@ -45,11 +45,11 @@ func printMessage(messageLevel string, message string) {
 	// Prints a message to the console with a coloured status (Info, Warn, Err)
 	var level = strings.ToLower(messageLevel)
 	if level == "info" {
-		fmt.Println("[\033[1;32mInfo\033[0;37m] " + message + "\033[0;37;0m")
+		fmt.Println("[\033[1;32mInfo\033[0;37m] " + message + "\033[0;37m")
 	} else if level == "warn" {
-		fmt.Println("[\033[1;33mWarn\033[0;37m] " + message + "\033[0;37;0m")
+		fmt.Println("[\033[1;33mWarn\033[0;37m] " + message + "\033[0;37m")
 	} else {
-		fmt.Println("[\033[1;31mERR!\033[0;37m] " + message + "\033[0;37;0m")
+		fmt.Println("[\033[1;31mERR!\033[0;37m] " + message + "\033[0;37m")
 	}
 
 }
