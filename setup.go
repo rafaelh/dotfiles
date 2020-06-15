@@ -4,11 +4,16 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"os/exec"
 	"strings"
 )
 
 func main() {
+
+	var homedir string = os.Getenv("HOME") + "/"
+	fmt.Println(homedir)
+
 	var cmdstring string = "pwd"
 	printMessage("INFO", "Running a command")
 	printMessage("WARN", "Running a command")
@@ -41,11 +46,14 @@ func printMessage(messageLevel string, message string) {
 }
 
 /*
-def print_yellow(message):
-    """ Prints a message to the console prefixed with a yellow '>>>' """
-    print("\033[1;33;40m>>> \033[0;37;40m" + message + "\033[0;37;0m")
+Remove the default files and replace with ones from dotfiles
 
-def print_red(message):
-    """ Prints a message to the console prefixed with a red '>>>' """
-    print("\033[0;31;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
+    homedir = os.getenv("HOME") + '/'
+
+    if os.path.exists('/etc/skel'):
+        basicdotfiles = os.listdir('/etc/skel')
+        for basicdotfile in basicdotfiles:
+            cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
+            os.system(cmdstring)
+
 */
