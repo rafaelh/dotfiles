@@ -5,6 +5,7 @@ package main
 import (
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 func main() {
@@ -22,18 +23,16 @@ func execute(cmdstring string) {
 	if err != nil {
 		fmt.Printf("%s", err)
 	}
-	fmt.Println("Command successfully executed!")
-
-	// Convert output from []byte to string so we can output it
-	output := string(out[:])
+	output := string(out[:]) // Convert from []byte -> string so we can display output
 	fmt.Println(output)
 }
 
-func printMessage(level string, message string) {
+func printMessage(messageLevel string, message string) {
 	// Prints a message to the console with a coloured status (Info, Warn, Err)
-	if level == "INFO" {
+	var level = strings.ToLower(messageLevel)
+	if level == "info" {
 		fmt.Println("[\033[1;32mInfo\033[0;37m] " + message + "\033[0;37;0m")
-	} else if level == "WARN" {
+	} else if level == "warn" {
 		fmt.Println("[\033[1;33mWarn\033[0;37m] " + message + "\033[0;37;0m")
 	} else {
 		fmt.Println("[\033[1;31mERR!\033[0;37m] " + message + "\033[0;37;0m")
