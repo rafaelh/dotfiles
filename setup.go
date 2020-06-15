@@ -4,6 +4,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -14,13 +15,21 @@ func main() {
 	var homedir string = os.Getenv("HOME") + "/"
 	fmt.Println(homedir)
 
-	var cmdstring string = "pwd"
 	printMessage("INFO", "Running a command")
 	printMessage("WARN", "Running a command")
 	printMessage("ERR", "Running a command")
 
-	execute(cmdstring)
+	cmd := exec.Command("ls", "-alh", "/etc/skel")
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	err := cmd.Run()
+	if err != nil {
+		log.Fatalf("cmd.Run() failed with %s\n", err)
+	}
 }
+
+//https://blog.kowalczyk.info/article/wOYk/advanced-command-execution-in-go-with-osexec.html
+//https://golang.org/pkg/os/
 
 func execute(cmdstring string) {
 	// Execute command and store output
@@ -45,15 +54,16 @@ func printMessage(messageLevel string, message string) {
 
 }
 
-/*
-Remove the default files and replace with ones from dotfiles
+/* TO DO:
 
-    homedir = os.getenv("HOME") + '/'
+ * Remove the default files in /etc/skel and replace with ones from dotfiles/config
+ * Sync the vim plugins directory
+ * Create symlinks for useful directories if they exist - gdrive, documents, etc
+ * Sync git repositories
+ * Define and build go modules (then create a separate go module to rebuild them)
 
-    if os.path.exists('/etc/skel'):
-        basicdotfiles = os.listdir('/etc/skel')
-        for basicdotfile in basicdotfiles:
-            cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
-            os.system(cmdstring)
 
-*/
+
+
+
+ */
