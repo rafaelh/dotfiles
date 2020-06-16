@@ -1,10 +1,8 @@
 // Writing a setup script in Go is a terrible idea, but practice is practice.
-
 package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -24,7 +22,7 @@ func main() {
 	cmd.Stderr = os.Stderr
 	err := cmd.Run()
 	if err != nil {
-		log.Fatalf("cmd.Run() failed with %s\n", err)
+		fmt.Println("cmd.Run() failed: ", err)
 	}
 }
 
@@ -36,6 +34,18 @@ func execute(cmdstring string) {
 	}
 	output := string(out[:]) // Convert from []byte -> string so we can display output
 	fmt.Println(output)
+}
+
+// Check if a given file or directory exists
+func exists(path string) (bool, error) {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
 }
 
 // Prints a message to the console with a coloured status (Info, Warn, Err)
