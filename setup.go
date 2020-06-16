@@ -28,11 +28,8 @@ func main() {
 	}
 }
 
-//https://blog.kowalczyk.info/article/wOYk/advanced-command-execution-in-go-with-osexec.html
-//https://golang.org/pkg/os/
-
+// Execute command and store output
 func execute(cmdstring string) {
-	// Execute command and store output
 	out, err := exec.Command(cmdstring).Output()
 	if err != nil {
 		fmt.Printf("%s", err)
@@ -41,8 +38,8 @@ func execute(cmdstring string) {
 	fmt.Println(output)
 }
 
+// Prints a message to the console with a coloured status (Info, Warn, Err)
 func printMessage(messageLevel string, message string) {
-	// Prints a message to the console with a coloured status (Info, Warn, Err)
 	var level = strings.ToLower(messageLevel)
 	if level == "info" {
 		fmt.Println("[\033[1;32mInfo\033[0;37m] " + message + "\033[0;37m")
@@ -56,14 +53,12 @@ func printMessage(messageLevel string, message string) {
 
 /* TO DO:
 
- * Remove the default files in /etc/skel and replace with ones from dotfiles/config
- * Sync the vim plugins directory
- * Create symlinks for useful directories if they exist - gdrive, documents, etc
- * Sync git repositories
- * Define and build go modules (then create a separate go module to rebuild them)
-
-
-
-
+* https://blog.kowalczyk.info/article/wOYk/advanced-command-execution-in-go-with-osexec.html
+* https://golang.org/pkg/os/
+* Remove the default files in /etc/skel and replace with ones from dotfiles/config
+* Sync the vim plugins directory
+* Create symlinks for useful directories if they exist - gdrive, documents, etc
+* Sync git repositories
+* Define and build go modules (then create a separate go module to rebuild them)
 
  */
