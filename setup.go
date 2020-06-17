@@ -63,6 +63,7 @@ func printMessage(messageLevel string, message string) {
 
 /* TO DO:
 
+* https://gobyexample.com/directories
 * https://blog.kowalczyk.info/article/wOYk/advanced-command-execution-in-go-with-osexec.html
 * https://golang.org/pkg/os/
 * Remove the default files in /etc/skel and replace with ones from dotfiles/config
