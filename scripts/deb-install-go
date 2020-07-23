@@ -1,0 +1,8 @@
+# Initial Variables. These should go in .bashrc
+export GOROOT=/usr/lib/go
+export GOPATH=$HOME/.go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+sudo apt install golang
+go get -v github.com/stamblerre/gocode
+go get -v github.com/uudashr/gopkgs/cmd/gopkgs

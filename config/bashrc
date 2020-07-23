@@ -178,6 +178,18 @@ PS1+="\[\$(git_color)\]"                         # Colors git status
 PS1+="\$(git_branch)"                            # Prints current branch
 PS1+="$ENDCOLOR "                                # Ends prompt
 
+
+# Set the title of the terminal
+function title {
+    if [ -z "$1"  ]
+        then
+            title=${PWD##*/} # current directory
+        else
+            title=$1 # first param
+        fi
+        echo -n -e "\033]0;$title\007"					  
+}
+
 # Hacking stuff ====================
 getlinks() {
 	gau $1 -subs | \

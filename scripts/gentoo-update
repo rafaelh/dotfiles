@@ -1,0 +1,2 @@
+#!/bin/bash
+emerge --ask --tree --update --deep --newuse --with-bdeps=y $@ world
