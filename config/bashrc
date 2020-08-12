@@ -168,8 +168,8 @@ if [ "$EUID" -ne 0 ]; then
     export PATH=$HOME/.gems/bin:$PATH
 
     # Run Private Commands that apply to all machines
-    if [ -f $HOME/gdrive/Computers/Private_Bash.sh ]; then
-        . gdrive/Computers/Private_Bash.sh
+    if [ -f $HOME/.private/Private_Bash.sh ]; then
+        . $HOME/.private/Private_Bash.sh
     fi
 fi
 
