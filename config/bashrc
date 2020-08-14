@@ -187,7 +187,7 @@ function title {
         else
             title=$1 # first param
         fi
-        echo -n -e "\033]0;$title\007"					  
+        echo -n -e "\033]0;$title\007"
 }
 
 # Hacking stuff ====================
