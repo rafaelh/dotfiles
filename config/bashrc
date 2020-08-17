@@ -21,12 +21,6 @@ if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
-# Run Private Commands
-if [ -f $HOME/.private ]; then
-    echo -ne $GREEN">>> "$ENDCOLOR; echo "Untracked commands loaded from ~/.private"
-    . $HOME/.private
-fi
-
 # Basic Settings - All Environments
 HISTCONTROL=ignoredups:ignoreboth
 HISTSIZE=1000
@@ -34,10 +28,9 @@ HISTFILESIZE=2000
 shopt -s histappend
 shopt -s checkwinsize
 set show-all-if-ambiguous on
-
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export EDITOR=vim
 
+# Aliases
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -52,7 +45,6 @@ alias openports='netstat -tulanp'
 alias wget='wget -c'
 alias term='echo $TERM'
 alias powershell='pwsh'
-alias enso='ssh admin@52.63.174.213' # Auth by private key
 
 # For NPM
 NPM_PACKAGES="${HOME}/.npm-packages"
@@ -62,6 +54,9 @@ export PATH="$PATH:$NPM_PACKAGES/bin"
 export GOROOT=/usr/lib/go
 export GOPATH=$HOME/.go
 export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+# For C#
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
@@ -77,6 +72,7 @@ PATH=${PATH}:/sbin
 PATH=${PATH}:/usr/sbin
 PATH=${PATH}:/usr/local/bin
 PATH=${PATH}:/usr/local/sbin
+PATH=${PATH}:/opt/nessus/sbin
 PATH=${PATH}:$HOME/.local/bin
 PATH=${PATH}:$HOME/dotfiles/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
@@ -85,7 +81,7 @@ export PATH
 
 # Environment-specific settings ===============================================
 
-# === Ubuntu/Debian Specific ===
+# === Debian / Kali / Ubuntu ===
 if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
     echo -ne "$GREEN"">>> ""$ENDCOLOR"; echo "Debian / Kali / Ubuntu"
     alias update='sudo apt update &&       \
@@ -93,7 +89,7 @@ if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
                   sudo apt autoremove'
 fi
 
-# === WSL Specific ===
+# === WSL ===
 if [ -d /mnt/c/ ]; then
     echo -ne $GREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
 
