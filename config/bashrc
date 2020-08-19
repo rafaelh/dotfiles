@@ -82,7 +82,7 @@ export PATH
 # Environment-specific settings ===============================================
 
 # === Debian / Kali / Ubuntu ===
-if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
+if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
     echo -ne "$GREEN"">>> ""$ENDCOLOR"; echo "Debian / Kali / Ubuntu"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
@@ -90,7 +90,7 @@ if [[ `uname -s` == Linux* ]] && [ ! -d /mnt/c/ ]; then
 fi
 
 # === WSL ===
-if [ -d /mnt/c/ ]; then
+if [ -f /mnt/c/Windows/System32/wsl.exe ]; then
     echo -ne $GREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
 
     export DISPLAY=localhost:0.0
