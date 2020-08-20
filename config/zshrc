@@ -1,8 +1,10 @@
-# ~/.zshrc file for zsh non-login shells.
-# see /usr/share/doc/zsh/examples/zshrc for examples
+# ~/.zshrc
+
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
 
 setopt autocd              # change directory just by typing its name
-#setopt correct            # auto correct mistakes
+setopt correct             # auto correct mistakes
 setopt interactivecomments # allow comments in interactive mode
 setopt ksharrays           # arrays start at 0
 setopt magicequalsubst     # enable filename expansion for arguments of the form ‘anything=expression’
@@ -42,13 +44,9 @@ setopt hist_expire_dups_first # delete duplicates first when HISTFILE size excee
 setopt hist_ignore_dups       # ignore duplicated commands history list
 setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # show command with history expansion to user before running it
-#setopt share_history         # share command history data
 
 # force zsh to show the complete history
 alias history="history 0"
-
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -77,7 +75,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PROMPT=$'%F{%(#.blue.green)}${debian_chroot:+($debian_chroot)─}(%B%F{%(#.red.blue)}%n%(#.💀.㉿)%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
+    PROMPT=$'%F{%(#.blue.green)}${debian_chroot:+($debian_chroot)─}(%B%F{%(#.red.blue)}%n%(#.💀.@)%m%b%F{%(#.blue.green)})-[%B%F{reset}%(6~.%-1~/…/%4~.%5~)%b%F{%(#.blue.green)}]%B%(#.%F{red}#.%F{blue}$)%b%F{reset} '
     RPROMPT=$'%(?.. %? %F{red}%B⨯%b%F{reset})%(1j. %j %F{yellow}%B⚙%b%F{reset}.)'
 
     # enable syntax-highlighting
@@ -163,8 +161,8 @@ precmd() {
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
@@ -184,14 +182,148 @@ if [ -x /usr/bin/dircolors ]; then
     zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 fi
 
-# some more ls aliases
-alias ll='ls -l'
-alias la='ls -A'
-alias l='ls -CF'
-
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     # change suggestion color
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 fi
+
+# Colour variables to make things pretty
+RED="\e[0;31m"
+YELLOW="\e[0;33m"
+OCHRE="\e[38;5;95m"
+GREEN="\033[1;32m"
+ENDCOLOR="\e[0m"
+
+# Make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Enable Bash completion
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
+# Load directory list color profiles
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+# Basic Settings - All Environments
+export EDITOR=vim
+
+# Aliases
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ls='ls -h --color=auto'
+alias diff='diff --color=auto'
+alias rm='rm -i'
+alias cp='cp -rfv'
+alias df='pydf||df -h'
+alias path='echo -e ${PATH//:/\\n}'
+alias mount='mount | column -t'
+alias openports='netstat -tulanp'
+alias wget='wget -c'
+alias term='echo $TERM'
+alias powershell='pwsh'
+
+# For NPM
+NPM_PACKAGES="${HOME}/.npm-packages"
+export PATH="$PATH:$NPM_PACKAGES/bin"
+
+# For Go
+export GOROOT=/usr/lib/go
+export GOPATH=$HOME/.go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+# For C#
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+# Less Colors for Man Pages
+export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+export LESS_TERMCAP_me=$'\E[0m'           # end mode
+export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+
+# Set the path
+PATH=${PATH}:/sbin
+PATH=${PATH}:/usr/sbin
+PATH=${PATH}:/usr/local/bin
+PATH=${PATH}:/usr/local/sbin
+PATH=${PATH}:/opt/nessus/sbin
+PATH=${PATH}:$HOME/.local/bin
+PATH=${PATH}:$HOME/dotfiles/scripts
+PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
+PATH=${PATH}:$HOME/dotfiles/scripts/recon
+export PATH
+
+# Environment-specific settings ===============================================
+
+# === Debian / Kali / Ubuntu ===
+if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
+    echo -ne "$GREEN"">>> ""$ENDCOLOR"; echo "Debian / Kali / Ubuntu"
+    alias update='sudo apt update &&       \
+                  sudo apt full-upgrade && \
+                  sudo apt autoremove'
+fi
+
+# === WSL ===
+if [ -f /mnt/c/Windows/System32/wsl.exe ]; then
+    echo -ne $GREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
+
+    export DISPLAY=localhost:0.0
+
+    alias update='sudo apt update &&       \
+                  sudo apt full-upgrade && \
+                  sudo apt autoremove'
+fi
+
+# Things to do if you ARE root ================================================
+if [ "$EUID" -eq 0 ]; then
+
+    # Aliases
+    alias code="code --user-data-dir=\"/root/.vscode-root\""
+fi
+
+# Things to do if you AREN'T root =============================================
+if [ "$EUID" -ne 0 ]; then
+
+    # Aliases
+    alias fdisk='sudo fdisk'
+    alias service='sudo service'
+    alias dmesg='sudo dmesg'
+    alias systemctl='sudo systemctl'
+
+    vim () {
+        if [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
+        else sudo /usr/bin/vim $@;
+        fi
+    }
+
+    # Install Ruby Gems without root
+    export GEM_HOME=$HOME/.gems
+    export PATH=$HOME/.gems/bin:$PATH
+
+    # Run Private Commands that apply to all machines
+    if [ -f $HOME/.private/Private_Bash.sh ]; then
+        . $HOME/.private/Private_Bash.sh
+    fi
+fi
+
+# Set the title of the terminal
+function title {
+    if [ -z "$1" ]
+        then
+            title=${PWD##*/} # current directory
+        else
+            title=$1 # first param
+        fi
+        echo -n -e "\033]0;$title\007"
+}
+
+# WSL
+cd
