@@ -74,6 +74,7 @@ PATH=${PATH}:/usr/local/bin
 PATH=${PATH}:/usr/local/sbin
 PATH=${PATH}:/opt/nessus/sbin
 PATH=${PATH}:$HOME/.local/bin
+PATH=${PATH}:$HOME/.private/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
 PATH=${PATH}:$HOME/dotfiles/scripts/recon
@@ -164,8 +165,8 @@ if [ "$EUID" -ne 0 ]; then
     export PATH=$HOME/.gems/bin:$PATH
 
     # Run Private Commands that apply to all machines
-    if [ -f $HOME/.private/Private_Bash.sh ]; then
-        . $HOME/.private/Private_Bash.sh
+    if [ -f $HOME/.private/scripts/private_bash_settings ]; then
+        . $HOME/.private/scripts/private_bash_settings
     fi
 fi
 
