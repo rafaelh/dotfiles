@@ -1,5 +1,6 @@
 *.swp
 
+scripts/hack
 scripts/update-kali
 scripts/recon
 

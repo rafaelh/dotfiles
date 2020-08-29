@@ -76,6 +76,7 @@ PATH=${PATH}:/opt/nessus/sbin
 PATH=${PATH}:$HOME/.local/bin
 PATH=${PATH}:$HOME/.private/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts
+PATH=${PATH}:$HOME/dotfiles/scripts/hack
 PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
 PATH=${PATH}:$HOME/dotfiles/scripts/recon
 export PATH
