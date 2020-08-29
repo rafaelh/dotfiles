@@ -49,6 +49,10 @@ def git_sync(gitrepo, directory):
 # add apt install dos2unix and other useful packages
 
 def main():
+    # Install initial packages
+    cmdstring = "sudo apt update && sudo apt install -y vim git python3-pip"
+    os.system(cmdstring)
+
     # Set environment variables
     homedir = os.getenv("HOME") + '/'
     configdir = os.getenv("HOME") + '/dotfiles/config/'
