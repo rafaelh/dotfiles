@@ -9,8 +9,7 @@ GREEN="\e[0;32m"
 BOLDGREEN="\e[1;32m"
 ENDCOLOR="\e[0m"
 
-
-# Make less more friendly for non-text input files, see lesspipe(1)
+# Make less more friendly for non-text input files
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # Enable Bash completion
@@ -43,31 +42,29 @@ alias cp='cp -rfv'
 alias df='pydf||df -h'
 alias path='echo -e ${PATH//:/\\n}'
 alias mount='mount | column -t'
-alias openports='netstat -tulanp'
 alias wget='wget -c'
 alias term='echo $TERM'
 alias powershell='pwsh'
+alias fdisk='sudo fdisk'
+alias service='sudo service'
+alias dmesg='sudo dmesg'
+alias systemctl='sudo systemctl'
 
-# For NPM
-NPM_PACKAGES="${HOME}/.npm-packages"
-export PATH="$PATH:$NPM_PACKAGES/bin"
-
-# For Go
-export GOROOT=/usr/lib/go
-export GOPATH=$HOME/.go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-
-# For C#
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
+# Programming Language variables
+export NPM_PACKAGES="$HOME/.npm-packages" # For NPM
+export GEM_HOME="$HOME/.gems"             # For Ruby
+export GOROOT="/usr/lib/go"               # For Go (Root)
+export GOPATH="$HOME/.go"                 # For Go (User)
+export DOTNET_CLI_TELEMETRY_OPTOUT=1      # For C#
 
 # Less Colors for Man Pages
-export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
-export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
-export LESS_TERMCAP_me=$'\E[0m'           # end mode
-export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
-export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\E[0m'           # end underline
-export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
+export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # begin bold
+export LESS_TERMCAP_me=$'\e[0m'           # end mode
+export LESS_TERMCAP_se=$'\e[0m'           # end standout-mode
+export LESS_TERMCAP_so=$'\e[38;5;246m'    # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\e[0m'           # end underline
+export LESS_TERMCAP_us=$'\e[04;38;5;146m' # begin underline
 
 # Set the path
 PATH=${PATH}:/sbin
@@ -75,6 +72,10 @@ PATH=${PATH}:/usr/sbin
 PATH=${PATH}:/usr/local/bin
 PATH=${PATH}:/usr/local/sbin
 PATH=${PATH}:/opt/nessus/sbin
+PATH=${PATH}:$GEM_HOME/bin
+PATH=${PATH}:$NPM_PACKAGES/bin
+PATH=${PATH}:$GOPATH/bin
+PATH=${PATH}:$GOROOT/bin
 PATH=${PATH}:$HOME/.local/bin
 PATH=${PATH}:$HOME/.private/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts
@@ -83,9 +84,9 @@ PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
 PATH=${PATH}:$HOME/dotfiles/scripts/recon
 export PATH
 
-# Environment-specific settings ===============================================
 
-# === Debian / Kali / Ubuntu ===
+# === Environment-specific settings ===========================================
+# Debian / Kali / Ubuntu
 if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
     clear
     echo -ne $BOLDGREEN">>> "$ENDCOLOR; echo "Debian / Kali / Ubuntu"
@@ -94,7 +95,7 @@ if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
                   sudo apt autoremove'
 fi
 
-# === WSL ===
+# WSL
 if [ -f /mnt/c/Windows/System32/wsl.exe ]; then
     clear
     echo -ne $BOLDGREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
@@ -105,7 +106,25 @@ if [ -f /mnt/c/Windows/System32/wsl.exe ]; then
     export DISPLAY=localhost:0.0
 fi
 
-# Adding git status to prompt =================================================
+# == Functions ================================================================
+function vim () {
+    # Run vim with sudo priviledges if uneditable
+    if [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
+    else sudo /usr/bin/vim $@;
+    fi
+}
+
+function title {
+    # Set the title of the terminal
+    if [ -z "$1" ]
+        then
+            title=${PWD##*/} # current directory
+        else
+            title=$1 # first param
+        fi
+        echo -n -e "\033]0;$title\007"
+}
+
 function git_color {
     local git_status="$(git status 2> /dev/null)"
 
@@ -134,8 +153,7 @@ function git_branch {
     fi
 }
 
-# Set a colour prompt =========================================================
-
+# === Set a colour prompt =====================================================
 if [ "$EUID" -eq 0 ]; then
     PS1="$RED\u"     # User (root)
 else
@@ -153,54 +171,12 @@ PS1+="\[\$(git_color)\]"   # Colors git status
 PS1+="\$(git_branch)"      # Prints current branch
 PS1+="$ENDCOLOR "          # Ends prompt
 
-# Things to do if you AREN'T root =============================================
-if [ "$EUID" -ne 0 ]; then
 
-    # Aliases
-    alias fdisk='sudo fdisk'
-    alias service='sudo service'
-    alias dmesg='sudo dmesg'
-    alias systemctl='sudo systemctl'
-
-    vim () {
-        if [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
-        else sudo /usr/bin/vim $@;
-        fi
-    }
-
-    # Install Ruby Gems without root
-    export GEM_HOME=$HOME/.gems
-    export PATH=$HOME/.gems/bin:$PATH
-
-    # Run Private Commands that apply to all machines
-    if [ -f $HOME/.private/scripts/private_bash_settings ]; then
-        . $HOME/.private/scripts/private_bash_settings
-    fi
+# == Finish up ================================================================
+# Run private commands script
+if [ -f $HOME/.private/scripts/private_bash_settings ]; then
+    . $HOME/.private/scripts/private_bash_settings
 fi
-
-# Set the title of the terminal
-function title {
-    if [ -z "$1" ]
-        then
-            title=${PWD##*/} # current directory
-        else
-            title=$1 # first param
-        fi
-        echo -n -e "\033]0;$title\007"
-}
-
-# Hacking stuff ====================
-getlinks() {
-	gau $1 -subs | \
-	grep "=" | \
-	egrep -iv ".(jpg|jpeg|gif|css|tif|tiff|png|ttf|woff|woff2|ico|pdf|svg|txt|js)" | \
-	qsreplace -a
-}
-
-sqlicheck() {
-	getlinks $1 | python3 /opt/DSSS/dsss.py
-}
-
 
 # WSL
 cd
