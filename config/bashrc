@@ -114,7 +114,7 @@ function git_color {
     elif [[ $git_status =~ "Your branch is ahead of" ]]; then
         echo -e $YELLOW
     elif [[ $git_status =~ "nothing to commit" ]]; then
-        echo -e $BOLDGREEN
+        echo -e $GREEN
     else
         echo -e $BOLDMAGENTA
     fi
@@ -137,18 +137,21 @@ function git_branch {
 # Set a colour prompt =========================================================
 
 if [ "$EUID" -eq 0 ]; then
-    PS1="\[${RED}\]\u"     # User (root)
+    PS1="$RED\u"     # User (root)
 else
-    PS1="\[${GREEN}\]\u"   # User (normal)
+    PS1="$GREEN\u"   # User (normal)
 fi
+PS1+="$BOLDGREEN@"   # @
+PS1+="$GREEN\h "     # Host
+PS1+="$BOLDGREEN("   # Open Bracket
+PS1+="$YELLOW\w"     # Working Directory
+PS1+="$BOLDGREEN)"   # Close Bracket
+PS1+="$ENDCOLOR"     # End Color
 
-PS1+="\[${BOLDGREEN}\]@"   # @
-PS1+="\[${GREEN}\]\h"      # Host
-PS1+="\[${BOLDGREEN}\] ("  # Open Bracket
-PS1+="\[${YELLOW}\]\w"     # Working Directory
-PS1+="\[${BOLDGREEN}\])"   # Close Bracket
-PS1+="\[${ENDCOLOR}\]"     # End Color
-
+# Add Git Status
+PS1+="\[\$(git_color)\]"   # Colors git status
+PS1+="\$(git_branch)"      # Prints current branch
+PS1+="$ENDCOLOR "          # Ends prompt
 
 # Things to do if you AREN'T root =============================================
 if [ "$EUID" -ne 0 ]; then
@@ -174,12 +177,6 @@ if [ "$EUID" -ne 0 ]; then
         . $HOME/.private/scripts/private_bash_settings
     fi
 fi
-
-# Add Git Status ==============================================================
-PS1+="\[\$(git_color)\]"                         # Colors git status
-PS1+="\$(git_branch)"                            # Prints current branch
-PS1+="$ENDCOLOR "                                # Ends prompt
-
 
 # Set the title of the terminal
 function title {
