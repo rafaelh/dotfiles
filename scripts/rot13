@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Convert text to and from ROT13 encoding, either via command or pipe.
+
+if [ $# -eq 0 ]; then
+    tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
+else
+    echo $* | tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
+fi
