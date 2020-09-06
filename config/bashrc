@@ -4,9 +4,11 @@
 # Colour variables to make things pretty
 RED="\e[0;31m"
 YELLOW="\e[0;33m"
-OCHRE="\e[38;5;95m"
-GREEN="\033[1;32m"
+BOLDMAGENTA="\e[1;35m"
+GREEN="\e[0;32m"
+BOLDGREEN="\e[1;32m"
 ENDCOLOR="\e[0m"
+
 
 # Make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -85,7 +87,8 @@ export PATH
 
 # === Debian / Kali / Ubuntu ===
 if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
-    echo -ne "$GREEN"">>> ""$ENDCOLOR"; echo "Debian / Kali / Ubuntu"
+    clear
+    echo -ne $BOLDGREEN">>> "$ENDCOLOR; echo "Debian / Kali / Ubuntu"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
                   sudo apt autoremove'
@@ -93,13 +96,13 @@ fi
 
 # === WSL ===
 if [ -f /mnt/c/Windows/System32/wsl.exe ]; then
-    echo -ne $GREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
-
-    export DISPLAY=localhost:0.0
-
+    clear
+    echo -ne $BOLDGREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
                   sudo apt autoremove'
+
+    export DISPLAY=localhost:0.0
 fi
 
 # Adding git status to prompt =================================================
@@ -111,9 +114,9 @@ function git_color {
     elif [[ $git_status =~ "Your branch is ahead of" ]]; then
         echo -e $YELLOW
     elif [[ $git_status =~ "nothing to commit" ]]; then
-        echo -e $GREEN
+        echo -e $BOLDGREEN
     else
-        echo -e $OCHRE
+        echo -e $BOLDMAGENTA
     fi
 }
 
@@ -124,30 +127,31 @@ function git_branch {
 
     if [[ $git_status =~ $on_branch ]]; then
         local branch=${BASH_REMATCH[1]}
-        echo " [$branch]"
+        echo " ($branch)"
     elif [[ $git_status =~ $on_commit ]]; then
         local commit=${BASH_REMATCH[1]}
-        echo " [$commit]"
+        echo " ($commit)"
     fi
 }
 
-# Things to do if you ARE root ================================================
+# Set a colour prompt =========================================================
+
 if [ "$EUID" -eq 0 ]; then
-
-    # Set a colour prompt
-    PS1='\[\e[1;31m\][\[\e[0;31m\]\u\[\e[1;31m\]@\[\e[0;31m\]\h\[\e[1;31m\]] '
-    PS1+='[\[\e[0;33m\]\w\[\e[1;31m\]]\[\e[0m\]' # Working Directory
-
-    # Aliases
-    alias code="code --user-data-dir=\"/root/.vscode-root\""
+    PS1="\[${RED}\]\u"     # User (root)
+else
+    PS1="\[${GREEN}\]\u"   # User (normal)
 fi
+
+PS1+="\[${BOLDGREEN}\]@"   # @
+PS1+="\[${GREEN}\]\h"      # Host
+PS1+="\[${BOLDGREEN}\] ("  # Open Bracket
+PS1+="\[${YELLOW}\]\w"     # Working Directory
+PS1+="\[${BOLDGREEN}\])"   # Close Bracket
+PS1+="\[${ENDCOLOR}\]"     # End Color
+
 
 # Things to do if you AREN'T root =============================================
 if [ "$EUID" -ne 0 ]; then
-
-    # Set a colour prompt
-    PS1='\[\e[1;32m\][\[\e[0;32m\]\u\[\e[1;32m\]@\[\e[0;32m\]\h\[\e[1;32m\]] '
-    PS1+='[\[\e[0;33m\]\w\[\e[1;32m\]]\[\e[0m\]' # Working Directory
 
     # Aliases
     alias fdisk='sudo fdisk'
@@ -179,7 +183,7 @@ PS1+="$ENDCOLOR "                                # Ends prompt
 
 # Set the title of the terminal
 function title {
-    if [ -z "$1"  ]
+    if [ -z "$1" ]
         then
             title=${PWD##*/} # current directory
         else
