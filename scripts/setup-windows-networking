@@ -1,0 +1,9 @@
+#!/bin/bash
+sudo apt install -y winbind libnss-winbind
+
+echo "Next steps:"
+echo " * Open /etc/nsswitch.conf and look for the line:
+echo "     hosts: files mdns4_minimal [NOTFOUND=return] dns"
+echo
+echo " * Change that line to:
+echo "     hosts: files mdns4_minimal [NOTFOUND=return] dns wins mdns4"
