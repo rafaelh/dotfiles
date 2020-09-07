@@ -2,12 +2,12 @@
 [ -z "$PS1" ] && return
 
 # Colour variables to make things pretty
-RED="\e[0;31m"
-YELLOW="\e[0;33m"
-BOLDMAGENTA="\e[1;35m"
-GREEN="\e[0;32m"
-BOLDGREEN="\e[1;32m"
-ENDCOLOR="\e[0m"
+RED="\[\e[0;31m\]"
+YELLOW="\[\e[0;33m\]"
+BOLDMAGENTA="\[\e[1;35m\]"
+GREEN="\[\e[0;32m\]"
+BOLDGREEN="\[\e[1;32m\]"
+ENDCOLOR="\[\e[0m\]"
 
 # Make less more friendly for non-text input files
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -89,7 +89,7 @@ export PATH
 # Debian / Kali / Ubuntu
 if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
     clear
-    echo -ne $BOLDGREEN">>> "$ENDCOLOR; echo "Debian / Kali / Ubuntu"
+    echo -ne "$BOLDGREEN>>> $ENDCOLOR"; echo "Debian / Kali / Ubuntu"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
                   sudo apt autoremove'
@@ -124,6 +124,7 @@ function title {
         fi
         echo -n -e "\033]0;$title\007"
 }
+# https://coderwall.com/p/pn8f0g/show-your-git-status-and-branch-in-color-at-the-command-prompt
 
 function git_color {
     local git_status="$(git status 2> /dev/null)"
@@ -154,22 +155,18 @@ function git_branch {
 }
 
 # === Set a colour prompt =====================================================
-if [ "$EUID" -eq 0 ]; then
-    PS1="\[$RED\u"     # User (root)
-else
-    PS1="\[$GREEN\u"   # User (normal)
-fi
-PS1+="$BOLDGREEN@"   # @
-PS1+="$GREEN\h "     # Host
-PS1+="$BOLDGREEN("   # Open Bracket
-PS1+="$YELLOW\w"     # Working Directory
-PS1+="$BOLDGREEN)"   # Close Bracket
-PS1+="$ENDCOLOR\]"     # End Color
+#if [ "$EUID" -eq 0 ]; then
+#    PS1="\[$RED\u"     # User (root)
+#else
+#    PS1="\[$GREEN\u"   # User (normal)
+#fi
 
+PS1="$GREEN\u$BOLDGREEN@$GREEN\h $BOLDGREEN($YELLOW\w$BOLDGREEN) $ENDCOLOR"
+PS1+="\$(__git_ps1 '(%s)')"
 # Add Git Status
-PS1+="\[\$(git_color)\]"   # Colors git status
-PS1+="\[\$(git_branch)\]"      # Prints current branch
-PS1+="$ENDCOLOR\] "          # Ends prompt
+#PS1+="\$(git_color)"   # Colors git status
+#PS1+="\$(git_branch)"      # Prints current branch
+#PS1+="$ENDCOLOR "          # Ends prompt
 
 
 # == Finish up ================================================================
