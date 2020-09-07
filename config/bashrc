@@ -155,21 +155,21 @@ function git_branch {
 
 # === Set a colour prompt =====================================================
 if [ "$EUID" -eq 0 ]; then
-    PS1="$RED\u"     # User (root)
+    PS1="\[$RED\u"     # User (root)
 else
-    PS1="$GREEN\u"   # User (normal)
+    PS1="\[$GREEN\u"   # User (normal)
 fi
 PS1+="$BOLDGREEN@"   # @
 PS1+="$GREEN\h "     # Host
 PS1+="$BOLDGREEN("   # Open Bracket
 PS1+="$YELLOW\w"     # Working Directory
 PS1+="$BOLDGREEN)"   # Close Bracket
-PS1+="$ENDCOLOR"     # End Color
+PS1+="$ENDCOLOR\]"     # End Color
 
 # Add Git Status
 PS1+="\[\$(git_color)\]"   # Colors git status
-PS1+="\$(git_branch)"      # Prints current branch
-PS1+="$ENDCOLOR "          # Ends prompt
+PS1+="\[\$(git_branch)\]"      # Prints current branch
+PS1+="$ENDCOLOR\] "          # Ends prompt
 
 
 # == Finish up ================================================================
