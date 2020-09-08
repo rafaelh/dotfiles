@@ -1,11 +1,11 @@
 #!/bin/bash
-echo "\n>>> Running Services\n"
+echo ">>> Running Services"
 systemctl list-units --type=service --state=running
 
-echo "\n>>> RAID\n"
+echo ">>> RAID"
 cat /proc/mdstat
 
-echo "\n>>> Failed Services\n"
+echo ">>> Failed Services"
 systemctl list-units --state=failed
 
 # Need to detect running services: TLP, bluetooth, printer, smartctl, sensors

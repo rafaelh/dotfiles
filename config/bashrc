@@ -2,12 +2,13 @@
 [ -z "$PS1" ] && return
 
 # Colour variables to make things pretty
-RED="\[\e[0;31m\]"
-YELLOW="\[\e[0;33m\]"
-BOLDMAGENTA="\[\e[1;35m\]"
-GREEN="\[\e[0;32m\]"
-BOLDGREEN="\[\e[1;32m\]"
-ENDCOLOR="\[\e[0m\]"
+COLOR_RED="\033[0;31m"
+COLOR_YELLOW="\033[0;33m"
+COLOR_GREEN="\033[0;32m"
+COLOR_BOLDGREEN="\033[1;32m"
+COLOR_OCHRE="\033[38;5;95m"
+COLOR_WHITE="\033[0;37m"
+COLOR_RESET="\033[0m"
 
 # Make less more friendly for non-text input files
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -89,7 +90,7 @@ export PATH
 # Debian / Kali / Ubuntu
 if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
     clear
-    echo -ne "$BOLDGREEN>>> $ENDCOLOR"; echo "Debian / Kali / Ubuntu"
+    echo -ne "$COLOR_BOLDGREEN>>> $COLOR_RESET"; echo "Debian / Kali / Ubuntu"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
                   sudo apt autoremove'
@@ -98,13 +99,14 @@ fi
 # WSL
 if [ -f /mnt/c/Windows/System32/wsl.exe ]; then
     clear
-    echo -ne $BOLDGREEN">>> "$ENDCOLOR; echo "Windows Subsystem for Linux"
+    echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "Windows Subsystem for Linux"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
                   sudo apt autoremove'
 
     export DISPLAY=localhost:0.0
 fi
+
 
 # == Functions ================================================================
 function vim () {
@@ -124,20 +126,19 @@ function title {
         fi
         echo -n -e "\033]0;$title\007"
 }
-# https://coderwall.com/p/pn8f0g/show-your-git-status-and-branch-in-color-at-the-command-prompt
 
 function git_color {
     local git_status="$(git status 2> /dev/null)"
 
-    if [[ ! $git_status =~ "clean" ]]; then
-        echo -e $RED
+    if [[ ! $git_status =~ "working directory clean" ]]; then
+        echo -e $COLOR_RED
     elif [[ $git_status =~ "Your branch is ahead of" ]]; then
-        echo -e $YELLOW
+        echo -e $COLOR_YELLOW
     elif [[ $git_status =~ "nothing to commit" ]]; then
-        echo -e $GREEN
+        echo -e $COLOR_GREEN
     else
-        echo -e $BOLDMAGENTA
-    fi
+        echo -e $COLOR_OCHRE
+  fi
 }
 
 function git_branch {
@@ -150,23 +151,23 @@ function git_branch {
         echo " ($branch)"
     elif [[ $git_status =~ $on_commit ]]; then
         local commit=${BASH_REMATCH[1]}
-        echo " ($commit)"
+       echo " ($commit)"
     fi
 }
 
-# === Set a colour prompt =====================================================
-#if [ "$EUID" -eq 0 ]; then
-#    PS1="\[$RED\u"     # User (root)
-#else
-#    PS1="\[$GREEN\u"   # User (normal)
-#fi
 
-PS1="$GREEN\u$BOLDGREEN@$GREEN\h $BOLDGREEN($YELLOW\w$BOLDGREEN) $ENDCOLOR"
-PS1+="\$(__git_ps1 '(%s)')"
-# Add Git Status
-#PS1+="\$(git_color)"   # Colors git status
-#PS1+="\$(git_branch)"      # Prints current branch
-#PS1+="$ENDCOLOR "          # Ends prompt
+# === Set a colour prompt =====================================================
+PS1RED="\[\e[0;31m\]"
+PS1GREEN="\[\e[0;32m\]"
+PS1YELLOW="\[\e[0;33m\]"
+PS1BOLDGREEN="\[\e[1;32m\]"
+PS1ENDCOLOR="\[\e[0m\]"
+
+PS1="$PS1GREEN\u$PS1BOLDGREEN@$PS1GREEN\h $PS1BOLDGREEN($PS1YELLOW\w$PS1BOLDGREEN)$PS1ENDCOLOR"
+
+# Add git branch and status
+PS1+="\[\$(git_color)\]"
+PS1+="\$(git_branch)\[$COLOR_RESET\] "
 
 
 # == Finish up ================================================================
