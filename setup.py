@@ -46,11 +46,10 @@ def git_sync(gitrepo, directory):
         cmdstring = "git clone " + gitrepo + " " + directory
         os.system(cmdstring)
 
-# add apt install dos2unix and other useful packages
 
 def main():
     # Install initial packages
-    cmdstring = "sudo apt update && sudo apt install -y vim git python3-pip"
+    cmdstring = "sudo apt update && sudo apt install -y vim dos2unix git python3-pip"
     os.system(cmdstring)
 
     # Set environment variables
@@ -70,7 +69,6 @@ def main():
     os.system(cmdstring)
 
     if os.path.exists('/mnt/c'):
-        linkfolder("/Dropbox", "dropbox")
         linkfolder("/Google Drive", "gdrive")
         linkfolder("/Downloads", "downloads")
 

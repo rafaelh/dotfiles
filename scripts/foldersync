@@ -1,8 +1,0 @@
-#!/bin/bash
-
-DIRECTORY='/mnt/c/Users/rhart/Downloads/temp/'
-SERVER="rafael@rafaelh.duckdns.org:/raid/Computers/tempbackup"
-
-echo ">>> Copying Music from Local Machine to Server"
-rsync -avz --delete -e 'ssh -p 9012' $DIRECTORY $SERVER
-

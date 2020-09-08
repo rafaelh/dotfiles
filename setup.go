@@ -52,11 +52,11 @@ func exists(path string) (bool, error) {
 func printMessage(messageLevel string, message string) {
 	var level = strings.ToLower(messageLevel)
 	if level == "info" {
-		fmt.Println("[\033[1;32mInfo\033[0;37m] " + message + "\033[0;37m")
+		fmt.Println("[\033[1;32mInfo\033[0;37m] " + message)
 	} else if level == "warn" {
-		fmt.Println("[\033[1;33mWarn\033[0;37m] " + message + "\033[0;37m")
+		fmt.Println("[\033[1;33mWarn\033[0;37m] " + message)
 	} else {
-		fmt.Println("[\033[1;31mERR!\033[0;37m] " + message + "\033[0;37m")
+		fmt.Println("[\033[1;31mERR!\033[0;37m] " + message)
 	}
 
 }
