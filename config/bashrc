@@ -50,6 +50,7 @@ alias fdisk='sudo fdisk'
 alias service='sudo service'
 alias dmesg='sudo dmesg'
 alias systemctl='sudo systemctl'
+alias dnsrecon='/opt/dnsrecon/dnsrecon.py'
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages" # For NPM
