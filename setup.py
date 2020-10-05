@@ -52,6 +52,11 @@ def main():
     cmdstring = "sudo apt update && sudo apt install -y vim dos2unix git python3-pip"
     os.system(cmdstring)
 
+    # Install fonts
+    cmdstring = "sudo cp ~/dotfiles/fonts/*.ttf /usr/share/fonts && fc-cache -f
+    -v"
+    os.system(cmdstring)
+
     # Set environment variables
     homedir = os.getenv("HOME") + '/'
     configdir = os.getenv("HOME") + '/dotfiles/config/'
