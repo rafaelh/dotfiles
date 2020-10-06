@@ -25,6 +25,8 @@ fi
 
 # Basic Settings - All Environments
 HISTCONTROL=ignoredups:ignoreboth
+HISTIGNORE="&:ls:[bf]g:exit:history"
+HISTTIMEFORMAT='%F %T '
 HISTSIZE=1000
 HISTFILESIZE=2000
 shopt -s histappend
