@@ -19,6 +19,6 @@ for server in $(host -t ns $1 | cut -d " " -f4)
 do
     echo
     echo -ne $GREEN">>> "$ENDCOLOR; echo "Trying $server"
-    dig axfr $1 @$server | grep -o '[^/]*\.$1'
+    dig axfr $1 @$server
 done
 echo
