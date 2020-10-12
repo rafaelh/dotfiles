@@ -1,0 +1,24 @@
+#!/bin/bash
+set -Eeuo pipefail
+trap "echo -e \"\033[1;31m[!] \e[0mScript error occured in $0.\"" ERR
+
+# Simple Zone Transfer script
+
+GREEN="\033[1;32m"
+ENDCOLOR="\e[0m"
+
+if [ -z "$1" ]; then
+    echo "[i] Simple Zone transfer script"
+    echo "    Usage: $0 <domain name>"
+    exit 0
+fi
+
+# If argument was given, identify the DNS servers for the domain and attempt a 
+# zone transfer on each
+for server in $(host -t ns $1 | cut -d " " -f4)
+do
+    echo
+    echo -ne $GREEN">>> "$ENDCOLOR; echo "Trying $server"
+    dig axfr $1 @$server | grep -o '[^/]*\.$1'
+done
+echo
