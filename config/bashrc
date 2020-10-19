@@ -94,7 +94,7 @@ export PATH
 # === Environment-specific settings ===========================================
 # Debian / Kali / Ubuntu
 if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
-    clear
+    
     echo -ne "$COLOR_BOLDGREEN>>> $COLOR_RESET"; echo "Debian / Kali / Ubuntu"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
@@ -103,7 +103,7 @@ fi
 
 # WSL
 if [ -f /mnt/c/Windows/System32/wsl.exe ]; then
-    clear
+    
     echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "Windows Subsystem for Linux"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
