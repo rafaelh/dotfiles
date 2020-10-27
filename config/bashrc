@@ -82,10 +82,10 @@ PATH=${PATH}:$GEM_HOME/bin
 PATH=${PATH}:$NPM_PACKAGES/bin
 PATH=${PATH}:$GOPATH/bin
 PATH=${PATH}:$GOROOT/bin
+PATH=${PATH}:$HOME/x/security
 PATH=${PATH}:$HOME/.local/bin
 PATH=${PATH}:$HOME/.private/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts
-PATH=${PATH}:$HOME/dotfiles/scripts/hack
 PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
 PATH=${PATH}:$HOME/dotfiles/scripts/recon
 export PATH
