@@ -27,8 +27,8 @@ fi
 HISTCONTROL=ignoredups:ignoreboth
 HISTIGNORE="&:ls:[bf]g:exit:history"
 HISTTIMEFORMAT='%F %T '
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTSIZE=10000
+HISTFILESIZE=0
 shopt -s histappend
 shopt -s checkwinsize
 set show-all-if-ambiguous on
@@ -55,6 +55,7 @@ alias dmesg='sudo dmesg'
 alias systemctl='sudo systemctl'
 alias dnsrecon='/opt/dnsrecon/dnsrecon.py'
 alias twofi='twofi --config .private/config/twofi.yml'
+alias ".."="cd .."
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages" # For NPM
