@@ -3,6 +3,9 @@
 # A maintenance script for Gentoo to automate cleaning/updating after
 # a worldupdate
 
+set -Eeuo pipefail
+trap "echo -e \"\033[1;31m[!] \e[0mScript error occured in $0.\"" ERR
+
 GREEN="\033[1;32m"
 ENDCOLOUR="\033[0m"
 

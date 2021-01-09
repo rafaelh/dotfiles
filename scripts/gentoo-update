@@ -1,2 +1,5 @@
 #!/bin/bash
+set -Eeuo pipefail
+trap "echo -e \"\033[1;31m[!] \e[0mScript error occured in $0.\"" ERR
+
 emerge --ask --tree --update --deep --newuse --with-bdeps=y $@ world
