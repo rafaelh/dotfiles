@@ -53,8 +53,7 @@ def main():
     os.system(cmdstring)
 
     # Install fonts
-    cmdstring = "sudo cp ~/dotfiles/fonts/*.ttf /usr/share/fonts && fc-cache -f
-    -v"
+    cmdstring = "sudo cp ~/dotfiles/fonts/*.ttf /usr/share/fonts && fc-cache -f -v"
     os.system(cmdstring)
 
     # Set environment variables

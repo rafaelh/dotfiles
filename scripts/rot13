@@ -1,4 +1,6 @@
 #!/bin/bash
+set -Eeuo pipefail
+trap "echo -e \"\033[1;31m[!] \e[0mScript error occured in $0.\"" ERR
 
 # Convert text to and from ROT13 encoding, either via command or pipe.
 
