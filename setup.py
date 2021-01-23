@@ -2,7 +2,7 @@
 
 import os
 
-
+# Need to combine and replace these
 def print_green(message):
     """ Prints a message to the console prefixed with a green '>>>' """
     print("\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
@@ -72,6 +72,7 @@ def main():
     cmdstring = "rm -rf %s.vim/bundle/*" % homedir
     os.system(cmdstring)
 
+    # Actions to perform on WSL. Should improve this to look for wsl.exe
     if os.path.exists('/mnt/c'):
         linkfolder("/Google Drive", "gdrive")
         linkfolder("/Downloads", "downloads")
