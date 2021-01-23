@@ -12,4 +12,3 @@ Things to note:
 * If you symlink this to root as well, it should provide you with a similar setup, tweaked for admin access
 
 Have fun!
-
