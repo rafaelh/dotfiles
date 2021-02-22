@@ -14,6 +14,7 @@ func main() {
 	fmt.Println(homedir)
 
 	printMessage("INFO", "Running a command")
+	printMessage("ADD", "Running a command")
 	printMessage("WARN", "Running a command")
 	printMessage("ERR", "Running a command")
 
@@ -52,11 +53,13 @@ func exists(path string) (bool, error) {
 func printMessage(messageLevel string, message string) {
 	var level = strings.ToLower(messageLevel)
 	if level == "info" {
-		fmt.Println("[\033[1;32mInfo\033[0;37m] " + message)
+		fmt.Println("\033[1;34m[i]\033[0;37m " + message)
+	} else if level == "add" {
+		fmt.Println("\033[1;32m[+]\033[0;37m " + message)
 	} else if level == "warn" {
-		fmt.Println("[\033[1;33mWarn\033[0;37m] " + message)
+		fmt.Println("\033[1;33m[*]\033[0;37m " + message)
 	} else {
-		fmt.Println("[\033[1;31mERR!\033[0;37m] " + message)
+		fmt.Println("\033[1;31m[!]\033[0;37m " + message)
 	}
 
 }
