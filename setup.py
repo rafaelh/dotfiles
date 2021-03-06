@@ -19,17 +19,17 @@ def elevate_privileges():
     return status
 
 # Need to combine and replace these
-def print_green(message):
-    """ Prints a message to the console prefixed with a green '>>>' """
-    print("\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
+#def print_green(message):
+#    """ Prints a message to the console prefixed with a green '>>>' """
+#    print("\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
 
-def print_yellow(message):
-    """ Prints a message to the console prefixed with a yellow '>>>' """
-    print("\033[1;33;40m>>> \033[0;37;40m" + message + "\033[0;37;0m")
+#def print_yellow(message):
+#    """ Prints a message to the console prefixed with a yellow '>>>' """
+#    print("\033[1;33;40m>>> \033[0;37;40m" + message + "\033[0;37;0m")
 
-def print_red(message):
-    """ Prints a message to the console prefixed with a red '>>>' """
-    print("\033[0;31;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
+#def print_red(message):
+#    """ Prints a message to the console prefixed with a red '>>>' """
+#    print("\033[0;31;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
 
 def linkfolder(windowspath, linkname):
     linkpath = os.getenv("HOME") + '/' + linkname
@@ -51,7 +51,6 @@ def sync_vim_repo(gitrepo):
         os.system(cmdstring)
         cmdstring = "git -C %s/ clone %s" % (vim_plugin_dir, gitrepo)
         os.system(cmdstring)
-    return
 
 def git_sync(gitrepo, directory):
     if os.path.exists(directory):
@@ -67,6 +66,9 @@ def git_sync(gitrepo, directory):
 
 
 def main():
+    # Get sudo privileges
+    if elevate_privileges(): sys.exit(1)
+
     # Install initial packages
 	print_message("blue", "Installing core packages")
     cmdstring = "sudo apt update && sudo apt install -y vim dos2unix git python3-pip"
