@@ -18,6 +18,14 @@ def elevate_privileges():
     status = os.system("sudo date; echo")
     return status
 
+def update_packages():
+    """ Do a general update of the system packages """
+    cmdseries = ['sudo apt update',
+                 'sudo apt full-upgrade -y',
+                 'sudo apt autoremove -y']
+    for cmdstring in cmdseries:
+        os.system(cmdstring)
+
 # Need to combine and replace these
 #def print_green(message):
 #    """ Prints a message to the console prefixed with a green '>>>' """
@@ -69,9 +77,13 @@ def main():
     # Get sudo privileges
     if elevate_privileges(): sys.exit(1)
 
+    # Update and upgrade apt packages
+    print_message("blue", "General Update")
+    update_packages()
+
     # Install initial packages
 	print_message("blue", "Installing core packages")
-    cmdstring = "sudo apt update && sudo apt install -y vim dos2unix git python3-pip"
+    cmdstring = "sudo apt install -y vim dos2unix git python3-pip"
     os.system(cmdstring)
 
     # Install fonts
@@ -90,6 +102,7 @@ def main():
     if os.path.exists('/etc/skel'):
         basicdotfiles = os.listdir('/etc/skel')
         for basicdotfile in basicdotfiles:
+			print_message("red", "Removing " + basicdotfile)
             cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
             os.system(cmdstring)
     cmdstring = "rm -rf %s.vim/bundle/*" % homedir
