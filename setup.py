@@ -26,6 +26,19 @@ def update_packages():
     for cmdstring in cmdseries:
         os.system(cmdstring)
 
+def sync_git_repo(gitrepo, repo_collection_dir):
+    """ Sync the specified git repository """
+    repo_name = gitrepo.split("/")[-1].lower()
+    if os.path.exists(repo_collection_dir + '/' + repo_name):
+        print_message("yellow", "Syncing " + repo_name + ": ")
+        sys.stdout.flush()
+        cmdstring = "git -C " + repo_collection_dir + '/' + repo_name + " pull"
+        os.system(cmdstring)
+    else:
+        print_message("green", "Cloning " + repo_name)
+        cmdstring = "git clone " + gitrepo + ' ' + repo_collection_dir + '/' + repo_name
+        os.system(cmdstring)
+
 # Need to combine and replace these
 #def print_green(message):
 #    """ Prints a message to the console prefixed with a green '>>>' """
@@ -105,8 +118,8 @@ def main():
             print_message("red", "Removing " + basicdotfile)
             cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
             os.system(cmdstring)
-    cmdstring = "rm -rf %s.vim/bundle/*" % homedir
-    os.system(cmdstring)
+    #cmdstring = "rm -rf %s.vim/bundle/*" % homedir
+    #os.system(cmdstring)
 
     # Actions to perform on WSL. Should improve this to look for wsl.exe
     if os.path.exists('/mnt/c'):
@@ -136,8 +149,8 @@ def main():
     sync_vim_repo('https://github.com/itchyny/lightline.vim')
     sync_vim_repo('https://github.com/plasticboy/vim-markdown')
 
-    git_sync('git@github.com:rafaelh/update-kali.git', os.getenv("HOME") + '/dotfiles/scripts/update-kali')
-    git_sync('git@github.com:rafaelh/recon.git', os.getenv("HOME") + '/dotfiles/scripts/recon')
+    sync_git_repo('git@github.com:rafaelh/update-kali.git', os.getenv("HOME") + '/dotfiles/scripts/')
+    sync_git_repo('git@github.com:rafaelh/recon.git', os.getenv("HOME") + '/dotfiles/scripts/')
 
 if __name__ == "__main__":
     main()
