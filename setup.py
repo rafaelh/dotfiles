@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+""" Sets up a linux environment with the dotfiles in this repo """
 
 import os
 import sys
 from datetime import datetime
 
 def print_message(color, message):
-    """ Prints a formatted message to the console """
+    """ Prints a formatted message to the console. Used in other functions, so it comes first. """
     if   color == "green":  print("\033[1;32m[+] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message)
     elif color == "blue":   print("\n\033[1;34m[i] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message)
     elif color == "yellow": print("\033[0;33m[<] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message, end="")
@@ -39,28 +40,16 @@ def sync_git_repo(gitrepo, repo_collection_dir):
         cmdstring = "git clone " + gitrepo + ' ' + repo_collection_dir + '/' + repo_name
         os.system(cmdstring)
 
-def linkfolder(windowspath, linkname):
-    linkpath = os.getenv("HOME") + '/' + linkname
-    if not os.path.exists(linkpath):
-        cmdstring = "ln -s %s %s" % ('/mnt/c/Users/' + os.getenv("USER")
-                + windowspath, linkpath)
+def link(origin, linkname):
+    """ Create a soft link on the file system """
+    if not os.path.exists(linkname):
+        print_message("green", "Linking " + origin + " to " + linkname)
+        cmdstring = "ln -s %s %s" % origin, linkname)
         os.system(cmdstring)
-
-def sync_vim_repo(gitrepo):
-    """ Syncs a git repo containing a vim plugin """
-    vim_plugin_dir = os.getenv("HOME") + '/dotfiles/config/vim/bundle'
-    gitname = gitrepo.split("/")
-    if not os.path.exists(vim_plugin_dir):
-        cmdstring = "mkdir %s" % vim_plugin_dir
-    if not os.path.exists(vim_plugin_dir + "/" + gitname[-1]):
-        print_message("yellow", "Syncing %s" % gitname[-1])
-        cmdstring = "mkdir %s" % vim_plugin_dir + "/" + gitname[-1]
-        os.system(cmdstring)
-        cmdstring = "git -C %s/ clone %s" % (vim_plugin_dir, gitrepo)
-        os.system(cmdstring)
-
 
 def main():
+    windows_home_dir = "/mnt/c/Users/" + os.getenv("USER")
+    linux_home_dir = os.getenv("HOME")
     vim_plugin_dir = os.getenv("HOME") + '/dotfiles/config/vim/bundle'
     # Get sudo privileges
     if elevate_privileges(): sys.exit(1)
@@ -93,13 +82,12 @@ def main():
             print_message("red", "Removing " + basicdotfile)
             cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
             os.system(cmdstring)
-    #cmdstring = "rm -rf %s.vim/bundle/*" % homedir
-    #os.system(cmdstring)
 
     # Actions to perform on WSL. Should improve this to look for wsl.exe
     if os.path.exists('/mnt/c'):
-        linkfolder("/Google Drive", "gdrive")
-        linkfolder("/Downloads", "downloads")
+        link(windows_home_dir + "/Google Drive", linux_home_dir + "/gdrive")
+        link(windows_home_dir + "/Downloads", linux_home_dir + "/downloads")
+
 
     # Simlink dotfiles
     for link in links:
@@ -107,6 +95,7 @@ def main():
             #print_green("Linking: %s" % link)
             print_message("green", "Linking: %s" % link)
             cmdstring = "ln -s %s%s %s.%s" % (configdir, link, homedir, link)
+            print(cmdstring)
             os.system(cmdstring)
 
     # Download git plugins
