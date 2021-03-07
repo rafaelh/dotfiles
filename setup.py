@@ -54,7 +54,7 @@ def sync_vim_repo(gitrepo):
         cmdstring = "mkdir %s" % vim_plugin_dir
     if not os.path.exists(vim_plugin_dir + "/" + gitname[-1]):
         #print_green("Syncing: %s" % gitname[-1])
-		print_message("yellow", "Syncing %s" % gitname[-1])
+        print_message("yellow", "Syncing %s" % gitname[-1])
         cmdstring = "mkdir %s" % vim_plugin_dir + "/" + gitname[-1]
         os.system(cmdstring)
         cmdstring = "git -C %s/ clone %s" % (vim_plugin_dir, gitrepo)
@@ -63,12 +63,12 @@ def sync_vim_repo(gitrepo):
 def git_sync(gitrepo, directory):
     if os.path.exists(directory):
         #print_yellow("Syncing " + directory)
-		print_message("yellow", "Syncing " + directory)
-        c_mdstring = "git -C " + directory + " pull origin master"
+        print_message("yellow", "Syncing " + directory)
+        cmdstring = "git -C " + directory + " pull origin master"
         os.system(cmdstring)
     else:
         #print_red("Cloning " + directory)
-		print_message("yellow", "Cloning " + directory)
+        print_message("yellow", "Cloning " + directory)
         cmdstring = "git clone " + gitrepo + " " + directory
         os.system(cmdstring)
 
@@ -82,12 +82,12 @@ def main():
     update_packages()
 
     # Install initial packages
-	print_message("blue", "Installing core packages")
+    print_message("blue", "Installing core packages")
     cmdstring = "sudo apt install -y vim dos2unix git python3-pip"
     os.system(cmdstring)
 
     # Install fonts
-	print_message("blue", "Installing fonts")
+    print_message("blue", "Installing fonts")
     cmdstring = "sudo cp ~/dotfiles/fonts/*.ttf /usr/share/fonts && fc-cache -f -v"
     os.system(cmdstring)
 
@@ -102,7 +102,7 @@ def main():
     if os.path.exists('/etc/skel'):
         basicdotfiles = os.listdir('/etc/skel')
         for basicdotfile in basicdotfiles:
-			print_message("red", "Removing " + basicdotfile)
+            print_message("red", "Removing " + basicdotfile)
             cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
             os.system(cmdstring)
     cmdstring = "rm -rf %s.vim/bundle/*" % homedir
@@ -117,7 +117,7 @@ def main():
     for link in links:
         if link not in ignore and not os.path.exists(homedir + '.' + link):
             #print_green("Linking: %s" % link)
-			print_message("green", "Linking: %s" % link)
+            print_message("green", "Linking: %s" % link)
             cmdstring = "ln -s %s%s %s.%s" % (configdir, link, homedir, link)
             os.system(cmdstring)
 
