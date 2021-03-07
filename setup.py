@@ -39,19 +39,6 @@ def sync_git_repo(gitrepo, repo_collection_dir):
         cmdstring = "git clone " + gitrepo + ' ' + repo_collection_dir + '/' + repo_name
         os.system(cmdstring)
 
-# Need to combine and replace these
-#def print_green(message):
-#    """ Prints a message to the console prefixed with a green '>>>' """
-#    print("\033[1;32;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
-
-#def print_yellow(message):
-#    """ Prints a message to the console prefixed with a yellow '>>>' """
-#    print("\033[1;33;40m>>> \033[0;37;40m" + message + "\033[0;37;0m")
-
-#def print_red(message):
-#    """ Prints a message to the console prefixed with a red '>>>' """
-#    print("\033[0;31;40m>>> \033[1;37;40m" + message + "\033[0;37;0m")
-
 def linkfolder(windowspath, linkname):
     linkpath = os.getenv("HOME") + '/' + linkname
     if not os.path.exists(linkpath):
@@ -66,27 +53,15 @@ def sync_vim_repo(gitrepo):
     if not os.path.exists(vim_plugin_dir):
         cmdstring = "mkdir %s" % vim_plugin_dir
     if not os.path.exists(vim_plugin_dir + "/" + gitname[-1]):
-        #print_green("Syncing: %s" % gitname[-1])
         print_message("yellow", "Syncing %s" % gitname[-1])
         cmdstring = "mkdir %s" % vim_plugin_dir + "/" + gitname[-1]
         os.system(cmdstring)
         cmdstring = "git -C %s/ clone %s" % (vim_plugin_dir, gitrepo)
         os.system(cmdstring)
 
-def git_sync(gitrepo, directory):
-    if os.path.exists(directory):
-        #print_yellow("Syncing " + directory)
-        print_message("yellow", "Syncing " + directory)
-        cmdstring = "git -C " + directory + " pull origin master"
-        os.system(cmdstring)
-    else:
-        #print_red("Cloning " + directory)
-        print_message("yellow", "Cloning " + directory)
-        cmdstring = "git clone " + gitrepo + " " + directory
-        os.system(cmdstring)
-
 
 def main():
+    vim_plugin_dir = os.getenv("HOME") + '/dotfiles/config/vim/bundle'
     # Get sudo privileges
     if elevate_privileges(): sys.exit(1)
 
@@ -139,18 +114,18 @@ def main():
         cmdstring = "mkdir %s" % configdir + 'vim/bundle'
         os.system(cmdstring)
 
-    sync_vim_repo('https://github.com/jiangmiao/auto-pairs')
-    sync_vim_repo('https://github.com/PProvost/vim-ps1')
-    sync_vim_repo('https://github.com/scrooloose/nerdtree')
-    sync_vim_repo('https://github.com/Xuyuanp/nerdtree-git-plugin')
-    sync_vim_repo('https://github.com/tpope/vim-sensible')
-    sync_vim_repo('https://github.com/jistr/vim-nerdtree-tabs')
-    sync_vim_repo('https://github.com/pangloss/vim-javascript')
-    sync_vim_repo('https://github.com/itchyny/lightline.vim')
-    sync_vim_repo('https://github.com/plasticboy/vim-markdown')
+    sync_git_repo('https://github.com/jiangmiao/auto-pairs', vim_plugin_dir)
+    sync_git_repo('https://github.com/PProvost/vim-ps1', vim_plugin_dir)
+    sync_git_repo('https://github.com/scrooloose/nerdtree', vim_plugin_dir)
+    sync_git_repo('https://github.com/Xuyuanp/nerdtree-git-plugin', vim_plugin_dir)
+    sync_git_repo('https://github.com/tpope/vim-sensible', vim_plugin_dir)
+    sync_git_repo('https://github.com/jistr/vim-nerdtree-tabs', vim_plugin_dir)
+    sync_git_repo('https://github.com/pangloss/vim-javascript', vim_plugin_dir)
+    sync_git_repo('https://github.com/itchyny/lightline.vim', vim_plugin_dir)
+    sync_git_repo('https://github.com/plasticboy/vim-markdown', vim_plugin_dir)
 
-    sync_git_repo('git@github.com:rafaelh/update-kali.git', os.getenv("HOME") + '/dotfiles/scripts/')
-    sync_git_repo('git@github.com:rafaelh/recon.git', os.getenv("HOME") + '/dotfiles/scripts/')
+    sync_git_repo('git@github.com:rafaelh/update-kali.git', os.getenv("HOME") + '/dotfiles/scripts')
+    sync_git_repo('git@github.com:rafaelh/recon.git', os.getenv("HOME") + '/dotfiles/scripts')
 
 if __name__ == "__main__":
     main()
