@@ -44,7 +44,7 @@ def link(origin, linkname):
     """ Create a soft link on the file system """
     if not os.path.exists(linkname):
         print_message("green", "Linking " + origin + " to " + linkname)
-        cmdstring = "ln -s %s %s" % origin, linkname)
+        cmdstring = "ln -s %s %s" % origin, linkname
         os.system(cmdstring)
 
 def main():
@@ -113,8 +113,8 @@ def main():
     sync_git_repo('https://github.com/itchyny/lightline.vim', vim_plugin_dir)
     sync_git_repo('https://github.com/plasticboy/vim-markdown', vim_plugin_dir)
 
-    sync_git_repo('git@github.com:rafaelh/update-kali.git', os.getenv("HOME") + '/dotfiles/scripts')
-    sync_git_repo('git@github.com:rafaelh/recon.git', os.getenv("HOME") + '/dotfiles/scripts')
+    sync_git_repo('git@github.com:rafaelh/update-kali', os.getenv("HOME") + '/dotfiles/scripts')
+    sync_git_repo('git@github.com:rafaelh/recon', os.getenv("HOME") + '/dotfiles/scripts')
 
 if __name__ == "__main__":
     main()
