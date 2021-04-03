@@ -11,3 +11,4 @@ echo -ne $GREEN">>> "$ENDCOLOR; echo "Updating Pip packages"
 sudo pip3 install --upgrade pip
 sudo pip3 install --upgrade pipenv
 sudo pip3 install --upgrade pylint
+sudo pip3 install --upgrade prettytable
