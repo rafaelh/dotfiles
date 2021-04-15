@@ -27,8 +27,8 @@ fi
 HISTCONTROL=ignoredups:ignoreboth
 HISTIGNORE="&:ls:[bf]g:exit:history"
 HISTTIMEFORMAT='%F %T '
-HISTSIZE=10000
-HISTFILESIZE=0
+HISTSIZE=100
+HISTFILESIZE=100
 shopt -s histappend
 shopt -s checkwinsize
 set show-all-if-ambiguous on
@@ -57,7 +57,6 @@ alias dnsrecon='/opt/dnsrecon/dnsrecon.py'
 alias twofi='twofi --config .private/config/twofi.yml'
 alias listeners='sudo ss -antlp'
 alias nmap='sudo grc nmap'
-alias ".."="cd .."
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages"  # For NPM
@@ -103,7 +102,7 @@ export PATH
 # === Environment-specific settings ===========================================
 # Debian / Kali / Ubuntu
 if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
-    
+
     echo -ne "$COLOR_BOLDGREEN>>> $COLOR_RESET"; echo "Debian / Kali / Ubuntu"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
@@ -112,13 +111,11 @@ fi
 
 # WSL
 if [ -f /mnt/c/Windows/System32/wsl.exe ]; then
-    
+
     echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "Windows Subsystem for Linux"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
                   sudo apt autoremove'
-
-#    export DISPLAY=localhost:0.0
 fi
 
 
