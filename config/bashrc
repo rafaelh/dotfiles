@@ -57,6 +57,8 @@ alias dnsrecon='/opt/dnsrecon/dnsrecon.py'
 alias twofi='twofi --config .private/config/twofi.yml'
 alias listeners='sudo ss -antlp'
 alias nmap='sudo grc nmap'
+alias new-guid='uuidgen'
+
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages"  # For NPM
