@@ -3,6 +3,8 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -11,7 +13,15 @@ import (
 func main() {
 
 	var homedir string = os.Getenv("HOME") + "/"
-	fmt.Println(homedir)
+	fmt.Println(homedir) // /home/rafael
+	var repodir string = homedir + "x/"
+	fmt.Println(repodir) //  /home/rafael/x/
+
+	files, err := ioutil.ReadDir("/home/rafael/x")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(files)
 
 	printMessage("INFO", "Running a command")
 	printMessage("ADD", "Running a command")
@@ -25,16 +35,7 @@ func main() {
 	if err != nil {
 		fmt.Println("cmd.Run() failed: ", err)
 	}
-}
 
-// Execute command and store output
-func execute(cmdstring string) {
-	out, err := exec.Command(cmdstring).Output()
-	if err != nil {
-		fmt.Printf("%s", err)
-	}
-	output := string(out[:]) // Convert from []byte -> string so we can display output
-	fmt.Println(output)
 }
 
 // Check if a given file or directory exists
