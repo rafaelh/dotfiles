@@ -99,7 +99,7 @@ PATH=${PATH}:$HOME/dotfiles/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
 PATH=${PATH}:$HOME/dotfiles/scripts/recon
 export PATH
-
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # === Environment-specific settings ===========================================
 # Debian / Kali / Ubuntu
