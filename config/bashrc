@@ -59,6 +59,7 @@ alias listeners='sudo ss -antlp'
 alias nmap='sudo grc nmap'
 alias new-guid='uuidgen'
 alias k='kubectl'
+alias ym='youtube-dl xic --audio-format mp3 --add-metadata'
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages"  # For NPM
