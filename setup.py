@@ -83,16 +83,9 @@ def main():
             cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
             os.system(cmdstring)
 
-    # Actions to perform on WSL. Should improve this to look for wsl.exe
-    if os.path.exists('/mnt/c'):
-        link(windows_home_dir + "/Google Drive", linux_home_dir + "/gdrive")
-        link(windows_home_dir + "/Downloads", linux_home_dir + "/downloads")
-
-
     # Simlink dotfiles
     for link in links:
         if link not in ignore and not os.path.exists(homedir + '.' + link):
-            #print_green("Linking: %s" % link)
             print_message("green", "Linking: %s" % link)
             cmdstring = "ln -s %s%s %s.%s" % (configdir, link, homedir, link)
             print(cmdstring)
