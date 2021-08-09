@@ -16,9 +16,3 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
-if [ -f "/proc/mdstat" ]; then
-    status=`cat /proc/mdstat | grep algorithm | cut -d " " -f 18`
-    storage=`/bin/df | grep md0 | cut -d " " -f 12`
-    echo "RAID Status: ${status}, Storage Used: ${storage}"
-    echo
-fi
