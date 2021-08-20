@@ -93,6 +93,7 @@ PATH=${PATH}:$GEM_HOME/bin
 PATH=${PATH}:$NPM_PACKAGES/bin
 PATH=${PATH}:$GOPATH/bin
 PATH=${PATH}:$GOROOT/bin
+PATH=${PATH}:/usr/local/go/bin
 PATH=${PATH}:$HOME/x/security
 PATH=${PATH}:$HOME/.local/bin
 PATH=${PATH}:$HOME/.private/scripts
