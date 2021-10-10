@@ -60,7 +60,7 @@ def main():
 
     # Install initial packages
     print_message("blue", "Installing core packages")
-    cmdstring = "sudo apt install -y vim dos2unix git python3-pip"
+    cmdstring = "sudo apt install -y vim dos2unix git python3-pip python3-apt pwgen"
     os.system(cmdstring)
 
     # Install fonts
