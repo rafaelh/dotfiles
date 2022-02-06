@@ -60,6 +60,7 @@ alias nmap='sudo grc nmap'
 alias new-guid='uuidgen'
 alias k='kubectl'
 alias ym='youtube-dl -x --audio-format mp3'
+alias dropbox='python2 /home/rafael/dotfiles/scripts/dropbox-cli'
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages"  # For NPM
