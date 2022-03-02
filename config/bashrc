@@ -104,6 +104,9 @@ export PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # === Environment-specific settings ===========================================
+# Mac
+export BASH_SILENCE_DEPRECATION_WARNING=1
+
 # Debian / Kali / Ubuntu
 if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
 
