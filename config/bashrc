@@ -205,3 +205,4 @@ fi
 
 # WSL
 cd
+eval "$(/opt/homebrew/bin/brew shellenv)"
