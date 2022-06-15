@@ -169,6 +169,7 @@ portlist = {
     992: "Port 992: TCP, UDP - Telnet protocol over TLS/SSL",
     993: "Port 993: TCP - IMAP4 over SSL (encrypted transmission)",
     995: "Port 995: TCP - POP3 over SSL (encrypted transmission)",
+    3389: "Port 3389: TCP - RDP"
 }
 
 def lookup(port):
