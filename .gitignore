@@ -3,6 +3,7 @@
 scripts/hack
 scripts/update-kali
 scripts/recon
+scripts/arch-update
 
 config/irssi/nickserv.auth
 config/irssi/away.log

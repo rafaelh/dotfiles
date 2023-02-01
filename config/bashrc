@@ -99,6 +99,7 @@ PATH=${PATH}:$HOME/x/security
 PATH=${PATH}:$HOME/.local/bin
 PATH=${PATH}:$HOME/.private/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts
+PATH=${PATH}:$HOME/dotfiles/scripts/arch-update
 PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
 PATH=${PATH}:$HOME/dotfiles/scripts/recon
 export PATH
@@ -108,17 +109,23 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # Mac
 if [[ `uname -s` == Darwin ]]; then
 
-	export BASH_SILENCE_DEPRECATION_WARNING=1
-	eval "$(/opt/homebrew/bin/brew shellenv)"
+    echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "OSX"
+    export BASH_SILENCE_DEPRECATION_WARNING=1
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Debian / Kali / Ubuntu
-if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ]; then
+if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ] && [ ! -f /etc/pacman.conf ]; then
 
-    echo -ne "$COLOR_BOLDGREEN>>> $COLOR_RESET"; echo "Debian / Kali / Ubuntu"
+    echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "Debian / Kali / Ubuntu"
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
                   sudo apt autoremove'
+fi
+
+# Archlinux
+if [ -f /etc/pacman.conf ]; then
+    echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "Archlinux"
 fi
 
 # WSL
