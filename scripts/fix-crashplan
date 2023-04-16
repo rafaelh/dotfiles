@@ -1,0 +1,6 @@
+#!/bin/bash
+set -Eeuo pipefail
+trap "echo -e \"\033[1;31m[!] \e[0mScript error occured in $0.\"" ERR
+
+sudo /usr/local/crashplan/bin/service.sh stop
+sudo /usr/local/crashplan/bin/service.sh start
