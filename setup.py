@@ -20,12 +20,13 @@ def elevate_privileges():
     return status
 
 def update_packages():
-    """ Do a general update of the system packages """
+    """ Do a general update of the system packages, if not on archlinux """
     cmdseries = ['sudo apt update',
                  'sudo apt full-upgrade -y',
                  'sudo apt autoremove -y']
-    for cmdstring in cmdseries:
-        os.system(cmdstring)
+    if not os.path.exists("/etc/pacman.conf"):
+        for cmdstring in cmdseries:
+            os.system(cmdstring)
 
 def sync_git_repo(gitrepo, repo_collection_dir):
     """ Sync the specified git repository """
@@ -58,10 +59,14 @@ def main():
     print_message("blue", "General Update")
     update_packages()
 
-    # Install initial packages
+    # Install initial packages if on a Debian based system
     print_message("blue", "Installing core packages")
-    cmdstring = "sudo apt install -y vim dos2unix git python3-pip python3-apt pwgen"
-    os.system(cmdstring)
+    if not os.path.exists("/etc/pacman.conf"):
+        cmdstring = "sudo apt install -y vim dos2unix git python3-pip python3-apt pwgen"
+        os.system(cmdstring)
+    else:
+        cmdstring = "bash-completion most mtools net-tools"
+        os.system(cmdstring)
 
     # Install fonts
     print_message("blue", "Installing fonts")
