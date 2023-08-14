@@ -84,18 +84,21 @@ def main():
     defaultdirs = ['Pictures', 'Templates', 'Videos', 'Documents', 'Public', 'Music']
     for defaultdir in defaultdirs:
         if os.path.exists(homedir + defaultdir):
-            print_message("red", "Removing " + defaultdir)
-            cmdstring = "rmdir %s%s" % (homedir, defaultdir)
-            os.system(cmdstring)
-
+            if not os.path.islink(homedir + defaultdir):
+                print_message("red", "Removing " + defaultdir)
+                cmdstring = "rmdir %s%s" % (homedir, defaultdir)
+                os.system(cmdstring)
 
     # Remove standard config files
     if os.path.exists('/etc/skel'):
         basicdotfiles = os.listdir('/etc/skel')
         for basicdotfile in basicdotfiles:
-            print_message("red", "Removing " + basicdotfile)
-            cmdstring = "rm -rf %s%s" % (homedir, basicdotfile)
-            os.system(cmdstring)
+            if not os.path.islink(homedir + basicdotfile) and \
+            not os.path.isdir(homedir + basicdotfile) and \
+            os.path.exists(homedir + basicdotfile):
+                print_message("red", "Removing " + basicdotfile)
+                cmdstring = "rm %s%s" % (homedir, basicdotfile)
+                os.system(cmdstring)
 
     # Simlink dotfiles
     for link in links:
