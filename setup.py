@@ -80,6 +80,15 @@ def main():
     ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup',
             'foxyproxy.json', 'wpscan', 'config']
 
+    # Remove directories I don't use
+    defaultdirs = ['Pictures', 'Templates', 'Videos', 'Documents', 'Public', 'Music']
+    for defaultdir in defaultdirs:
+        if os.path.exists(homedir + defaultdir):
+            print_message("red", "Removing " + defaultdir)
+            cmdstring = "rmdir %s%s" % (homedir, defaultdir)
+            os.system(cmdstring)
+
+
     # Remove standard config files
     if os.path.exists('/etc/skel'):
         basicdotfiles = os.listdir('/etc/skel')
