@@ -58,9 +58,8 @@ alias twofi='twofi --config .private/config/twofi.yml'
 alias listeners='sudo ss -antlp'
 alias nmap='sudo grc nmap'
 alias new-guid='uuidgen'
-alias k='kubectl'
-alias ym='youtube-dl -x --audio-format mp3'
 alias dropbox='python2 /home/rafael/dotfiles/scripts/dropbox-cli'
+alias rebuild-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages"  # For NPM
@@ -73,7 +72,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"        # For Pyenv
 if command -v pyenv 1>/dev/null 2>&1; then # For Pyenv
   eval "$(pyenv init -)"                   # For Pyenv
 fi                                         # For Pyenv
-
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
