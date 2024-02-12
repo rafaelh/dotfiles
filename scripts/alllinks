@@ -1,0 +1,10 @@
+#!/bin/bash
+set -Eeuo pipefail
+trap "echo -e \"\033[1;31m[!] \e[0mScript error occured in $0.\"" ERR
+
+if [ $# == 0 ] ; then
+    echo "Usage: alllinks [URL]"
+    exit 1;
+fi
+
+curl -f -L "$1" | grep -Eo '(http|https)://[a-zA-Z0-9#~.*,/!?=+&_%:-]*'
