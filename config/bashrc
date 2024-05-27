@@ -58,6 +58,7 @@ alias twofi='twofi --config .private/config/twofi.yml'
 alias listeners='sudo ss -antlp'
 alias nmap='sudo grc nmap'
 alias new-guid='uuidgen'
+alias y='yt-dlp'
 alias dropbox='python2 /home/rafael/dotfiles/scripts/dropbox-cli'
 alias rebuild-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
