@@ -1,2 +1,0 @@
-#!/bin/bash
-su dropbox -c "/home/rafael/dotfiles/scripts/dropbox-cli $@"
