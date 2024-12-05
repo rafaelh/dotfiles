@@ -53,11 +53,8 @@ alias fdisk='sudo fdisk'
 alias service='sudo service'
 alias dmesg='sudo dmesg'
 alias systemctl='sudo systemctl'
-alias dnsrecon='/opt/dnsrecon/dnsrecon.py'
-alias twofi='twofi --config .private/config/twofi.yml'
 alias listeners='sudo ss -antlp'
 alias nmap='sudo grc nmap'
-alias new-guid='uuidgen'
 alias y='yt-dlp'
 alias dropbox='python2 /home/rafael/dotfiles/scripts/dropbox-cli'
 alias rebuild-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
@@ -88,20 +85,14 @@ PATH=${PATH}:/sbin
 PATH=${PATH}:/usr/sbin
 PATH=${PATH}:/usr/local/bin
 PATH=${PATH}:/usr/local/sbin
-PATH=${PATH}:/opt/nessus/sbin
 PATH=${PATH}:$GEM_HOME/bin
 PATH=${PATH}:$NPM_PACKAGES/bin
 PATH=${PATH}:$GOPATH/bin
 PATH=${PATH}:$GOROOT/bin
 PATH=${PATH}:/usr/local/go/bin
-PATH=${PATH}:$HOME/x/security
 PATH=${PATH}:$HOME/.local/bin
 PATH=${PATH}:$HOME/.private/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts
-PATH=${PATH}:$HOME/dotfiles/scripts/arch-update
-PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
-PATH=${PATH}:$HOME/dotfiles/scripts/recon
-export PATH
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # === Environment-specific settings ===========================================
@@ -109,7 +100,15 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 if [[ `uname -s` == Darwin ]]; then
 
     echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "OSX"
+    
+    # Mac Shell Variables
     export BASH_SILENCE_DEPRECATION_WARNING=1
+    export HOMEBREW_NO_ANALYTICS=1
+
+    # Bash completion
+    set completion-ignore-case on
+    . "${HOMEBREW_PREFIX}/etc/bash_completion" 2>/dev/null
+
     eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
@@ -120,6 +119,9 @@ if [[ `uname -s` == Linux* ]] && [ ! -f /mnt/c/Windows/System32/wsl.exe ] && [ !
     alias update='sudo apt update &&       \
                   sudo apt full-upgrade && \
                   sudo apt autoremove'
+    PATH=${PATH}:$HOME/dotfiles/scripts/arch-update
+    PATH=${PATH}:$HOME/dotfiles/scripts/update-kali
+    PATH=${PATH}:$HOME/dotfiles/scripts/recon
 fi
 
 # Archlinux
@@ -208,10 +210,9 @@ PS1+="\$(git_branch)\[$COLOR_RESET\] "
 
 
 # == Finish up ================================================================
+export PATH
+
 # Run private commands script
 if [ -f $HOME/.private/scripts/private_bash_settings ]; then
     . $HOME/.private/scripts/private_bash_settings
 fi
-
-# WSL
-cd
