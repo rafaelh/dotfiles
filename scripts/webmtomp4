@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Loop through each .webm file in the current directory
+for file in *.webm; do
+    # Check if the file exists
+    if [[ -f "$file" ]]; then
+        # Get the filename without the extension
+        filename="${file%.*}"
+        
+        # Convert the .webm file to .mp4 using ffmpeg
+        ffmpeg -i "$file" -c copy "$filename.mp4"
+        
+        echo "Converted $file to $filename.mp4"
+    else
+        echo "No .webm files found in the current directory."
+    fi
+done
+
