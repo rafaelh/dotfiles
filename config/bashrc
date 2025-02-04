@@ -104,7 +104,8 @@ if [[ `uname -s` == Darwin ]]; then
     # Mac Shell Variables
     export BASH_SILENCE_DEPRECATION_WARNING=1
     export HOMEBREW_NO_ANALYTICS=1
-
+    export CLICOLOR=1
+    export LSCOLORS='GxfxcxdxCxDxegedabagacad'
     # Bash completion
     set completion-ignore-case on
     . "${HOMEBREW_PREFIX}/etc/bash_completion" 2>/dev/null
@@ -215,4 +216,6 @@ export PATH
 # Run private commands script
 if [ -f $HOME/.private/scripts/private_bash_settings ]; then
     . $HOME/.private/scripts/private_bash_settings
+else
+    echo -ne $COLOR_YELLOW">>> "$COLOR_RESET; echo "Private settings repo not available"
 fi
