@@ -62,7 +62,6 @@ alias rebuild-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages"  # For NPM
 export GEM_HOME="$HOME/.gems"              # For Ruby
-export GOROOT="/usr/lib/go"                # For Go (Root)
 export GOPATH="$HOME/.go"                  # For Go (User)
 export DOTNET_CLI_TELEMETRY_OPTOUT=1       # For C#
 export PYENV_ROOT="$HOME/.pyenv"           # For Pyenv
@@ -88,12 +87,9 @@ PATH=${PATH}:/usr/local/sbin
 PATH=${PATH}:$GEM_HOME/bin
 PATH=${PATH}:$NPM_PACKAGES/bin
 PATH=${PATH}:$GOPATH/bin
-PATH=${PATH}:$GOROOT/bin
-PATH=${PATH}:/usr/local/go/bin
 PATH=${PATH}:$HOME/.local/bin
 PATH=${PATH}:$HOME/.private/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # === Environment-specific settings ===========================================
 # Mac
@@ -142,7 +138,7 @@ fi
 
 # == Functions ================================================================
 function vim () {
-    # Run vim with sudo priviledges if uneditable
+    # Run vim with sudo privileges if uneditable
     if [ ! -f $1 ] || [ -w $1 ]; then /usr/bin/vim $@;
     else sudo /usr/bin/vim $@;
     fi
@@ -195,11 +191,11 @@ PS1YELLOW="\[\e[0;33m\]"
 PS1BOLDGREEN="\[\e[1;32m\]"
 PS1ENDCOLOR="\[\e[0m\]"
 
-PS1BLUE="\[\e[0;34m\]"
+PS1BLUE="\[\e[0;36m\]"
 PS1PURPLE="\[\e[0;35m\]"
 PS1BOLDBLUE="\[\e[1;34m\]"
 
-if [ "$HOSTNAME" == beliskner ]; then
+if [ "$HOSTNAME" == JMF-HNFJVWK374 ]; then
     PS1="$PS1BLUE\u$PS1BOLDBLUE@$PS1BLUE\h $PS1BOLDBLUE($PS1PURPLE\w$PS1BOLDBLUE)$PS1ENDCOLOR"
 else
     PS1="$PS1GREEN\u$PS1BOLDGREEN@$PS1GREEN\h $PS1BOLDGREEN($PS1YELLOW\w$PS1BOLDGREEN)$PS1ENDCOLOR"
