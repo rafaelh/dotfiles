@@ -1,0 +1,10 @@
+#!/bin/bash
+set -Eeuo pipefail
+trap "echo -e \"\033[1;31m[!] \e[0mScript error occured in $0.\"" ERR
+
+if [ $# == 0 ] ; then
+    echo "Usage: geoip [ip]"
+    exit 1;
+fi
+
+curl https://ipinfo.io/"$1" | jq
