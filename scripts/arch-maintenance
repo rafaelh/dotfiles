@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# A script for Archlinux to automate periodic system maintenance tasks.
+
+# manually installed packages: pacman -Qqe | column
+
+set -Eeuo pipefail
+trap "echo -e \"\033[1;31m[!] \e[0mScript error occured in $0.\"" ERR
+
+GREEN="\033[1;32m"
+ENDCOLOUR="\033[0m"
+
+echo -en $GREEN"\n>>> "$ENDCOLOUR
+echo -e "Updating System\n"
+yay -Syu
+
+if command -v flatpak >/dev/null 2>&1; then
+    echo -en $GREEN"\n>>> "$ENDCOLOUR
+    echo -e "Updating Flatpak\n"
+    flatpak remote-list --columns=name | tail -n +1 | while read -r remote; do
+    flatpak remote-info --refresh "$remote" >/dev/null
+    flatpak update --noninteractive
+fi
+
+if command -v fwupdmgr >/dev/null 2>&1; then
+    echo -en $GREEN"\n>>> "$ENDCOLOUR
+    echo -e "Updating Firmware\n"
+    fwupdmgr refresh
+    fwupdmgr update
+fi
+
+echo -en $GREEN"\n>>> "$ENDCOLOUR
+echo -e "Remove Orphan Packages\n"
+sudo pacman -Rcns $(pacman -Qtdq)
+
+echo -en $GREEN"\n>>> "$ENDCOLOUR
+echo -e "Remove all PKG files except those installed\n"
+sudo pacman -Sc
+
+echo -en $GREEN"\n>>> "$ENDCOLOUR
+echo -e "Removing cache of uninstalled packages\n"
+sudo paccache -ruk0
+
+echo -en $GREEN"\n>>> "$ENDCOLOUR
+echo -e "# Optimizing pacman's database\n"
+sudo pacman-optimize
+
+echo -en $GREEN"\n\n### 🎉 Done! 🎉  ###"$ENDCOLOUR
