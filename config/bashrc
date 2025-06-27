@@ -68,6 +68,7 @@ alias dmesg='sudo dmesg'
 alias systemctl='sudo systemctl'
 alias listeners='sudo ss -antlp'
 alias nmap='sudo nmap'
+alias veracrypt='sudo veracrypt'
 
 # Enable color support
 alias grep='grep --color=auto'
@@ -152,6 +153,7 @@ fi
 # Archlinux
 if [ -f /etc/pacman.conf ]; then
     echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "Archlinux"
+    export DIFFPROG='meld pacdiff -s'
 fi
 
 # WSL
