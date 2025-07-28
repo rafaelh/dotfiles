@@ -1,29 +1,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# Colour variables to make things pretty
-COLOR_RED="\033[0;31m"
-COLOR_YELLOW="\033[0;33m"
-COLOR_GREEN="\033[0;32m"
-COLOR_BOLDGREEN="\033[1;32m"
-COLOR_OCHRE="\033[38;5;95m"
-COLOR_WHITE="\033[0;37m"
-COLOR_RESET="\033[0m"
-
-# Make less more friendly for non-text input files
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Enable Bash completion
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
-# Load directory list color profiles
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-fi
-
-# Basic Settings - All Environments
+# == ALL ENVIRONMENTS =========================================================
 HISTCONTROL=ignoredups:ignoreboth
 HISTIGNORE="&:ls:[bf]g:exit:history"
 HISTTIMEFORMAT='%F %T '
@@ -35,6 +13,7 @@ set show-all-if-ambiguous on
 export EDITOR=vim
 export PAGER=most
 
+<<<<<<< HEAD
 # Aliases
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -58,6 +37,40 @@ alias nmap='sudo grc nmap'
 alias y='yt-dlp'
 alias dropbox='/home/rafael/dotfiles/scripts/dropbox.py'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+||||||| 107bf2f
+# Aliases
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ls='ls -h --color=auto'
+alias diff='diff --color=auto'
+alias rm='rm -i'
+alias cp='cp -rfv'
+alias df='pydf||df -h'
+alias path='echo -e ${PATH//:/\\n}'
+alias mount='mount | column -t'
+alias wget='wget -c'
+alias term='echo $TERM'
+alias powershell='pwsh'
+alias fdisk='sudo fdisk'
+alias service='sudo service'
+alias dmesg='sudo dmesg'
+alias systemctl='sudo systemctl'
+alias listeners='sudo ss -antlp'
+alias nmap='sudo grc nmap'
+alias y='yt-dlp'
+alias dropbox='python2 /home/rafael/dotfiles/scripts/dropbox-cli'
+alias rebuild-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+=======
+# Colour variables to make things pretty
+COLOR_RED="\033[0;31m"
+COLOR_YELLOW="\033[0;33m"
+COLOR_GREEN="\033[0;32m"
+COLOR_BOLDGREEN="\033[1;32m"
+COLOR_OCHRE="\033[38;5;95m"
+COLOR_WHITE="\033[0;37m"
+COLOR_RESET="\033[0m"
+>>>>>>> bd9af6ee0c8aef2a82b1d11a8f21a904aefc4cd3
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages"  # For NPM
@@ -69,15 +82,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"        # For Pyenv
 if command -v pyenv 1>/dev/null 2>&1; then # For Pyenv
   eval "$(pyenv init -)"                   # For Pyenv
 fi                                         # For Pyenv
-
-# Less Colors for Man Pages
-export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
-export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # begin bold
-export LESS_TERMCAP_me=$'\e[0m'           # end mode
-export LESS_TERMCAP_se=$'\e[0m'           # end standout-mode
-export LESS_TERMCAP_so=$'\e[38;5;246m'    # begin standout-mode - info box
-export LESS_TERMCAP_ue=$'\e[0m'           # end underline
-export LESS_TERMCAP_us=$'\e[04;38;5;146m' # begin underline
 
 # Set the path
 PATH=${PATH}:/sbin
@@ -91,18 +95,93 @@ PATH=${PATH}:$HOME/.local/bin
 PATH=${PATH}:$HOME/.private/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts
 
-# === Environment-specific settings ===========================================
+
+# == ALIASES & COLOR ==========================================================
+alias rm='rm -i'
+alias cp='cp -rfv'
+alias free='free -m'
+alias wget='wget -c'
+alias df='pydf||df -h'
+alias path='echo -e ${PATH//:/\\n}'
+alias mount='mount | column -t'
+alias term='echo $TERM'
+alias powershell='pwsh'
+alias y='yt-dlp'
+alias dropbox='python2 /home/rafael/dotfiles/scripts/dropbox-cli'
+alias rebuild-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+# Some things have to be run with sudo
+alias fdisk='sudo fdisk'
+alias blkid='sudo blkid'
+alias service='sudo service'
+alias dmesg='sudo dmesg'
+alias systemctl='sudo systemctl'
+alias listeners='sudo ss -antlp'
+alias nmap='sudo nmap'
+alias veracrypt='sudo veracrypt'
+
+# Enable color support
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ls='ls -h --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip --color=auto'
+
+if command -v grc >/dev/null 2>&1; then
+    alias nmap='sudo grc nmap'
+    alias ping='grc ping'
+    alias traceroute='grc traceroute'
+    alias dig='grc dig'
+    alias netstat='grc netstat'
+    alias gcc='grc gcc'
+    alias make='grc make'
+    alias tcpdump='grc tcpdump'
+    alias iptables='grc iptables'
+    alias ip6tables='grc ip6tables'
+    alias df='pydf||grc df -h'
+    alias free='grc free -m'
+    alias docker='grc docker'
+    alias docker-machine='grc docker-machine'
+    alias env='grc env'
+    alias id='grc id'
+    alias lsmod='grc lsmod'
+    alias uptime='grc uptime'
+    alias last='grc last'
+    alias whois='grc whois'
+fi
+
+# Load directory list color profiles
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+# Enable Colours when using 'less'
+export LESS_TERMCAP_mb=$'\e[01;31m'       # begin blinking
+export LESS_TERMCAP_md=$'\e[01;38;5;74m'  # begin bold
+export LESS_TERMCAP_me=$'\e[0m'           # end mode
+export LESS_TERMCAP_se=$'\e[0m'           # end standout-mode
+export LESS_TERMCAP_so=$'\e[38;5;246m'    # begin standout-mode - info box
+export LESS_TERMCAP_ue=$'\e[0m'           # end underline
+export LESS_TERMCAP_us=$'\e[04;38;5;146m' # begin underline
+
+# Make 'less' more friendly for non-text input files
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+
+# === ENVIRONMENT-SPECIFIC SETTINGS ===========================================
 # Mac
 if [[ `uname -s` == Darwin ]]; then
 
     echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "OSX"
-    
+
     # Mac Shell Variables
     PATH=${PATH}:/Users/rhart/Library/Python/3.13/bin
     export BASH_SILENCE_DEPRECATION_WARNING=1
     export HOMEBREW_NO_ANALYTICS=1
     export CLICOLOR=1
     export LSCOLORS='GxfxcxdxCxDxegedabagacad'
+
     # Bash completion
     set completion-ignore-case on
     . "${HOMEBREW_PREFIX}/etc/bash_completion" 2>/dev/null
@@ -125,6 +204,7 @@ fi
 # Archlinux
 if [ -f /etc/pacman.conf ]; then
     echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "Archlinux"
+    export DIFFPROG='meld pacdiff -s'
 fi
 
 # WSL

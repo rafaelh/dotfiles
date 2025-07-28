@@ -11,6 +11,8 @@ $include /etc/inputrc
 "\e[5D": backward-word
 "\e\e[C": forward-word
 "\e\e[D": backward-word
+"\e[A": history-search-backward
+"\e[B": history-search-forward
 
 # Filename completion/expansion
 set completion-ignore-case on
