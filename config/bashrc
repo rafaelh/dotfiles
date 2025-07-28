@@ -56,8 +56,8 @@ alias systemctl='sudo systemctl'
 alias listeners='sudo ss -antlp'
 alias nmap='sudo grc nmap'
 alias y='yt-dlp'
-alias dropbox='python2 /home/rafael/dotfiles/scripts/dropbox-cli'
-alias rebuild-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias dropbox='/home/rafael/dotfiles/scripts/dropbox.py'
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages"  # For NPM
@@ -98,6 +98,7 @@ if [[ `uname -s` == Darwin ]]; then
     echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "OSX"
     
     # Mac Shell Variables
+    PATH=${PATH}:/Users/rhart/Library/Python/3.13/bin
     export BASH_SILENCE_DEPRECATION_WARNING=1
     export HOMEBREW_NO_ANALYTICS=1
     export CLICOLOR=1
