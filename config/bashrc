@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# == ALL ENVIRONMENTS =========================================================
+# == ALL ENVIRONMENTS ==============================================================================
 HISTCONTROL=ignoredups:ignoreboth
 HISTIGNORE="&:ls:[bf]g:exit:history"
 HISTTIMEFORMAT='%F %T '
@@ -13,29 +13,6 @@ set show-all-if-ambiguous on
 export EDITOR=vim
 export PAGER=most
 
-# Aliases
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias ls='ls -h --color=auto'
-alias diff='diff --color=auto'
-alias rm='rm -i'
-alias cp='cp -rfv'
-alias df='pydf||df -h'
-alias path='echo -e ${PATH//:/\\n}'
-alias mount='mount | column -t'
-alias wget='wget -c'
-alias term='echo $TERM'
-alias powershell='pwsh'
-alias fdisk='sudo fdisk'
-alias service='sudo service'
-alias dmesg='sudo dmesg'
-alias systemctl='sudo systemctl'
-alias listeners='sudo ss -antlp'
-alias nmap='sudo grc nmap'
-alias y='yt-dlp'
-alias dropbox='/home/rafael/dotfiles/scripts/dropbox.py'
-alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 # Colour variables to make things pretty
 COLOR_RED="\033[0;31m"
 COLOR_YELLOW="\033[0;33m"
@@ -69,7 +46,7 @@ PATH=${PATH}:$HOME/.private/scripts
 PATH=${PATH}:$HOME/dotfiles/scripts
 
 
-# == ALIASES & COLOR ==========================================================
+# == ALIASES & COLOR ===============================================================================
 alias rm='rm -i'
 alias cp='cp -rfv'
 alias free='free -m'
@@ -80,8 +57,8 @@ alias mount='mount | column -t'
 alias term='echo $TERM'
 alias powershell='pwsh'
 alias y='yt-dlp'
-alias dropbox='python2 /home/rafael/dotfiles/scripts/dropbox-cli'
-alias rebuild-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias dropbox='/home/rafael/dotfiles/scripts/dropbox.py'
 
 # Some things have to be run with sudo
 alias fdisk='sudo fdisk'
