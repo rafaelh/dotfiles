@@ -13,7 +13,6 @@ set show-all-if-ambiguous on
 export EDITOR=vim
 export PAGER=most
 
-<<<<<<< HEAD
 # Aliases
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -37,31 +36,6 @@ alias nmap='sudo grc nmap'
 alias y='yt-dlp'
 alias dropbox='/home/rafael/dotfiles/scripts/dropbox.py'
 alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-||||||| 107bf2f
-# Aliases
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias ls='ls -h --color=auto'
-alias diff='diff --color=auto'
-alias rm='rm -i'
-alias cp='cp -rfv'
-alias df='pydf||df -h'
-alias path='echo -e ${PATH//:/\\n}'
-alias mount='mount | column -t'
-alias wget='wget -c'
-alias term='echo $TERM'
-alias powershell='pwsh'
-alias fdisk='sudo fdisk'
-alias service='sudo service'
-alias dmesg='sudo dmesg'
-alias systemctl='sudo systemctl'
-alias listeners='sudo ss -antlp'
-alias nmap='sudo grc nmap'
-alias y='yt-dlp'
-alias dropbox='python2 /home/rafael/dotfiles/scripts/dropbox-cli'
-alias rebuild-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-=======
 # Colour variables to make things pretty
 COLOR_RED="\033[0;31m"
 COLOR_YELLOW="\033[0;33m"
@@ -70,7 +44,6 @@ COLOR_BOLDGREEN="\033[1;32m"
 COLOR_OCHRE="\033[38;5;95m"
 COLOR_WHITE="\033[0;37m"
 COLOR_RESET="\033[0m"
->>>>>>> bd9af6ee0c8aef2a82b1d11a8f21a904aefc4cd3
 
 # Programming Language variables
 export NPM_PACKAGES="$HOME/.npm-packages"  # For NPM
