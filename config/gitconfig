@@ -6,7 +6,7 @@
   user = rafaelh
 
 [credential]
-  helper = cache --timeout=3600
+  helper = store
 
 [init]
   defaultBranch = main
