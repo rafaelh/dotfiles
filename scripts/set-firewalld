@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+    echo "❌ This script needs elevated privileges. Re-run with: sudo $0"
+    exit 1
+fi
+
+if ! command -v firewall-cmd >/dev/null 2>&1; then
+  echo "❌ firewall-cmd not found. Please install firewalld."
+  exit 1
+fi
+
+echo "Setting default zone to 'public'"
+sudo firewall-cmd --set-default-zone=public
+
+echo "Enabling services for 'home' zone (permanent)..."
+echo "🔵 Setting dhcpv6-client: " && sudo firewall-cmd --permanent --zone=home --add-service=dhcpv6-client
+echo "🔵 Setting kdeconnect: "    && sudo firewall-cmd --permanent --zone=home --add-service=kdeconnect
+echo "🔵 Setting mdns: "          && sudo firewall-cmd --permanent --zone=home --add-service=mdns
+echo "🔵 Setting samba-client: "  && sudo firewall-cmd --permanent --zone=home --add-service=samba-client
+echo "🔵 Setting ssh: "           && sudo firewall-cmd --permanent --zone=home --add-service=ssh
+
+echo "Enabling services for 'public' zone (permanent)..."
+echo "🔵 Setting dhcpv6-client: " && sudo firewall-cmd --permanent --zone=public --add-service=dhcpv6-client
+echo "🔵 Setting kdeconnect: "    && sudo firewall-cmd --permanent --zone=public --add-service=kdeconnect
+
+echo "Reloading firewalld to apply changes..."
+sudo firewall-cmd --reload
