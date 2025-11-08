@@ -329,3 +329,8 @@ function title {
 
 # WSL
 cd
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/rafael/.lmstudio/bin"
+# End of LM Studio CLI section
+

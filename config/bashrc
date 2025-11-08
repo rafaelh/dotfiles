@@ -247,3 +247,8 @@ if [ -f $HOME/.private/scripts/private_bash_settings ]; then
 else
     echo -ne $COLOR_YELLOW">>> "$COLOR_RESET; echo "Private settings repo not available"
 fi
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/rafael/.lmstudio/bin"
+# End of LM Studio CLI section
+
