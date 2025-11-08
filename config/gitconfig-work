@@ -1,6 +1,6 @@
 [user]
   name = "Rafe Hart"
-  email = rafael.hart9@gmail.com
+	email = rhart@starrez.com
 
 [github]
   user = rafaelh
@@ -44,7 +44,7 @@
   whitespace = red reverse
 
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
