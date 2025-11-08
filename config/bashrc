@@ -153,6 +153,7 @@ if [ -f /etc/pacman.conf ]; then
     echo -ne $COLOR_BOLDGREEN">>> "$COLOR_RESET; echo "Archlinux"
     export DIFFPROG='meld pacdiff -s'
     alias fixscreen="kscreen-doctor output.DP-4.mode.3440x1440@50"
+    alias archwiki="archwiki-offline"
 fi
 
 # WSL
