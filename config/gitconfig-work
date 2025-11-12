@@ -19,6 +19,7 @@
 
 [merge]
   conflictstyle = diff3
+	tool = meld
 
 [color]
   diff = auto
@@ -34,6 +35,7 @@
 
 [diff]
   colorMoved = default
+	tool = meld
 
 [color "diff"]
   meta = 11
@@ -48,3 +50,12 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
+[mergetool "meld"]
+	trustExitCode = true
+	cmd = meld --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output \"$MERGED\"
+[mergetool]
+	keepBackup = false
+[difftool]
+	prompt = false
+[difftool "meld"]
+	cmd = meld \"$LOCAL\" \"$REMOTE\"
