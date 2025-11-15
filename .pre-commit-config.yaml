@@ -1,0 +1,55 @@
+# Ensures all Python hooks use the same interpreter
+# default_language_version:
+#   python: python3.14
+
+# Run on normal commits
+default_stages: [pre-commit]
+
+# Avoid scanning generated/build artifacts
+exclude: >
+  ^(build|dist|\.venv|\.mypy_cache|\.ruff_cache|\.pytest_cache|node_modules|docs/_build|migrations)/
+
+# Pre-commit hook checks
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v6.0.0
+  hooks:
+    - id: check-ast
+    - id: check-yaml
+    - id: check-json
+    - id: check-xml
+    - id: check-toml
+    - id: check-docstring-first
+    - id: check-case-conflict
+    - id: check-illegal-windows-names
+    - id: check-symlinks
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+      args: [--markdown-linebreak-ext=md]
+    - id: mixed-line-ending
+      args: [--fix=lf]
+    - id: check-added-large-files
+      args: ['--maxkb=5000']
+    - id: detect-private-key
+
+# Sort python imports alphabetically and by type
+- repo: https://github.com/pycqa/isort
+  rev: 7.0.0
+  hooks:
+    - id: isort
+
+# Upgrade python language features to the latest syntax
+- repo: https://github.com/asottile/pyupgrade
+  rev: v3.21.1
+  hooks:
+    - id: pyupgrade
+
+# Run test suite locally before committing
+#- repo: local
+#  hooks:
+#    - id: pytest
+#      name: pytest
+#      entry: tests/run-pytest.sh
+#      language: script
+#      pass_filenames: false
+#      stages: [pre-commit]
