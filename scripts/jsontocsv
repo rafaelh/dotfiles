@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-import json
 import csv
+import json
 import sys
+
 
 def flatten_json(y):
     out = {}
@@ -25,7 +26,7 @@ def flatten_json(y):
 def json_to_csv(json_file_path, csv_file_path):
     try:
         # Read the JSON file
-        with open(json_file_path, 'r') as json_file:
+        with open(json_file_path) as json_file:
             data = json.load(json_file)
 
         # Ensure the data is a list of dictionaries
@@ -58,4 +59,3 @@ if __name__ == "__main__":
         json_file_path = sys.argv[1]
         csv_file_path = sys.argv[2]
         json_to_csv(json_file_path, csv_file_path)
-

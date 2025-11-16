@@ -103,4 +103,3 @@ au BufRead,BufNewFile *.c,*.h set nu
 au BufRead,BufNewFile *.c,*.h match BadWhitespace /\s\+$/ " Trailing Whitespace is bad
 
 au BufRead,BufNewFile Makefile* set noexpandtab
-

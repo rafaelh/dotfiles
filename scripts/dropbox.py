@@ -19,8 +19,9 @@
 # You should have received a copy of the GNU General Public License
 # along with nautilus-dropbox.  If not, see <http://www.gnu.org/licenses/>.
 #
-from __future__ import with_statement
 
+import _thread
+import base64
 import errno
 import locale
 import optparse
@@ -33,11 +34,9 @@ import sys
 import tarfile
 import tempfile
 import threading
-import _thread
 import time
 import traceback
 import urllib.request
-import base64
 
 try:
     import gpg
@@ -54,7 +53,7 @@ from contextlib import closing, contextmanager
 from io import BytesIO
 from operator import methodcaller
 from os.path import relpath
-from posixpath import curdir, sep, pardir, join, abspath, commonprefix
+from posixpath import abspath, commonprefix, curdir, join, pardir, sep
 
 INFO = "Dropbox is the easiest way to share and store your files online. Want to learn more? Head to"
 LINK = "https://www.dropbox.com/"
@@ -134,9 +133,9 @@ def is_dropbox_running():
     pidfile = os.path.expanduser("~/.dropbox/dropbox.pid")
 
     try:
-        with open(pidfile, "r") as f:
+        with open(pidfile) as f:
             pid = int(f.read())
-        with open("/proc/%d/cmdline" % pid, "r") as f:
+        with open("/proc/%d/cmdline" % pid) as f:
             cmdline = f.read().lower()
     except:
         cmdline = ""
@@ -214,7 +213,7 @@ def download_file_chunk(url, buf):
                 else:
                     raise
 
-class DownloadState(object):
+class DownloadState:
     def __init__(self):
         self.local_file = BytesIO()
 
@@ -280,9 +279,10 @@ def load_serialized_images():
     global box_logo_pixbuf, window_icon
     import gi
     gi.require_version('GdkPixbuf', '2.0')
-    from gi.repository import GdkPixbuf
     import base64
     from io import BytesIO
+
+    from gi.repository import GdkPixbuf
 
     # Decode base64 string to bytes
     image64_str = eval("'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'")  # Use eval() to safely unescape a `repr()`d string
@@ -308,11 +308,9 @@ if GUI_AVAILABLE:
         import gi
         gi.require_version('Gdk', '3.0')
         gi.require_version('Gtk', '3.0')
-        from gi.repository import GLib
-        from gi.repository import Gdk
-        from gi.repository import Gtk
-        from gi.repository import Pango
         import webbrowser
+
+        from gi.repository import Gdk, GLib, Gtk, Pango
 
         load_serialized_images()
 
@@ -328,7 +326,7 @@ if GUI_AVAILABLE:
             Gtk.main_quit()
             sys.exit(-1)
 
-        class GeneratorTask(object):
+        class GeneratorTask:
             def __init__(self, generator, loop_callback, on_done=None, on_exception=None):
                 self.generator = generator
                 self.loop_callback = loop_callback
@@ -452,7 +450,7 @@ if GUI_AVAILABLE:
 
 
             def __init__(self):
-                super(DownloadDialog, self).__init__(parent = None,
+                super().__init__(parent = None,
                                                      title = "Dropbox Installation")
 
                 self.download = None
@@ -484,7 +482,7 @@ if GUI_AVAILABLE:
 
                 self.label = Gtk.Label()
                 GPG_WARNING_MSG = ("\n\n" + GPG_WARNING) if not gpg and not gpgme else ""
-                self.label.set_markup('%s <span foreground="#000099" underline="single" weight="bold">%s</span>\n\n%s%s' % (INFO, LINK, WARNING, GPG_WARNING_MSG))
+                self.label.set_markup('{} <span foreground="#000099" underline="single" weight="bold">{}</span>\n\n{}{}'.format(INFO, LINK, WARNING, GPG_WARNING_MSG))
                 self.label.set_line_wrap(True)
                 self.label.set_property('width-request', 300)
                 self.label.show()
@@ -570,10 +568,10 @@ else:
         if sys.stdout.isatty():
             write(save)
             flush()
-        console_print("%s %s\n" % (INFO, LINK))
+        console_print("{} {}\n".format(INFO, LINK))
         GPG_WARNING_MSG = ("\n%s" % GPG_WARNING) if not gpg and not gpgme else ""
 
-        if not yes_no_question("%s%s" % (WARNING, GPG_WARNING_MSG)):
+        if not yes_no_question("{}{}".format(WARNING, GPG_WARNING_MSG)):
             return
 
         download = DownloadState()
@@ -633,7 +631,7 @@ class CommandTicker(threading.Thread):
         sys.stderr.flush()
 
 
-class DropboxCommand(object):
+class DropboxCommand:
     class CouldntConnectError(Exception): pass
     class BadConnectionError(Exception): pass
     class EOFError(Exception): pass
@@ -644,7 +642,7 @@ class DropboxCommand(object):
         self.s.settimeout(timeout)
         try:
             self.s.connect(os.path.expanduser('~/.dropbox/command_socket'))
-        except socket.error:
+        except OSError:
             raise DropboxCommand.CouldntConnectError()
         self.f = self.s.makefile("rw", 4096)
 
@@ -655,7 +653,7 @@ class DropboxCommand(object):
     def __readline(self):
         try:
             toret = self.f.readline().rstrip("\n")
-        except socket.error:
+        except OSError:
             raise DropboxCommand.BadConnectionError()
         if toret == '':
             raise DropboxCommand.EOFError()
@@ -722,7 +720,7 @@ class DropboxCommand(object):
     # this is the hotness, auto marshalling
     def __getattr__(self, name):
         try:
-            return super(DropboxCommand, self).__getattr__(name)
+            return super().__getattr__(name)
         except:
             def __spec_command(**kw):
                 return self.send_command(str(name), kw)
@@ -927,7 +925,7 @@ options:
                     try:
                         status = dc.icon_overlay_file_status(path=file_path).get('status', [None])[0]
                     except DropboxCommand.CommandError as e:
-                        path =  "%s (%s)" % (os.path.basename(file_path), e)
+                        path =  "{} ({})".format(os.path.basename(file_path), e)
                         return (path, path)
 
                     env_term = os.environ.get('TERM','')
@@ -960,7 +958,7 @@ options:
                         init, cleanup = '', ''
 
                     path = os.path.basename(file_path)
-                    return (path, "%s%s%s" % (init, path, cleanup))
+                    return (path, "{}{}{}".format(init, path, cleanup))
 
                 # Prints a directory.
                 def print_directory(name):

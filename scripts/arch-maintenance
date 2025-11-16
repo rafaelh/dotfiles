@@ -20,7 +20,7 @@ echo -e "Updating Mirrors & System\n"
 if command -v flatpak >/dev/null 2>&1; then
     echo -en "$GREEN\n>>> $ENDCOLOUR"
     echo -e "Updating Flatpak\n"
-    
+
     # Refresh all remotes
     flatpak remote-list --columns=name | while read -r remote; do
         flatpak remote-info --refresh "$remote" >/dev/null

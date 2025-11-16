@@ -2,14 +2,14 @@
 # This is the Config file for the GNU screen program
 # In order for backspace to work with screen, the terminal must be set to producing ^H rather
 # than the normal default of 'auto'. Type ^A then ? to get a list of commands for Screen.
-# 
+#
 # This file is called .screenrc and lives in the users $HOME directory.
 # ============================================================================================
 
 # Start Screen numbering at 1 instead of 0
 bind c screen 1
 bind ^c screen 1
-bind 0 select 10                                                            
+bind 0 select 10
 screen 1
 
 # Fix potential errors in text display after closing an editor

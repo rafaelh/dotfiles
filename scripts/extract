@@ -36,11 +36,11 @@ if [[ -z "$@" ]]; then
                   fi                   ;;
       *.tar.gz)   if [ -z $2 ]; then
                     tar xvzf $1; else
-                    tar xvzf $1 -C $2  
+                    tar xvzf $1 -C $2
                   fi                   ;;
       *.tgz)      if [ -z $2 ]; then
                     tar xvzf $1; else
-                    tar xvzf $1 -C $2    
+                    tar xvzf $1 -C $2
                   fi   ;;
       *.rar)      7z x $1              ;;
       *.zip)      unzip $1             ;;
@@ -51,4 +51,3 @@ if [[ -z "$@" ]]; then
     esac
   fi
 fi
-

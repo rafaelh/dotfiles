@@ -5,6 +5,7 @@ import os
 import sys
 from datetime import datetime
 
+
 def print_message(color, message):
     """ Prints a formatted message to the console. Used in other functions, so it comes first. """
     if   color == "green":  print("\033[1;32m[+] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message)
@@ -49,9 +50,7 @@ def link(origin, linkname):
         os.system(cmdstring)
 
 def main():
-    windows_home_dir = "/mnt/c/Users/" + os.getenv("USER")
-    linux_home_dir = os.getenv("HOME")
-    vim_plugin_dir = os.getenv("HOME") + '/dotfiles/config/vim/bundle'
+    vim_plugin_dir = f'{os.getenv("HOME")}/dotfiles/config/vim/bundle'
     # Get sudo privileges
     if elevate_privileges(): sys.exit(1)
 
@@ -86,7 +85,7 @@ def main():
         if os.path.exists(homedir + defaultdir):
             if not os.path.islink(homedir + defaultdir):
                 print_message("red", "Removing " + defaultdir)
-                cmdstring = "rmdir %s%s" % (homedir, defaultdir)
+                cmdstring = "rmdir {}{}".format(homedir, defaultdir)
                 os.system(cmdstring)
 
     # Remove standard config files
@@ -97,14 +96,14 @@ def main():
             not os.path.isdir(homedir + basicdotfile) and \
             os.path.exists(homedir + basicdotfile):
                 print_message("red", "Removing " + basicdotfile)
-                cmdstring = "rm %s%s" % (homedir, basicdotfile)
+                cmdstring = "rm {}{}".format(homedir, basicdotfile)
                 os.system(cmdstring)
 
     # Simlink dotfiles
     for link in links:
         if link not in ignore and not os.path.exists(homedir + '.' + link):
             print_message("green", "Linking: %s" % link)
-            cmdstring = "ln -s %s%s %s.%s" % (configdir, link, homedir, link)
+            cmdstring = "ln -s {}{} {}.{}".format(configdir, link, homedir, link)
             print(cmdstring)
             os.system(cmdstring)
 
@@ -123,8 +122,6 @@ def main():
     sync_git_repo('https://github.com/itchyny/lightline.vim', vim_plugin_dir)
     sync_git_repo('https://github.com/plasticboy/vim-markdown', vim_plugin_dir)
 
-    sync_git_repo('git@github.com:rafaelh/update-kali', os.getenv("HOME") + '/dotfiles/scripts')
-    sync_git_repo('git@github.com:rafaelh/recon', os.getenv("HOME") + '/dotfiles/scripts')
 
 if __name__ == "__main__":
     main()

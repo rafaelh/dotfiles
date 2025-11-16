@@ -13,7 +13,7 @@ if [ -z "$1" ]; then
     exit 0
 fi
 
-# If argument was given, identify the DNS servers for the domain and attempt a 
+# If argument was given, identify the DNS servers for the domain and attempt a
 # zone transfer on each
 for server in $(host -t ns $1 | cut -d " " -f4)
 do

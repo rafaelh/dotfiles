@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
+""" Simple utility to display common services for a given port
+    See: https://isc.sans.edu/services.html """
 
 import sys
-
-# https://isc.sans.edu/services.html
 
 portlist = {
     0 : "Port 0: TCP, UDP - Reserved; do not use (but is a permissible source port value if the sending process does not expect messages in response",
@@ -195,8 +195,3 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         for argv in sys.argv[1:]:
             lookup(argv)
-
-"""
-Add a reverse search using https://www.speedguide.net/ports.php?filter=vmware
-"""
-

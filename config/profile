@@ -23,4 +23,3 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/home/rafael/.lmstudio/bin"
 # End of LM Studio CLI section
-
