@@ -4,7 +4,6 @@
 import logging
 import os
 import sys
-from datetime import datetime
 
 
 def elevate_privileges() -> int:
