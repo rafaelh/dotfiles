@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Sets up a linux environment with the dotfiles in this repo """
 
+import logging
 import os
 import sys
 from datetime import datetime
@@ -20,14 +21,16 @@ def elevate_privileges():
     status = os.system("sudo date; echo")
     return status
 
-def update_packages():
-    """ Do a general update of the system packages, if not on archlinux """
-    cmdseries = ['sudo apt update',
-                 'sudo apt full-upgrade -y',
-                 'sudo apt autoremove -y']
-    if not os.path.exists("/etc/pacman.conf"):
-        for cmdstring in cmdseries:
-            os.system(cmdstring)
+def update_packages(operating_system: str) -> None:
+    """ Do a general update of the system packages """
+    logging.info("🔵 General Package Update")
+    if operating_system in ["Windows", "Debian-based"]:
+        cmdseries = ['sudo apt update',
+                    'sudo apt full-upgrade -y',
+                    'sudo apt autoremove -y']
+        for cmdstring in cmdseries: os.system(cmdstring)
+    if operating_system == "Archlinux":
+        os.system("yay -Syyu")
 
 def sync_git_repo(gitrepo, repo_collection_dir):
     """ Sync the specified git repository """
@@ -49,14 +52,35 @@ def link(origin, linkname):
         cmdstring = "ln -s %s %s" % origin, linkname
         os.system(cmdstring)
 
-def main():
-    vim_plugin_dir = f'{os.getenv("HOME")}/dotfiles/config/vim/bundle'
+
+def main() -> None:
+    # Configure logging
+    logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
+
+    # Determine OS (or exit)
+    operating_system = "Unknown"
+    if os.path.exists("/mnt/c/Windows/System32/wsl.exe"): operating_system = "Windows"
+    if os.path.exists("/etc/pacman.conf"): operating_system = "Archlinux"
+    if os.path.exists("/usr/bin/apt"): operating_system = "Debian-based"
+    if operating_system == "Unknown":
+        logging.error("❌ Could not determine operating system")
+        sys.exit(1)
+
     # Get sudo privileges
     if elevate_privileges(): sys.exit(1)
 
+    # Set environment variables
+    homedir = os.getenv("HOME") + '/'
+    configdir = os.getenv("HOME") + '/dotfiles/config/'
+    links = os.listdir(configdir)
+    vim_plugin_dir = f'{os.getenv("HOME")}/dotfiles/config/vim/bundle'
+
+    ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup',
+            'foxyproxy.json', 'wpscan', 'config']
+
+
     # Update and upgrade apt packages
-    print_message("blue", "General Update")
-    update_packages()
+    update_packages(operating_system)
 
     # Install initial packages if on a Debian based system
     print_message("blue", "Installing core packages")
@@ -71,13 +95,6 @@ def main():
     print_message("blue", "Installing fonts")
     cmdstring = "sudo cp ~/dotfiles/fonts/*.ttf /usr/share/fonts && fc-cache -f -v"
     os.system(cmdstring)
-
-    # Set environment variables
-    homedir = os.getenv("HOME") + '/'
-    configdir = os.getenv("HOME") + '/dotfiles/config/'
-    links = os.listdir(configdir)
-    ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup',
-            'foxyproxy.json', 'wpscan', 'config']
 
     # Remove directories I don't use
     defaultdirs = ['Pictures', 'Templates', 'Videos', 'Documents', 'Public', 'Music']
