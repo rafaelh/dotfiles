@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" Sets up a linux environment with the dotfiles in this repo """
+"""Sets up a linux environment with the dotfiles in this repo"""
 
 import logging
 import os
@@ -8,25 +8,28 @@ from datetime import datetime
 
 
 def elevate_privileges() -> int:
-    """ Gets sudo privileges and returns the current date """
+    """Gets sudo privileges and returns the current date"""
     status = os.system("sudo date; echo")
     return status
 
 
 def update_packages(operating_system: str) -> None:
-    """ Do a general update of the system packages """
+    """Do a general update of the system packages"""
     logging.info("🔵 General Package Update")
     if operating_system in ["Windows", "Debian-based"]:
-        cmdseries = ['sudo apt update',
-                    'sudo apt full-upgrade -y',
-                    'sudo apt autoremove -y']
-        for cmdstring in cmdseries: os.system(cmdstring)
+        cmdseries = [
+            "sudo apt update",
+            "sudo apt full-upgrade -y",
+            "sudo apt autoremove -y",
+        ]
+        for cmdstring in cmdseries:
+            os.system(cmdstring)
     if operating_system == "Archlinux":
         os.system("yay -Syyu")
 
 
 def install_core_packages(operating_system: str) -> None:
-    """ Install essential packages that didn't come by default """
+    """Install essential packages that didn't come by default"""
     logging.info("🔵 Installing Core Packages")
     if operating_system in ["Windows", "Debian-based"]:
         cmdstring = "sudo apt install -y vim dos2unix git python3-pip python3-apt pwgen most \
@@ -40,7 +43,7 @@ def install_core_packages(operating_system: str) -> None:
 
 
 def sync_git_repo(gitrepo, repo_collection_dir) -> None:
-    """ Sync the specified git repository """
+    """Sync the specified git repository"""
     repo_name = gitrepo.split("/")[-1].lower()
     if os.path.exists(repo_collection_dir + repo_name):
         logging.info(f"🔄 Syncing {repo_name}: ")
@@ -59,38 +62,52 @@ def main() -> None:
 
     # Determine OS (or exit)
     operating_system = "Unknown"
-    if os.path.exists("/mnt/c/Windows/System32/wsl.exe"): operating_system = "Windows"
-    if os.path.exists("/etc/pacman.conf"): operating_system = "Archlinux"
-    if os.path.exists("/usr/bin/apt"): operating_system = "Debian-based"
+    if os.path.exists("/mnt/c/Windows/System32/wsl.exe"):
+        operating_system = "Windows"
+    if os.path.exists("/etc/pacman.conf"):
+        operating_system = "Archlinux"
+    if os.path.exists("/usr/bin/apt"):
+        operating_system = "Debian-based"
     if operating_system == "Unknown":
         logging.error("❌ Could not determine operating system")
         sys.exit(1)
 
     # Get sudo privileges
-    if elevate_privileges(): sys.exit(1)
+    if elevate_privileges():
+        sys.exit(1)
 
     # Set directory & file variables
-    homedir =        f"{os.getenv("HOME")}/"
-    configdir =      f"{homedir}dotfiles/config/"
+    homedir = f"{os.getenv("HOME")}/"
+    configdir = f"{homedir}dotfiles/config/"
     vim_plugin_dir = f"{configdir}vim/bundle/"
-    links =          os.listdir(configdir)
+    links = os.listdir(configdir)
 
-    ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup', 'wpscan', 'config',
-              'gitconfig-personal', 'gitconfig-work']
+    ignore = [
+        ".git",
+        ".gitignore",
+        "README.md",
+        "setup.py",
+        "setup",
+        "wpscan",
+        "config",
+        "gitconfig-personal",
+        "gitconfig-work",
+    ]
 
-    dirs_to_remove = ['Pictures', 'Templates', 'Videos', 'Documents', 'Public', 'Music']
-
+    dirs_to_remove = ["Pictures", "Templates", "Videos", "Documents", "Public", "Music"]
 
     # Update system and install core packages
     update_packages(operating_system)
     install_core_packages(operating_system)
 
-
     # Install fonts
     try:
-        cmdseries = [f"sudo cp {homedir}/dotfiles/fonts/*.ttf /usr/share/fonts",
-                     "sudo fc-cache -f -v"]
-        for cmdstring in cmdseries: os.system(cmdstring)
+        cmdseries = [
+            f"sudo cp {homedir}/dotfiles/fonts/*.ttf /usr/share/fonts",
+            "sudo fc-cache -f -v",
+        ]
+        for cmdstring in cmdseries:
+            os.system(cmdstring)
         logging.info("🟢 Fonts installed successfully")
     except Exception as e:
         logging.error(f"❌ Failed to install fonts: {str(e)}")
@@ -109,7 +126,11 @@ def main() -> None:
         basicdotfiles = os.listdir("/etc/skel")
         for basicdotfile in basicdotfiles:
             target = homedir + basicdotfile
-            if os.path.exists(target) and not os.path.islink(target) and not os.path.isdir(target):
+            if (
+                os.path.exists(target)
+                and not os.path.islink(target)
+                and not os.path.isdir(target)
+            ):
                 try:
                     os.remove(target)
                     logging.info(f"✂️ Removed: {basicdotfile}")
@@ -126,9 +147,9 @@ def main() -> None:
                 logging.error(f"❌ Failed to link {link}: {str(e)}")
 
     # Sync vim plugins
-    if not os.path.exists(configdir + 'vim/bundle'):
+    if not os.path.exists(configdir + "vim/bundle"):
         try:
-            os.makedirs(configdir + 'vim/bundle')
+            os.makedirs(configdir + "vim/bundle")
             logging.info("🟢 Created directory: %s" % (configdir))
         except Exception as e:
             logging.error(f"❌ Failed to create directory {configdir}: {str(e)}")
@@ -142,7 +163,7 @@ def main() -> None:
         "https://github.com/pangloss/vim-javascript",
         "https://github.com/itchyny/lightline.vim",
         "https://github.com/plasticboy/vim-markdown",
-        ]
+    ]
     for repo in vimrepos:
         sync_git_repo(repo, vim_plugin_dir)
 
