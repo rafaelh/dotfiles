@@ -16,10 +16,12 @@ def print_message(color, message):
     elif color == "error":  print("\033[1;31m[!] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message)
     else:                   print("\033[0;41mInvalid Format\033[0;37m " + datetime.now().strftime("%H:%M:%S") + " " + message)
 
+
 def elevate_privileges():
     """ Gets sudo privileges and returns the current date """
     status = os.system("sudo date; echo")
     return status
+
 
 def update_packages(operating_system: str) -> None:
     """ Do a general update of the system packages """
@@ -32,6 +34,7 @@ def update_packages(operating_system: str) -> None:
     if operating_system == "Archlinux":
         os.system("yay -Syyu")
 
+
 def install_core_packages(operating_system: str) -> None:
     """ Install essential packages that didn't come by default """
     logging.info("🔵 Installing Core Packages")
@@ -40,9 +43,6 @@ def install_core_packages(operating_system: str) -> None:
             bash-completion most mtools net-tools grc meld pydf tldr tree wget"
         os.system(cmdstring)
     if operating_system == "Archlinux":
-        cmdstring = "yay -S vim most "
-
-    if not os.path.exists("/etc/pacman.conf"):
         cmdstring = "sudo apt install -y vim dos2unix git pwgen most 7zip arch-wiki-docs aspell-en \
             bandit btop go go-tools gopls gparted grc meld pydf mtools net-tools screen tmux rsync \
             tldr tree wget"
@@ -60,13 +60,6 @@ def sync_git_repo(gitrepo, repo_collection_dir):
     else:
         print_message("green", "Cloning " + repo_name)
         cmdstring = "git clone " + gitrepo + ' ' + repo_collection_dir + '/' + repo_name
-        os.system(cmdstring)
-
-def link(origin, linkname):
-    """ Create a soft link on the file system """
-    if not os.path.exists(linkname):
-        print_message("green", "Linking " + origin + " to " + linkname)
-        cmdstring = "ln -s %s %s" % origin, linkname
         os.system(cmdstring)
 
 
@@ -93,7 +86,7 @@ def main() -> None:
     vim_plugin_dir = f'{os.getenv("HOME")}/dotfiles/config/vim/bundle'
 
     ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup',
-            'foxyproxy.json', 'wpscan', 'config']
+            'foxyproxy.json', 'wpscan', 'config', 'gitconfig-personal', 'gitconfig-work']
 
 
     # Update and upgrade apt packages
@@ -115,8 +108,6 @@ def main() -> None:
         if os.path.exists(homedir + defaultdir):
             if not os.path.islink(homedir + defaultdir):
                 print_message("red", "Removing " + defaultdir)
-                cmdstring = "rmdir {}{}".format(homedir, defaultdir)
-                os.system(cmdstring)
 
     # Remove standard config files
     if os.path.exists('/etc/skel'):
@@ -132,10 +123,11 @@ def main() -> None:
     # Simlink dotfiles
     for link in links:
         if link not in ignore and not os.path.exists(homedir + '.' + link):
-            print_message("green", "Linking: %s" % link)
-            cmdstring = "ln -s {}{} {}.{}".format(configdir, link, homedir, link)
-            print(cmdstring)
-            os.system(cmdstring)
+            try:
+                os.link("{}{}".format(configdir, link), "{}.{}".format(homedir, link))
+                logging.info("🟢 Linked: %s" % link)
+            except Exception as e:
+                logging.error("❌ Failed to link {}: {}".format(link, str(e)))
 
     # Download git plugins
     if not os.path.exists(configdir + 'vim/bundle'):
