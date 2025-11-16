@@ -7,7 +7,7 @@ import sys
 from datetime import datetime
 
 
-def elevate_privileges():
+def elevate_privileges() -> int:
     """ Gets sudo privileges and returns the current date """
     status = os.system("sudo date; echo")
     return status
@@ -45,7 +45,7 @@ def sync_git_repo(gitrepo, repo_collection_dir) -> None:
     if os.path.exists(repo_collection_dir + repo_name):
         logging.info(f"🔄 Syncing {repo_name}: ")
         sys.stdout.flush()
-        cmdstring = "git -C " + repo_collection_dir + repo_name + " pull"
+        cmdstring = f"git -C {repo_collection_dir}{repo_name} pull"
         os.system(cmdstring)
     else:
         logging.info(f"⬇️ Cloning {repo_name}: ")
@@ -100,49 +100,62 @@ def main() -> None:
         if os.path.exists(homedir + dir) and not os.path.islink(homedir + dir):
             try:
                 os.rmdir(homedir + dir)
-                logging.info("✂️ Removed: %s" % dir)
+                logging.info(f"✂️ Removed: {dir}")
             except Exception as e:
-                logging.error("❌ Failed to remove {}: {}".format(dir, str(e)))
+                logging.error(f"❌ Failed to remove {dir}: {str(e)}")
 
     # Remove standard config files
-    if os.path.exists('/etc/skel'):
-        basicdotfiles = os.listdir('/etc/skel')
+    if os.path.exists("/etc/skel"):
+        basicdotfiles = os.listdir("/etc/skel")
         for basicdotfile in basicdotfiles:
             target = homedir + basicdotfile
             if os.path.exists(target) and not os.path.islink(target) and not os.path.isdir(target):
                 try:
                     os.remove(target)
-                    logging.info("✂️ Removed: %s" % basicdotfile)
+                    logging.info(f"✂️ Removed: {basicdotfile}")
                 except Exception as e:
-                    logging.error("❌ Failed to remove {}: {}".format(basicdotfile, str(e)))
+                    logging.error(f"❌ Failed to remove {basicdotfile}: {str(e)}")
 
     # Simlink dotfiles
     for link in links:
-        if link not in ignore and not os.path.exists(homedir + '.' + link):
+        if link not in ignore and not os.path.exists(f"{homedir}+.{link}"):
             try:
-                os.link("{}{}".format(configdir, link), "{}.{}".format(homedir, link))
-                logging.info("🟢 Linked: %s" % link)
+                os.link(f"{configdir}{link}", f"{homedir}.{link}")
+                logging.info(f"🟢 Linked: {link}")
             except Exception as e:
-                logging.error("❌ Failed to link {}: {}".format(link, str(e)))
+                logging.error(f"❌ Failed to link {link}: {str(e)}")
 
-    # Download git plugins
+    # Sync vim plugins
     if not os.path.exists(configdir + 'vim/bundle'):
         try:
             os.makedirs(configdir + 'vim/bundle')
             logging.info("🟢 Created directory: %s" % (configdir))
         except Exception as e:
-            logging.error("❌ Failed to create directory {}: {}".format(configdir, str(e)))
+            logging.error(f"❌ Failed to create directory {configdir}: {str(e)}")
+    vimrepos = [
+        "https://github.com/jiangmiao/auto-pairs",
+        "https://github.com/PProvost/vim-ps1",
+        "https://github.com/scrooloose/nerdtree",
+        "https://github.com/Xuyuanp/nerdtree-git-plugin",
+        "https://github.com/tpope/vim-sensible",
+        "https://github.com/jistr/vim-nerdtree-tabs",
+        "https://github.com/pangloss/vim-javascript",
+        "https://github.com/itchyny/lightline.vim",
+        "https://github.com/plasticboy/vim-markdown",
+        ]
+    for repo in vimrepos:
+        sync_git_repo(repo, vim_plugin_dir)
 
-
-    sync_git_repo('https://github.com/jiangmiao/auto-pairs', vim_plugin_dir)
-    sync_git_repo('https://github.com/PProvost/vim-ps1', vim_plugin_dir)
-    sync_git_repo('https://github.com/scrooloose/nerdtree', vim_plugin_dir)
-    sync_git_repo('https://github.com/Xuyuanp/nerdtree-git-plugin', vim_plugin_dir)
-    sync_git_repo('https://github.com/tpope/vim-sensible', vim_plugin_dir)
-    sync_git_repo('https://github.com/jistr/vim-nerdtree-tabs', vim_plugin_dir)
-    sync_git_repo('https://github.com/pangloss/vim-javascript', vim_plugin_dir)
-    sync_git_repo('https://github.com/itchyny/lightline.vim', vim_plugin_dir)
-    sync_git_repo('https://github.com/plasticboy/vim-markdown', vim_plugin_dir)
+    # Link .gitconfig if on Archlinux, otherwise prompt user
+    if not os.path.islink(f"{homedir}.gitconfig)"):
+        if operating_system == "Archlinux":
+            try:
+                os.link(f"{configdir}gitconfig-personal", f"{homedir}.gitconfig")
+                logging.info("🔧 Linked: .gitconfig")
+            except Exception as e:
+                logging.error(f"❌ Failed to link {configdir}: {str(e)}")
+        else:
+            print("Still need to link .gitconfig")
 
 
 if __name__ == "__main__":
