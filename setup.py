@@ -7,16 +7,6 @@ import sys
 from datetime import datetime
 
 
-def print_message(color, message):
-    """ Prints a formatted message to the console. Used in other functions, so it comes first. """
-    if   color == "green":  print("\033[1;32m[+] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message)
-    elif color == "blue":   print("\n\033[1;34m[i] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message)
-    elif color == "yellow": print("\033[0;33m[<] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message, end="")
-    elif color == "red":    print("\033[1;31m[-] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message)
-    elif color == "error":  print("\033[1;31m[!] \033[0;37m" + datetime.now().strftime("%H:%M:%S") + " - " + message)
-    else:                   print("\033[0;41mInvalid Format\033[0;37m " + datetime.now().strftime("%H:%M:%S") + " " + message)
-
-
 def elevate_privileges():
     """ Gets sudo privileges and returns the current date """
     status = os.system("sudo date; echo")
@@ -49,17 +39,17 @@ def install_core_packages(operating_system: str) -> None:
         os.system(cmdstring)
 
 
-def sync_git_repo(gitrepo, repo_collection_dir):
+def sync_git_repo(gitrepo, repo_collection_dir) -> None:
     """ Sync the specified git repository """
     repo_name = gitrepo.split("/")[-1].lower()
-    if os.path.exists(repo_collection_dir + '/' + repo_name):
-        print_message("yellow", "Syncing " + repo_name + ": ")
+    if os.path.exists(repo_collection_dir + repo_name):
+        logging.info(f"🔄 Syncing {repo_name}: ")
         sys.stdout.flush()
-        cmdstring = "git -C " + repo_collection_dir + '/' + repo_name + " pull"
+        cmdstring = "git -C " + repo_collection_dir + repo_name + " pull"
         os.system(cmdstring)
     else:
-        print_message("green", "Cloning " + repo_name)
-        cmdstring = "git clone " + gitrepo + ' ' + repo_collection_dir + '/' + repo_name
+        logging.info(f"⬇️ Cloning {repo_name}: ")
+        cmdstring = f"git clone {gitrepo} {repo_collection_dir}{repo_name}"
         os.system(cmdstring)
 
 
@@ -79,46 +69,52 @@ def main() -> None:
     # Get sudo privileges
     if elevate_privileges(): sys.exit(1)
 
-    # Set environment variables
-    homedir = os.getenv("HOME") + '/'
-    configdir = os.getenv("HOME") + '/dotfiles/config/'
-    links = os.listdir(configdir)
-    vim_plugin_dir = f'{os.getenv("HOME")}/dotfiles/config/vim/bundle'
+    # Set directory & file variables
+    homedir =        f"{os.getenv("HOME")}/"
+    configdir =      f"{homedir}dotfiles/config/"
+    vim_plugin_dir = f"{configdir}vim/bundle/"
+    links =          os.listdir(configdir)
 
-    ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup',
-            'foxyproxy.json', 'wpscan', 'config', 'gitconfig-personal', 'gitconfig-work']
+    ignore = ['.git', '.gitignore', 'README.md', 'setup.py', 'setup', 'wpscan', 'config',
+              'gitconfig-personal', 'gitconfig-work']
+
+    dirs_to_remove = ['Pictures', 'Templates', 'Videos', 'Documents', 'Public', 'Music']
 
 
-    # Update and upgrade apt packages
+    # Update system and install core packages
     update_packages(operating_system)
-
-    # Install initial packages if on a Debian based system
-    print_message("blue", "Installing core packages")
     install_core_packages(operating_system)
 
 
     # Install fonts
-    print_message("blue", "Installing fonts")
-    cmdstring = "sudo cp ~/dotfiles/fonts/*.ttf /usr/share/fonts && fc-cache -f -v"
-    os.system(cmdstring)
+    try:
+        cmdseries = [f"sudo cp {homedir}/dotfiles/fonts/*.ttf /usr/share/fonts",
+                     "sudo fc-cache -f -v"]
+        for cmdstring in cmdseries: os.system(cmdstring)
+        logging.info("🟢 Fonts installed successfully")
+    except Exception as e:
+        logging.error(f"❌ Failed to install fonts: {str(e)}")
 
     # Remove directories I don't use
-    defaultdirs = ['Pictures', 'Templates', 'Videos', 'Documents', 'Public', 'Music']
-    for defaultdir in defaultdirs:
-        if os.path.exists(homedir + defaultdir):
-            if not os.path.islink(homedir + defaultdir):
-                print_message("red", "Removing " + defaultdir)
+    for dir in dirs_to_remove:
+        if os.path.exists(homedir + dir) and not os.path.islink(homedir + dir):
+            try:
+                os.rmdir(homedir + dir)
+                logging.info("✂️ Removed: %s" % dir)
+            except Exception as e:
+                logging.error("❌ Failed to remove {}: {}".format(dir, str(e)))
 
     # Remove standard config files
     if os.path.exists('/etc/skel'):
         basicdotfiles = os.listdir('/etc/skel')
         for basicdotfile in basicdotfiles:
-            if not os.path.islink(homedir + basicdotfile) and \
-            not os.path.isdir(homedir + basicdotfile) and \
-            os.path.exists(homedir + basicdotfile):
-                print_message("red", "Removing " + basicdotfile)
-                cmdstring = "rm {}{}".format(homedir, basicdotfile)
-                os.system(cmdstring)
+            target = homedir + basicdotfile
+            if os.path.exists(target) and not os.path.islink(target) and not os.path.isdir(target):
+                try:
+                    os.remove(target)
+                    logging.info("✂️ Removed: %s" % basicdotfile)
+                except Exception as e:
+                    logging.error("❌ Failed to remove {}: {}".format(basicdotfile, str(e)))
 
     # Simlink dotfiles
     for link in links:
@@ -131,8 +127,12 @@ def main() -> None:
 
     # Download git plugins
     if not os.path.exists(configdir + 'vim/bundle'):
-        cmdstring = "mkdir %s" % configdir + 'vim/bundle'
-        os.system(cmdstring)
+        try:
+            os.makedirs(configdir + 'vim/bundle')
+            logging.info("🟢 Created directory: %s" % (configdir))
+        except Exception as e:
+            logging.error("❌ Failed to create directory {}: {}".format(configdir, str(e)))
+
 
     sync_git_repo('https://github.com/jiangmiao/auto-pairs', vim_plugin_dir)
     sync_git_repo('https://github.com/PProvost/vim-ps1', vim_plugin_dir)
