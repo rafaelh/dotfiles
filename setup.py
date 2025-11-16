@@ -32,6 +32,23 @@ def update_packages(operating_system: str) -> None:
     if operating_system == "Archlinux":
         os.system("yay -Syyu")
 
+def install_core_packages(operating_system: str) -> None:
+    """ Install essential packages that didn't come by default """
+    logging.info("🔵 Installing Core Packages")
+    if operating_system in ["Windows", "Debian-based"]:
+        cmdstring = "sudo apt install -y vim dos2unix git python3-pip python3-apt pwgen most \
+            bash-completion most mtools net-tools grc meld pydf tldr tree wget"
+        os.system(cmdstring)
+    if operating_system == "Archlinux":
+        cmdstring = "yay -S vim most "
+
+    if not os.path.exists("/etc/pacman.conf"):
+        cmdstring = "sudo apt install -y vim dos2unix git pwgen most 7zip arch-wiki-docs aspell-en \
+            bandit btop go go-tools gopls gparted grc meld pydf mtools net-tools screen tmux rsync \
+            tldr tree wget"
+        os.system(cmdstring)
+
+
 def sync_git_repo(gitrepo, repo_collection_dir):
     """ Sync the specified git repository """
     repo_name = gitrepo.split("/")[-1].lower()
@@ -84,12 +101,8 @@ def main() -> None:
 
     # Install initial packages if on a Debian based system
     print_message("blue", "Installing core packages")
-    if not os.path.exists("/etc/pacman.conf"):
-        cmdstring = "sudo apt install -y vim dos2unix git python3-pip python3-apt pwgen"
-        os.system(cmdstring)
-    else:
-        cmdstring = "bash-completion most mtools net-tools"
-        os.system(cmdstring)
+    install_core_packages(operating_system)
+
 
     # Install fonts
     print_message("blue", "Installing fonts")
