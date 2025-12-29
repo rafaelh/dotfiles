@@ -338,7 +338,7 @@ if __name__ == "__main__":
 
     set_config_line(
         "/etc/conf.d/wireless-regdom",
-        '#WIRELESS_REGDOM=AU',
+        '#WIRELESS_REGDOM="AU"',
         'WIRELESS_REGDOM="AU"')
 
     print("🔵 Checking Console Font")
