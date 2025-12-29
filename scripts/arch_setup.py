@@ -11,6 +11,8 @@ import os
 import subprocess
 import sys
 
+from pygtkcompat import enable
+
 # ==== Permissions =================================================================================
 
 def file_requires_root(path) -> bool:
@@ -36,7 +38,6 @@ def require_root() -> None:
 
 
 # ==== Package Management ==========================================================================
-
 
 def check_for_missing_packages(packages: list) -> list:
     """
@@ -65,7 +66,8 @@ def install_packages(packages: list) -> bool:
     Accepts a list of Arch Linux packages and installs the ones that are not already installed.
     Raises a RuntimeError if any package cannot be installed.
     """
-
+    if packages:
+        print(f"📦 Installing packages: {packages}")
     result = subprocess.run(
         ["sudo", "yay", "-S", "--noconfirm"] + packages,
         stdout=subprocess.PIPE,
@@ -107,7 +109,7 @@ def activate_service(service_name):
     Starts and enables a systemd service, and returns True on success. Raises RuntimeError if the
     service cannot be started, but not if the service is already started or enabled.
     """
-
+    print(f"⚙️ Activating service: {service_name}")
     result = subprocess.run(
         ["sudo", "systemctl", "enable", "--now", service_name],
         stdout=subprocess.DEVNULL,
@@ -133,7 +135,7 @@ def activate_service(service_name):
     return True
 
 
-# ==== INI Config File Management ==================================================================
+# ==== Config File Management ======================================================================
 
 def update_INI_config(filepath, section, key, new_value, add_if_missing=True) -> bool:
     """
@@ -202,16 +204,170 @@ def update_INI_config(filepath, section, key, new_value, add_if_missing=True) ->
     return True
 
 
+def set_config_line(filepath, new_line, search_string=None) -> bool:
+    """
+    Replace or append a config line, logging only if a real change occurs.
+    """
+
+    if file_requires_root(filepath):
+        require_root()
+
+    search = search_string if search_string is not None else new_line
+    desired = new_line.rstrip() + "\n"
+
+    try:
+        with open(filepath, encoding="utf-8") as f:
+            original_lines = f.readlines()
+    except FileNotFoundError:
+        raise RuntimeError(f"❌ File not found: {filepath}")
+
+    new_lines = []
+    found = False
+    changed = False
+
+    for line in original_lines:
+        if search in line:
+            if not found:
+                found = True
+                if line != desired:     # Only change if content differs
+                    new_lines.append(desired)
+                    changed = True
+                else:
+                    new_lines.append(line)
+            else:
+                # drop duplicates (this is a change)
+                changed = True
+        else:
+            new_lines.append(line)
+
+    if not found:
+        if new_lines and not new_lines[-1].endswith("\n"):
+            new_lines[-1] += "\n"
+        new_lines.append(desired)
+        changed = True
+
+    # Only write & log if something really changed
+    if changed:
+        with open(filepath, "w", encoding="utf-8") as f:
+            f.writelines(new_lines)
+        print(f"🔧 Updated {filepath}: {new_line}")
+
+    return True
+
+
+# ==== General Functions ===========================================================================
+
+def run_command(command: list) -> str:
+    """
+    Runs a shell command and returns a tuple of (stdout, stderr).
+    Raises RuntimeError if the command fails.
+    """
+    result = subprocess.run(
+        command,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False
+    )
+
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"❌ Command '{' '.join(command)}' failed: {result.stderr.strip()}"
+        )
+
+    return (result.stdout.strip())
+
+
+# ==== Main Script =================================================================================
 if __name__ == "__main__":
 
+    require_root()
+
     # Bluetooth setup
+    print("🔵 Checking Bluetooth")
     bluetooth_packages = ["bluez",
                           "bluez-utils",
                           "bluez-qt",
-                          "bluez-utils-cups", # Required for printing over bluetooth
+                          "bluez-cups", # Required for printing over bluetooth
                          ]
-    check_for_missing_packages(bluetooth_packages)
     install_packages(check_for_missing_packages(bluetooth_packages))
+
+    print("🔵 Checking Reflector Service")
+    if not is_service_running("reflector.timer"):
+        activate_service("reflector.timer")
+
+    print("🔵 Checking Thunderbolt")
+    thunderbolt_packages = ["bolt",
+                            "plasma-thunderbolt",
+                           ]
+    install_packages(check_for_missing_packages(thunderbolt_packages))
+
+    print("🔵 Checking Power & Thermals")
+    power_thermal_packages = ["lm_sensors",
+                             "power-profiles-daemon",
+                             "thermald",
+                            ]
+    install_packages(check_for_missing_packages(power_thermal_packages))
+
+    run_command(["sensors-detect", "--auto"])
+    for package in power_thermal_packages:
+        if is_service_running(f"{package}.service"):
+            activate_service(f"{package}.service")
+
+
+    print("🔵 Checking Utilities")
+    utility_packages = ["fwupd",
+                        "ethtool",
+                        ]
+    install_packages(check_for_missing_packages(utility_packages))
+
+
+    print("🔵 Checking NVMe SSD Tools")
+    nvme_packages = ["nvme-cli", "smartmontools", "util-linux"]
+    install_packages(check_for_missing_packages(nvme_packages))
+
+    for package in nvme_packages:
+        if not is_service_running("smartd.service"):
+            activate_service("smartd.service")
+        if not is_service_running("fstrim.timer"):
+            activate_service("fstrim.timer")
+
+    print("🔵 Checking Wireless Regulatory Database")
+    wifi_packages = ["wireless-regdb"]
+    install_packages(check_for_missing_packages(wifi_packages))
+
+    set_config_line(
+        "/etc/conf.d/wireless-regdom",
+        '#WIRELESS_REGDOM=AU',
+        'WIRELESS_REGDOM="AU"')
+
+    print("🔵 Checking Console Font")
+    install_packages(check_for_missing_packages(["terminus-font"]))
+    set_config_line("/etc/vconsole.conf", new_line="KEYMAP=us")
+    set_config_line("/etc/vconsole.conf", new_line="FONT=ter-v20n")
+
+
+    # GPD win specific setup
+    # install iio-sensor-proxy for automatic screen rotation
+    # Optionally install gpd-win-kbd for keyboard backlight control
+    # if os.path.exists("/sys/bus/iio/devices/iio:device0/in_accel_x_raw"):
+    #     print("🔵 Detected GPD Win device - installing specific packages")
+
+
+    #     gpd_packages = ["iio-sensor-proxy",
+    #                     #"gpd-win-kbd", # Uncomment to install keyboard backlight control
+    #                    ]
+    #     check_for_missing_packages(gpd_packages)
+    #     install_packages(check_for_missing_packages(gpd_packages))
+
+    """
+    fwupdmgr get-devices # show supported devices
+    fwupdmgr refresh     # download the latest metadata
+    fwupdmgr get-updates # list available updates
+    fwupdmgr update      # apply updates
+    """
+
+    # ==== Example Usage ===========================================================================
 
     # Example usage
     # missing = check_for_missing_packages(["git", "neofetch", "nonexistent-package"])
