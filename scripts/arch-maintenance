@@ -10,8 +10,8 @@ trap "echo -e \"\033[1;31m[!] \e[0mScript error occured in $0.\"" ERR
 GREEN="\033[1;32m"
 ENDCOLOUR="\033[0m"
 
-echo -en $GREEN"\n>>> "$ENDCOLOUR
-echo -e "Updating Mirrors & System\n"
+#echo -en $GREEN"\n>>> "$ENDCOLOUR
+#echo -e "Updating Mirrors & System\n"
 #sudo reflector --protocol https --verbose --latest 25 --sort rate --save /etc/pacman.d/mirrorlist
 #sudo eos-rankmirrors --verbose
 #yay -Syyu
@@ -20,22 +20,15 @@ echo -e "Updating Mirrors & System\n"
 if command -v flatpak >/dev/null 2>&1; then
     echo -en "$GREEN\n>>> $ENDCOLOUR"
     echo -e "Updating Flatpak\n"
-
-    # Refresh all remotes
-    flatpak remote-list --columns=name | while read -r remote; do
-        flatpak remote-info --refresh "$remote" >/dev/null
-    done
-
-    # Update all flatpak packages
     flatpak update --noninteractive
 fi
 
-#if command -v fwupdmgr >/dev/null 2>&1; then
-#    echo -en $GREEN"\n>>> "$ENDCOLOUR
-#    echo -e "Updating Firmware\n"
-#    fwupdmgr refresh
-#    fwupdmgr update
-#fi
+if command -v fwupdmgr >/dev/null 2>&1; then
+    echo -en $GREEN"\n>>> "$ENDCOLOUR
+    echo -e "Updating Firmware\n"
+    fwupdmgr refresh
+    fwupdmgr update
+fi
 
 echo -en $GREEN"\n>>> "$ENDCOLOUR
 echo -e "Reducing journal entries to the last 4 weeks\n"
@@ -59,4 +52,4 @@ if command -v pacman-optimize >/dev/null 2>&1; then
     sudo pacman-optimize
 fi
 
-echo -en $GREEN"\n\n### 🎉 Done! 🎉 ###"$ENDCOLOUR
+echo -en $GREEN"\n\n### 🎉 Done! 🎉 ###\n\n"$ENDCOLOUR
