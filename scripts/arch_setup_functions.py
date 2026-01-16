@@ -1,5 +1,6 @@
 """Utility functions for Arch Linux setup scripts."""
 
+import json
 import os
 import shutil
 import subprocess
@@ -274,30 +275,80 @@ def run_command(command: list) -> str:
 
 def get_hardware_details() -> dict:
     """
-    Returns a dict mapping each top-level line of `inxi -F` output to its value.
+    Returns hardware details from `inxi`.
+    Tries JSON output with extra verbosity; falls back to a simple key/value parse.
     If inxi is not installed, an empty dict is returned.
     """
     inxi_path = shutil.which("inxi")
     if not inxi_path:
         return {}
 
-    result = subprocess.run(
-        [inxi_path, "-F"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True,
-        check=False,
-    )
+    def _run_inxi(args: list) -> subprocess.CompletedProcess:
+        return subprocess.run(
+            [inxi_path] + args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=False,
+        )
 
-    if result.returncode != 0:
-        raise RuntimeError(f"❌ Failed to run inxi: {result.stderr.strip()}")
+    # Prefer JSON output for structured data; this may not be available on older inxi versions.
+    json_result = _run_inxi(["-Fxxx", "--output", "json"])
+    if json_result.returncode == 0:
+        try:
+            parsed = json.loads(json_result.stdout)
+            # Ensure we always return a dict for callers
+            if isinstance(parsed, dict):
+                return parsed
+            if isinstance(parsed, list) and parsed and isinstance(parsed[0], dict):
+                return parsed[0]
+        except json.JSONDecodeError:
+            pass  # fall back to text parsing
 
-    summary = {}
-    for raw_line in result.stdout.splitlines():
-        line = raw_line.strip()
-        if not line or ":" not in line:
+    # Fallback to text output parse
+    text_result = _run_inxi(["-Fxxx"])
+    if text_result.returncode != 0:
+        raise RuntimeError(f"❌ Failed to run inxi: {text_result.stderr.strip()}")
+
+    lines = text_result.stdout.splitlines()
+
+    def add_to_parent(container: dict, key: str, value):
+        """Insert key/value into container; promote existing entries to list if needed."""
+        if key not in container:
+            container[key] = value
+            return container[key]
+        if not isinstance(container[key], list):
+            container[key] = [container[key]]
+        container[key].append(value)
+        return container[key][-1]
+
+    root: dict = {}
+    stack: list[tuple[int, dict]] = [(-1, root)]
+
+    for raw_line in lines:
+        if ":" not in raw_line:
             continue
-        key, value = line.split(":", 1)
-        summary[key.strip()] = value.strip()
 
-    return summary
+        stripped_line = raw_line.rstrip("\n")
+        leading_spaces = len(stripped_line) - len(stripped_line.lstrip(" "))
+        level = leading_spaces // 2  # inxi uses two-space indents
+
+        key, value = stripped_line.strip().split(":", 1)
+        key = key.strip()
+        value = value.strip()
+
+        while stack and stack[-1][0] >= level:
+            stack.pop()
+        parent_level, parent = stack[-1]
+
+        entry: dict = {}
+        if value:
+            entry["_value"] = value
+
+        inserted = add_to_parent(parent, key, entry if entry else {})
+
+        # Only descend if we inserted a dict (not an empty string)
+        if isinstance(inserted, dict):
+            stack.append((level, inserted))
+
+    return root
