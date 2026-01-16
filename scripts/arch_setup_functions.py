@@ -1,19 +1,9 @@
-"""
-Script to set up archlinux, with functions to be split out into a library eventually.
+"""Utility functions for Arch Linux setup scripts."""
 
-TODO:
-- check for the installation of sudo, and yay or pacman
-- set default package manager on import of module
-- update functions to allow passing preferred package manager
-"""
-
-import argparse
 import os
+import shutil
 import subprocess
 import sys
-
-import arch_setup_functions as setup_utils
-from pygtkcompat import enable
 
 # ==== Permissions =================================================================================
 
@@ -37,7 +27,6 @@ def require_root() -> None:
         except subprocess.CalledProcessError:
             raise SystemExit("❌ Failed to obtain root privileges.")
         sys.exit() # exit original process
-
 
 # ==== Package Management ==========================================================================
 
@@ -68,7 +57,10 @@ def install_packages(packages: list) -> bool:
     Accepts a list of Arch Linux packages and installs the ones that are not already installed.
     Raises a RuntimeError if any package cannot be installed.
     """
-    if packages:
+    if not packages:
+        print(f"📭 No packages provided to install.")
+        return True
+    else:
         print(f"📦 Installing packages: {packages}")
     result = subprocess.run(
         ["sudo", "yay", "-S", "--noconfirm"] + packages,
@@ -172,7 +164,7 @@ def update_INI_config(filepath, section, key, new_value, add_if_missing=True) ->
     key_updated = False
     new_lines = []
 
-    for i, line in enumerate(lines):
+    for line in lines:
         stripped = line.strip()
 
         # Detect section
@@ -261,7 +253,7 @@ def set_config_line(filepath, new_line, search_string=None) -> bool:
 
 def run_command(command: list) -> str:
     """
-    Runs a shell command and returns a tuple of (stdout, stderr).
+    Runs a shell command and returns its stdout as a string.
     Raises RuntimeError if the command fails.
     """
     result = subprocess.run(
@@ -280,158 +272,32 @@ def run_command(command: list) -> str:
     return (result.stdout.strip())
 
 
-# ==== Main Script =================================================================================
-
-def setup() -> None:
-    require_root()
-
-    # Bluetooth setup
-    print("🔵 Checking Bluetooth")
-    bluetooth_packages = ["bluez",
-                          "bluez-utils",
-                          "bluez-qt",
-                          "bluez-cups", # Required for printing over bluetooth
-                         ]
-    install_packages(check_for_missing_packages(bluetooth_packages))
-
-    print("🔵 Checking Reflector Service")
-    if not is_service_running("reflector.timer"):
-        activate_service("reflector.timer")
-
-    print("🔵 Checking Thunderbolt")
-    thunderbolt_packages = ["bolt",
-                            "plasma-thunderbolt",
-                           ]
-    install_packages(check_for_missing_packages(thunderbolt_packages))
-
-    print("🔵 Checking Power & Thermals")
-    power_thermal_packages = ["lm_sensors",
-                             "power-profiles-daemon",
-                             "thermald",
-                            ]
-    install_packages(check_for_missing_packages(power_thermal_packages))
-
-    run_command(["sensors-detect", "--auto"])
-    for package in power_thermal_packages:
-        if is_service_running(f"{package}.service"):
-            activate_service(f"{package}.service")
-
-
-    print("🔵 Checking Utilities")
-    utility_packages = ["fwupd",
-                        "ethtool",
-                        ]
-    install_packages(check_for_missing_packages(utility_packages))
-
-
-    print("🔵 Checking NVMe SSD Tools")
-    nvme_packages = ["nvme-cli", "smartmontools", "util-linux"]
-    install_packages(check_for_missing_packages(nvme_packages))
-
-    for package in nvme_packages:
-        if not is_service_running("smartd.service"):
-            activate_service("smartd.service")
-        if not is_service_running("fstrim.timer"):
-            activate_service("fstrim.timer")
-
-    print("🔵 Checking Wireless Regulatory Database")
-    wifi_packages = ["wireless-regdb"]
-    install_packages(check_for_missing_packages(wifi_packages))
-
-    set_config_line(
-        "/etc/conf.d/wireless-regdom",
-        '#WIRELESS_REGDOM="AU"',
-        'WIRELESS_REGDOM="AU"')
-
-    print("🔵 Checking Console Font")
-    install_packages(check_for_missing_packages(["terminus-font"]))
-    set_config_line("/etc/vconsole.conf", new_line="KEYMAP=us")
-    set_config_line("/etc/vconsole.conf", new_line="FONT=ter-v20n")
-
-
-    # GPD win specific setup
-    # install iio-sensor-proxy for automatic screen rotation
-    # Optionally install gpd-win-kbd for keyboard backlight control
-    # if os.path.exists("/sys/bus/iio/devices/iio:device0/in_accel_x_raw"):
-    #     print("🔵 Detected GPD Win device - installing specific packages")
-
-
-    #     gpd_packages = ["iio-sensor-proxy",
-    #                     #"gpd-win-kbd", # Uncomment to install keyboard backlight control
-    #                    ]
-    #     check_for_missing_packages(gpd_packages)
-    #     install_packages(check_for_missing_packages(gpd_packages))
-
+def get_hardware_details() -> dict:
     """
-    fwupdmgr get-devices # show supported devices
-    fwupdmgr refresh     # download the latest metadata
-    fwupdmgr get-updates # list available updates
-    fwupdmgr update      # apply updates
+    Returns a dict mapping each top-level line of `inxi -F` output to its value.
+    If inxi is not installed, an empty dict is returned.
     """
+    inxi_path = shutil.which("inxi")
+    if not inxi_path:
+        return {}
 
-    # ==== Example Usage ===========================================================================
-
-    # Example usage
-    # missing = check_for_missing_packages(["git", "neofetch", "nonexistent-package"])
-    # print("Missing packages:", missing)
-
-    # try:
-    #     install_packages(missing)
-    #     print("Packages installed successfully.")
-    # except RuntimeError as e:
-    #     print(e)
-
-    # service = "ssh"
-    # if not is_service_running(service):
-    #     try:
-    #         activate_service(service)
-    #         print(f"Service '{service}' activated successfully.")
-    #     except RuntimeError as e:
-    #         print(e)
-    # else:
-    #     print(f"Service '{service}' is already running.")
-
-    # config_file = "/etc/example.conf"
-    # try:
-    #     update_INI_config(config_file, "ExampleSection", "ExampleKey", "NewValue")
-    #     print(f"Config file '{config_file}' updated successfully.")
-    # except RuntimeError as e:
-    #     print(e)
-
-
-def print_hardware_details() -> None:
-    """
-    Print hardware details gathered from inxi, if available.
-    """
-    try:
-        details = setup_utils.get_hardware_details()
-    except RuntimeError as e:
-        print(e)
-        return
-
-    if not details:
-        print("ℹ️ inxi is not installed; skipping hardware detail output.")
-        return
-
-    for key in sorted(details.keys()):
-        print(f"{key}: {details[key]}")
-
-
-def main():
-    parser = argparse.ArgumentParser(description="Arch Linux setup helper.")
-    parser.add_argument(
-        "--hardware",
-        action="store_true",
-        help="Print hardware details (requires inxi).",
+    result = subprocess.run(
+        [inxi_path, "-F"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False,
     )
 
-    args = parser.parse_args()
+    if result.returncode != 0:
+        raise RuntimeError(f"❌ Failed to run inxi: {result.stderr.strip()}")
 
-    if args.hardware:
-        print_hardware_details()
-    else:
-        setup()
+    summary = {}
+    for raw_line in result.stdout.splitlines():
+        line = raw_line.strip()
+        if not line or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        summary[key.strip()] = value.strip()
 
-
-if __name__ == "__main__":
-    main()
+    return summary
