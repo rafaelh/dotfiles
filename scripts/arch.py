@@ -9,6 +9,8 @@ TODO:
 
 import argparse
 import json
+import shutil
+import subprocess
 
 import arch_setup_functions as setup_utils
 
@@ -149,6 +151,54 @@ def print_hardware_details() -> None:
         print(details)
 
 
+def maintenance() -> None:
+    """
+    Perform routine Arch maintenance tasks.
+    """
+    setup_utils.require_root()
+
+    def has_cmd(name: str) -> bool:
+        return shutil.which(name) is not None
+
+    if has_cmd("flatpak"):
+        print("🧰 Updating Flatpak")
+        setup_utils.run_command(["flatpak", "update", "--noninteractive"])
+
+    if has_cmd("fwupdmgr"):
+        print("🧰 Updating Firmware")
+        setup_utils.run_command(["fwupdmgr", "refresh"])
+        setup_utils.run_command(["fwupdmgr", "update"])
+
+    print("🧹 Reducing journal entries to the last 4 weeks")
+    setup_utils.run_command(["journalctl", "--vacuum-time=4weeks"])
+
+    print("🧹 Removing orphan packages")
+    orphan_result = subprocess.run(
+        ["pacman", "-Qtdq"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        check=False,
+    )
+    orphans = [line.strip() for line in orphan_result.stdout.splitlines() if line.strip()]
+    if orphans:
+        setup_utils.run_command(["pacman", "-Rcns", "--noconfirm"] + orphans)
+    else:
+        print("ℹ️ No orphan packages found.")
+
+    print("🧹 Removing cached package files (not installed)")
+    setup_utils.run_command(["pacman", "-Sc", "--noconfirm"])
+
+    print("🧹 Removing cache of uninstalled packages")
+    setup_utils.run_command(["paccache", "-ruk0"])
+
+    if has_cmd("pacman-optimize"):
+        print("🧹 Optimizing pacman's database")
+        setup_utils.run_command(["pacman-optimize"])
+
+    print("🎉 Maintenance complete!")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Arch Linux setup helper.")
     parser.add_argument(
@@ -161,6 +211,11 @@ def main():
         action="store_true",
         help="Run the Arch Linux setup.",
     )
+    parser.add_argument(
+        "--maintenance",
+        action="store_true",
+        help="Run Arch maintenance tasks.",
+    )
 
     args = parser.parse_args()
 
@@ -168,7 +223,9 @@ def main():
         print_hardware_details()
     if args.setup:
         setup()
-    if not args.hardware and not args.setup:
+    if args.maintenance:
+        maintenance()
+    if not args.hardware and not args.setup and not args.maintenance:
         parser.print_help()
 
 
