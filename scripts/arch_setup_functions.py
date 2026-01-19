@@ -278,6 +278,8 @@ def get_hardware_details() -> dict:
     Returns hardware details from `inxi`.
     Tries JSON output with extra verbosity; falls back to a simple key/value parse.
     If inxi is not installed, an empty dict is returned.
+
+    Run inxi --recommends to see what packages are needed for full details.
     """
     inxi_path = shutil.which("inxi")
     if not inxi_path:
@@ -293,7 +295,7 @@ def get_hardware_details() -> dict:
         )
 
     # Prefer JSON output for structured data; this may not be available on older inxi versions.
-    json_result = _run_inxi(["-Fxxx", "--output", "json"])
+    json_result = _run_inxi(["-exxxza", "--output", "json"])
     if json_result.returncode == 0:
         try:
             parsed = json.loads(json_result.stdout)
@@ -339,7 +341,7 @@ def get_hardware_details() -> dict:
 
         while stack and stack[-1][0] >= level:
             stack.pop()
-        parent_level, parent = stack[-1]
+        _, parent = stack[-1]
 
         entry: dict = {}
         if value:

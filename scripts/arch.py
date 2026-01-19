@@ -157,17 +157,14 @@ def maintenance() -> None:
     """
     setup_utils.require_root()
 
-    def has_cmd(name: str) -> bool:
-        return shutil.which(name) is not None
-
-    if has_cmd("flatpak"):
+    if shutil.which("flatpak") is not None:
         print("🧰 Updating Flatpak")
         setup_utils.run_command(["flatpak", "update", "--noninteractive"])
 
-    if has_cmd("fwupdmgr"):
+    if shutil.which("fwupdmgr") is not None:
         print("🧰 Updating Firmware")
         setup_utils.run_command(["fwupdmgr", "refresh"])
-        setup_utils.run_command(["fwupdmgr", "update"])
+        setup_utils.run_command(["fwupdmgr", "update", "--assume-yes"])
 
     print("🧹 Reducing journal entries to the last 4 weeks")
     setup_utils.run_command(["journalctl", "--vacuum-time=4weeks"])
@@ -182,17 +179,20 @@ def maintenance() -> None:
     )
     orphans = [line.strip() for line in orphan_result.stdout.splitlines() if line.strip()]
     if orphans:
-        setup_utils.run_command(["pacman", "-Rcns", "--noconfirm"] + orphans)
+        setup_utils.run_command(["pacman", "-Rcns"] + orphans)
     else:
         print("ℹ️ No orphan packages found.")
 
     print("🧹 Removing cached package files (not installed)")
     setup_utils.run_command(["pacman", "-Sc", "--noconfirm"])
 
-    print("🧹 Removing cache of uninstalled packages")
-    setup_utils.run_command(["paccache", "-ruk0"])
+    if shutil.which("paccache") is not None:
+        print("🧹 Removing cache of uninstalled packages")
+        setup_utils.run_command(["paccache", "-ruk0"])
+    else:
+        print("ℹ️ 'paccache' not found; skipping removal of uninstalled package cache.")
 
-    if has_cmd("pacman-optimize"):
+    if shutil.which("pacman-optimize") is not None:
         print("🧹 Optimizing pacman's database")
         setup_utils.run_command(["pacman-optimize"])
 
