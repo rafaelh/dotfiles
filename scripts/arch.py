@@ -11,6 +11,7 @@ import argparse
 import json
 import shutil
 import subprocess
+from typing import Any, Dict, List
 
 import arch_setup_functions as setup_utils
 
@@ -21,7 +22,7 @@ def setup() -> None:
 
     # Bluetooth setup
     print("🔵 Checking Bluetooth")
-    bluetooth_packages = ["bluez",
+    bluetooth_packages: List[str] = ["bluez",
                           "bluez-utils",
                           "bluez-qt",
                           "bluez-cups", # Required for printing over bluetooth
@@ -32,13 +33,13 @@ def setup() -> None:
     if not setup_utils.is_service_running("reflector.timer"):
         setup_utils.activate_service("reflector.timer")
     print("🔵 Checking Thunderbolt")
-    thunderbolt_packages = ["bolt",
+    thunderbolt_packages: List[str] = ["bolt",
                             "plasma-thunderbolt",
                            ]
     setup_utils.install_packages(setup_utils.check_for_missing_packages(thunderbolt_packages))
 
     print("🔵 Checking Power & Thermals")
-    power_thermal_packages = ["lm_sensors",
+    power_thermal_packages: List[str] = ["lm_sensors",
                              "power-profiles-daemon",
                              "thermald",
                             ]
@@ -50,14 +51,14 @@ def setup() -> None:
             setup_utils.activate_service(f"{package}.service")
 
     print("🔵 Checking Utilities")
-    utility_packages = ["fwupd",
+    utility_packages: List[str] = ["fwupd",
                         "ethtool",
                         ]
     setup_utils.install_packages(setup_utils.check_for_missing_packages(utility_packages))
 
 
     print("🔵 Checking NVMe SSD Tools")
-    nvme_packages = ["nvme-cli", "smartmontools", "util-linux"]
+    nvme_packages: List[str] = ["nvme-cli", "smartmontools", "util-linux"]
     setup_utils.install_packages(setup_utils.check_for_missing_packages(nvme_packages))
 
     for package in nvme_packages:
@@ -67,7 +68,7 @@ def setup() -> None:
             setup_utils.activate_service("fstrim.timer")
 
     print("🔵 Checking Wireless Regulatory Database")
-    wifi_packages = ["wireless-regdb"]
+    wifi_packages: List[str] = ["wireless-regdb"]
     setup_utils.install_packages(setup_utils.check_for_missing_packages(wifi_packages))
 
     setup_utils.set_config_line(
@@ -135,7 +136,7 @@ def print_hardware_details() -> None:
     Print hardware details gathered from inxi, if available.
     """
     try:
-        details = setup_utils.get_hardware_details()
+        details: Dict[str, Any] = setup_utils.get_hardware_details()
     except RuntimeError as e:
         print(e)
         return
@@ -177,7 +178,7 @@ def maintenance() -> None:
         text=True,
         check=False,
     )
-    orphans = [line.strip() for line in orphan_result.stdout.splitlines() if line.strip()]
+    orphans: List[str] = [line.strip() for line in orphan_result.stdout.splitlines() if line.strip()]
     if orphans:
         setup_utils.run_command(["pacman", "-Rcns"] + orphans)
     else:

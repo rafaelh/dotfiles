@@ -5,10 +5,11 @@ import os
 import shutil
 import subprocess
 import sys
+from typing import Any, Dict, List, MutableMapping, Sequence, Tuple
 
 # ==== Permissions =================================================================================
 
-def file_requires_root(path) -> bool:
+def file_requires_root(path: str) -> bool:
     """
     Returns True if a file requires root access to read or write, otherwise false.
     """
@@ -31,12 +32,12 @@ def require_root() -> None:
 
 # ==== Package Management ==========================================================================
 
-def check_for_missing_packages(packages: list) -> list:
+def check_for_missing_packages(packages: Sequence[str]) -> List[str]:
     """
     Takes a list of Arch Linux package names and returns the ones
     that are NOT currently installed.
     """
-    not_installed = []
+    not_installed: List[str] = []
 
     for package in packages:
         try:
@@ -53,7 +54,7 @@ def check_for_missing_packages(packages: list) -> list:
     return not_installed
 
 
-def install_packages(packages: list) -> bool:
+def install_packages(packages: Sequence[str]) -> bool:
     """
     Accepts a list of Arch Linux packages and installs the ones that are not already installed.
     Raises a RuntimeError if any package cannot be installed.
@@ -64,7 +65,7 @@ def install_packages(packages: list) -> bool:
     else:
         print(f"📦 Installing packages: {packages}")
     result = subprocess.run(
-        ["sudo", "yay", "-S", "--noconfirm"] + packages,
+        ["sudo", "yay", "-S", "--noconfirm"] + list(packages),
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
@@ -81,7 +82,7 @@ def install_packages(packages: list) -> bool:
 
 # ==== Systemd Services ============================================================================
 
-def is_service_running(service_name):
+def is_service_running(service_name: str) -> bool:
     """
     Returns True if the given systemd service is running, otherwise returns False.
     """
@@ -99,7 +100,7 @@ def is_service_running(service_name):
         return False
 
 
-def activate_service(service_name):
+def activate_service(service_name: str) -> bool:
     """
     Starts and enables a systemd service, and returns True on success. Raises RuntimeError if the
     service cannot be started, but not if the service is already started or enabled.
@@ -132,7 +133,9 @@ def activate_service(service_name):
 
 # ==== Config File Management ======================================================================
 
-def update_INI_config(filepath, section, key, new_value, add_if_missing=True) -> bool:
+def update_INI_config(
+    filepath: str, section: str, key: str, new_value: str, add_if_missing: bool = True
+) -> bool:
     """
     Updates a key/value inside a given section of an INI config file. If the key or section does
     not exist and add_if_missing=True, it will be added. Success or failure is returned as a
@@ -199,7 +202,7 @@ def update_INI_config(filepath, section, key, new_value, add_if_missing=True) ->
     return True
 
 
-def set_config_line(filepath, new_line, search_string=None) -> bool:
+def set_config_line(filepath: str, new_line: str, search_string: str | None = None) -> bool:
     """
     Replace or append a config line, logging only if a real change occurs.
     """
@@ -252,7 +255,7 @@ def set_config_line(filepath, new_line, search_string=None) -> bool:
 
 # ==== General Functions ===========================================================================
 
-def run_command(command: list) -> str:
+def run_command(command: Sequence[str]) -> str:
     """
     Runs a shell command and returns its stdout as a string.
     Raises RuntimeError if the command fails.
@@ -273,7 +276,7 @@ def run_command(command: list) -> str:
     return (result.stdout.strip())
 
 
-def get_hardware_details() -> dict:
+def get_hardware_details() -> Dict[str, Any]:
     """
     Returns hardware details from `inxi`.
     Tries JSON output with extra verbosity; falls back to a simple key/value parse.
@@ -285,9 +288,9 @@ def get_hardware_details() -> dict:
     if not inxi_path:
         return {}
 
-    def _run_inxi(args: list) -> subprocess.CompletedProcess:
+    def _run_inxi(args: Sequence[str]) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
-            [inxi_path] + args,
+            [inxi_path] + list(args),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
@@ -308,13 +311,13 @@ def get_hardware_details() -> dict:
             pass  # fall back to text parsing
 
     # Fallback to text output parse
-    text_result = _run_inxi(["-Fxxx"])
+    text_result = _run_inxi(["-exxxza"])
     if text_result.returncode != 0:
         raise RuntimeError(f"❌ Failed to run inxi: {text_result.stderr.strip()}")
 
     lines = text_result.stdout.splitlines()
 
-    def add_to_parent(container: dict, key: str, value):
+    def add_to_parent(container: MutableMapping[str, Any], key: str, value: Any) -> Any:
         """Insert key/value into container; promote existing entries to list if needed."""
         if key not in container:
             container[key] = value
@@ -324,8 +327,8 @@ def get_hardware_details() -> dict:
         container[key].append(value)
         return container[key][-1]
 
-    root: dict = {}
-    stack: list[tuple[int, dict]] = [(-1, root)]
+    root: Dict[str, Any] = {}
+    stack: List[Tuple[int, Dict[str, Any]]] = [(-1, root)]
 
     for raw_line in lines:
         if ":" not in raw_line:
@@ -343,7 +346,7 @@ def get_hardware_details() -> dict:
             stack.pop()
         _, parent = stack[-1]
 
-        entry: dict = {}
+        entry: Dict[str, Any] = {}
         if value:
             entry["_value"] = value
 
